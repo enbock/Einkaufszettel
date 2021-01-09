@@ -1,0 +1,32 @@
+sl-navigation {
+    border-bottom: 0.2rem solid slategrey;
+    padding-top: 0.05rem;
+}
+
+sl-navigation > button {
+    width: 10em;
+    height: 1.8em;
+    font-family: 'Roboto', sans-serif;
+    color: ghostwhite;
+    border: 0.1rem solid #9395a7;
+    border-bottom-width: 0;
+    background-color: #9395a7;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    margin-left: 0.05rem;
+    margin-right: 0.05rem;
+}
+
+sl-navigation > button:focus {
+    outline: 0;
+    background-color: #9395a7;
+}
+
+sl-navigation > button:hover {
+    background-color: slategrey;
+}
+
+sl-navigation > button.active {
+    background-color: slategrey;
+    border-color: slategrey;
+}

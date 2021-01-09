@@ -1,7 +1,7 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Navigation from './Navigation';
+import Navigation from './Navigation/Navigation';
 import PrimaryInput from './PrimaryInput';
 import PrimaryList from './PrimaryList';
 

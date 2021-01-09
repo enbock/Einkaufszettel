@@ -1,16 +1,14 @@
 @font-face {
-  font-family: 'Roboto';
-  src: url("Catamaran-VariableFont_wght.ttf");
+    font-family: 'Roboto';
+    src: url("Catamaran-VariableFont_wght.ttf");
 }
 
 body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: darkgrey;
+    margin: 0;
+    padding: 0;
+    background-color: darkgrey;
 }
 
 sl-navigation, sl-primary-input, sl-primary-list {
-  display: block;
+    display: block;
 }
