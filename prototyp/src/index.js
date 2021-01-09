@@ -1,10 +1,17 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Navigation from './Navigation';
+import PrimaryInput from './PrimaryInput';
+import PrimaryList from './PrimaryList';
 
 ReactDOM.render(
   <StrictMode>
-    <div>Hallo Welt!</div>
+    <sl-container>
+      <Navigation/>
+      <PrimaryInput/>
+      <PrimaryList/>
+    </sl-container>
   </StrictMode>,
   document.getElementById('shopping-list')
 );

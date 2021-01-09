@@ -1,8 +1,16 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url("Catamaran-VariableFont_wght.ttf");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: darkgrey;
+}
+
+sl-navigation, sl-primary-input, sl-primary-list {
+  display: block;
 }
