@@ -4,9 +4,12 @@
 }
 
 body {
+    background-color: darkgrey;
+}
+
+* {
     margin: 0;
     padding: 0;
-    background-color: darkgrey;
 }
 
 sl-navigation, sl-primary-input, sl-primary-list {
