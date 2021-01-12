@@ -6,10 +6,10 @@ sl-navigation button {
     width: 10em;
     height: 1.8em;
     font-family: 'Roboto', sans-serif;
-    color: ghostwhite;
-    border: 0.1rem solid #9395a7;
+    color: var(--light-secondary);
+    border: 0.1rem solid var(--dark-secondary);
     border-bottom-width: 0;
-    background-color: #9395a7;
+    background-color: var(--dark-secondary);
     border-top-left-radius: 0.4rem;
     border-top-right-radius: 0.4rem;
     margin-left: 0.05rem;
@@ -18,10 +18,10 @@ sl-navigation button {
 
 sl-navigation button:focus {
     outline: 0;
-    background-color: #9395a7;
+    background-color: var(--dark-secondary);
 }
 
 sl-navigation > button.active {
-    background-color: slategrey;
-    border-color: slategrey;
+    background-color: var(--dark-primary);
+    border-color: var(--dark-primary);
 }

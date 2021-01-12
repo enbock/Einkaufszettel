@@ -1,15 +1,15 @@
 sl-primary-input {
-    background-color: slategrey;
+    background-color: var(--dark-primary);
     height: 1.6em;
     padding: 0.3em 0.4em 0.4em 0.2em;
 }
 
 sl-primary-input input-frame {
     display: block;
-    background-color: white;
+    background-color: var(--light-secondary);
     width: 100%;
     height: 1.5em;
-    border: 0.1em solid #9395a7;
+    border: 0.1em solid var(--dark-secondary);
     border-radius: 0.3em;
 }
 
@@ -29,10 +29,10 @@ sl-primary-input input:focus {
 sl-primary-input button {
     width: 2.5em;
     height: 1.6em;
-    border: 0.1em solid #9395a7;
+    border: 0.1em solid var(--dark-secondary);
     border-radius: 0.3em;
     margin: 0.1em;
-    background-color: #eeeeee;
+    background-color: var(--light-primary);
 }
 
 sl-primary-input button {
@@ -40,11 +40,11 @@ sl-primary-input button {
 }
 
 sl-primary-input button:focus {
-    background-color: #9395a7;
+    background-color: var(--dark-secondary);
 }
 
 sl-primary-input button:active {
-    background-color: #9395a7;
+    background-color: var(--dark-secondary);
 }
 
 sl-primary-input button > img {
