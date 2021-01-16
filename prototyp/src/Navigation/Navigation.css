@@ -1,16 +1,16 @@
 sl-navigation {
     padding-top: 0.05rem;
-    height: 1.505em;
 }
 
 sl-navigation button {
-    width: 10em;
-    height: 1.8em;
+    width: 10rem;
+    height: 2.5rem;
     font-family: 'Roboto', sans-serif;
+    font-size: 1.3em;
     color: var(--light-secondary);
+    background-color: var(--dark-secondary);
     border: 0.1rem solid var(--dark-secondary);
     border-bottom-width: 0;
-    background-color: var(--dark-secondary);
     border-top-left-radius: 0.4rem;
     border-top-right-radius: 0.4rem;
     margin-left: 0.05rem;
