@@ -1,6 +1,8 @@
 :root {
     --dark-primary: slategrey;
     --dark-secondary: #9395a7;
+    --dark-tertiary: black;
     --light-primary: #eeeeee;
     --light-secondary: ghostwhite;
+    --light-tertiary: black;
 }

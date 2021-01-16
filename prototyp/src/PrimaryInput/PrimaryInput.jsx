@@ -15,7 +15,7 @@ export default class PrimaryInput extends Component {
   }
 
   render() {
-    return <sl-primary-input>
+    return <primary-input>
       <input-frame>
         <input name="editLine" ref={this.inputReference}/>
         <button name="submit" onClick={this.clearField.bind(this)}>
@@ -25,6 +25,6 @@ export default class PrimaryInput extends Component {
           <img src={DiscardIcon} alt="Verwerfen"/>
         </button>
       </input-frame>
-    </sl-primary-input>;
+    </primary-input>;
   }
 }

@@ -5,13 +5,11 @@
 
 body {
     background-color: var(--light-primary);
+    overflow: hidden;
 }
 
 * {
     margin: 0;
     padding: 0;
-}
-
-sl-navigation, sl-primary-input, sl-primary-list {
-    display: block;
+    color: var(--dark-tertiary);
 }

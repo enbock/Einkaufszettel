@@ -1,0 +1,75 @@
+entire-list {
+    background-color: var(--dark-primary);
+    display: block;
+    height: calc(100vh - 3.85rem);
+}
+
+entire-list visual-background {
+    display: block;
+    background-color: var(--light-secondary);
+    border: var(--dark-primary) solid 0.1em;
+    border-radius: 0.3rem;
+    width: calc(100% - 3rem);
+    height: calc(100vh - 4.25rem);
+    margin-left: 0.2em;
+}
+
+entire-list entity-list {
+    display: block;
+    width: calc(100% - 0.6rem);
+    height: calc(100vh - 4.25rem);
+    margin-left: 0.4em;
+    margin-right: 0.2em;
+    margin-top: 0.1em;
+    float: left;
+    overflow-y: visible;
+    overflow-x: hidden;
+}
+
+list-entity {
+    display: block;
+    height: 1.6rem;
+}
+
+list-entity list-label {
+    display: block;
+    border-bottom: var(--light-primary) solid 0.05em;
+    width: calc(100% - 2.85rem);
+    height: 1.4em;
+    padding: 0.2em;
+    float: left;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85em;
+    user-select: none;
+}
+
+list-entity button {
+    border: 0.1em solid var(--dark-secondary);
+    background-color: var(--light-primary);
+    border-radius: 0.3em;
+    width: 2.2rem;
+    height: 1.4rem;
+    margin-top: 0.1em;
+    margin-left: 0.2em;
+}
+
+list-entity button {
+    outline: 0;
+}
+
+list-entity button:focus {
+    background-color: var(--dark-secondary);
+}
+
+list-entity button:active {
+    background-color: var(--dark-secondary);
+}
+
+list-entity button > img {
+    margin-top: 0.15em;
+    height: 80%;
+}
+
+list-entity button[name=submit] > img {
+    filter: hue-rotate(100deg);
+}
