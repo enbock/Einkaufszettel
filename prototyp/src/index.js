@@ -6,12 +6,13 @@ import Navigation from './Navigation/Navigation';
 import PrimaryInput from './PrimaryInput/PrimaryInput';
 import EntireList from './EntireList/EntireList';
 
+const adapter = Navigation.adapter;
 ReactDOM.render(
   <StrictMode>
     <sl-container>
-      <Navigation/>
+      <Navigation adapter={adapter}/>
       <PrimaryInput/>
-      <EntireList/>
+      <EntireList adapter={adapter}/>
     </sl-container>
   </StrictMode>,
   document.getElementById('shopping-list')
