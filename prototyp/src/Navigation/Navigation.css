@@ -7,7 +7,7 @@ sl-navigation button {
     height: 2.5rem;
     font-family: 'Roboto', sans-serif;
     font-size: 1.3em;
-    color: var(--light-secondary);
+    color: var(--light-tertiary);
     background-color: var(--dark-secondary);
     border: 0.1rem solid var(--dark-secondary);
     border-bottom-width: 0;
@@ -15,6 +15,10 @@ sl-navigation button {
     border-top-right-radius: 0.4rem;
     margin-left: 0.05rem;
     margin-right: 0.05rem;
+}
+
+sl-navigation button.active {
+    color: var(--light-secondary)
 }
 
 sl-navigation button:focus {

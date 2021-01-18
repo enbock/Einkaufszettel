@@ -49,16 +49,11 @@ list-entity button {
     border-radius: 0.5rem;
     width: 3.5rem;
     height: 2.3rem;
-    filter: hue-rotate(90deg);
     margin-left: 0.5rem;
 }
 
 list-entity button {
     outline: 0;
-}
-
-list-entity button:focus {
-    background-color: var(--dark-secondary);
 }
 
 list-entity button:active {
@@ -68,4 +63,5 @@ list-entity button:active {
 list-entity button > img {
     margin-top: 0.2rem;
     height: 80%;
+    filter: hue-rotate(90deg);
 }
