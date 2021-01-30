@@ -9,19 +9,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Debug
-        with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          S3_BUCKET_REGION: ${{ secrets.S3_BUCKET_REGION }}
         shell: bash
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          TEST: ${{ secrets.S3_BUCKET }}
-          TEST2: test
         run: |
-          echo "Bucket: ${{ secrets.S3_BUCKET }} | $TEST | $TEST2"
+          echo "Bucket: ${{ secrets.S3_BUCKET }} ${{ S3_BUCKET }}"
 
 #        - name: Install dependencies
 #          run: cd prototyp; yarn
