@@ -20,4 +20,4 @@ jobs:
           run: cd prototyp; yarn build
 
         - name: Deploy
-          run: npx s3-deploy ./prototyp/build/** --bucket ${{ S3_BUCKET }} --region ${{ S3_BUCKET_REGION }} --cwd ./ --etag --gzip xml,html,htm,js,css,ttf,otf,svg,txt --deleteRemoved --noCache --private
+          run: npx s3-deploy ./prototyp/build/** --bucket $S3_BUCKET --region $S3_BUCKET_REGION --cwd ./ --etag --gzip xml,html,htm,js,css,ttf,otf,svg,txt --deleteRemoved --noCache --private
