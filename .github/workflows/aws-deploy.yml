@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: cd prototyp; yarn
+        run: yarn
 
       - name: Tests
-        run: cd prototyp; yarn test
+        run: yarn test
 
       - name: Build
-        run: cd prototyp; yarn build
+        run: yarn build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -25,4 +25,4 @@ jobs:
           aws-region: ${{ secrets.S3_BUCKET_REGION }}
 
       - name: Deploy
-        run: cd prototyp/build/; aws s3 sync --delete . s3://${{ secrets.S3_BUCKET }}
+        run: cd build/; aws s3 sync --delete . s3://${{ secrets.S3_BUCKET }}
