@@ -11,6 +11,9 @@ jobs:
       - name: Install dependencies
         run: cd prototyp; yarn
 
+      - name: Tests
+        run: cd prototyp; yarn test
+
       - name: Build
         run: cd prototyp; yarn build
 
