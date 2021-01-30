@@ -1,4 +1,4 @@
-name: Deploy app to S3
+name: Deploy Einkaufzettel to S3
 
 on: [ push ]
 
