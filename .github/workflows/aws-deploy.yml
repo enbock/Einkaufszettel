@@ -1,6 +1,6 @@
 name: Deploy app to S3
 
-on: [push]
+on: [ push ]
 
 jobs:
   run:
@@ -8,14 +8,18 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TEST: ${{ secrets.S3_BUCKET }}
     steps:
-        - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-        - name: Install dependencies
-          run: cd prototyp; yarn
+      - name: Debug
+        run: echo "s3-deploy ./prototyp/build/** --bucket ${{ secrets.S3_BUCKET }} $TEST"
 
-        - name: Build
-          run: cd prototyp; yarn build
-
-        - name: Deploy
-          run: npx s3-deploy ./prototyp/build/** --bucket ${{ secrets.S3_BUCKET }} --region ${{ secrets.S3_BUCKET_REGION }} --cwd ./ --etag --gzip xml,html,htm,js,css,ttf,otf,svg,txt --deleteRemoved --noCache --private
+#        - name: Install dependencies
+#          run: cd prototyp; yarn
+#
+#        - name: Build
+#          run: cd prototyp; yarn build
+#
+#        - name: Deploy
+#          run: npx s3-deploy ./prototyp/build/** --bucket ${{ secrets.S3_BUCKET }} --region ${{ secrets.S3_BUCKET_REGION }} --cwd ./ --etag --gzip xml,html,htm,js,css,ttf,otf,svg,txt --deleteRemoved --noCache --private
