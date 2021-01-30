@@ -22,4 +22,4 @@ jobs:
           aws-region: ${{ secrets.S3_BUCKET_REGION }}
 
       - name: Deploy
-        run: cd prototyp/build/; aws s3 sync . s3://${{ secrets.S3_BUCKET }}
+        run: cd prototyp/build/; aws s3 sync --delete . s3://${{ secrets.S3_BUCKET }}
