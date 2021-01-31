@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, {StrictMode} from 'react';
-import HelloWorld from './HelloWorld';
+import Entry, {Adapter} from './EntireList/Entry';
+import EntryModel from './EntireList/EntryModel';
 
 export default class StartUp {
   private document: Document;
@@ -10,6 +11,16 @@ export default class StartUp {
   }
 
   public start(): void {
-    ReactDOM.render(<StrictMode><HelloWorld/></StrictMode>, this.document.getElementById('root'));
+    // TODO remove it
+    let adapter: Adapter = {
+      onEntryButtonClick(id: string): void {
+      }
+    };
+    let entryModel: EntryModel = new EntryModel();
+
+    ReactDOM.render(
+      <StrictMode><Entry adapter={adapter} model={entryModel}/></StrictMode>,
+      this.document.getElementById('root')
+    );
   }
 }

@@ -1,7 +1,6 @@
-import React, {Component, StrictMode} from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
 import StartUp from './StartUp';
-import HelloWorld from './HelloWorld';
+import Entry from './EntireList/Entry';
 
 jest.mock('react-dom', function () {
   return {
@@ -9,22 +8,23 @@ jest.mock('react-dom', function () {
   };
 });
 
-jest.mock('./HelloWorld');
+jest.mock('./EntireList/Entry');
 
 describe(StartUp, function () {
   it('should start the application', function () {
-    (HelloWorld as jest.Mock).mockImplementation(function () {
-      return class HelloWorld extends Component<any, any> {
+    (Entry as jest.Mock).mockImplementation(function () {
+      return class Entry extends Component<any, any> {
       };
     });
 
-    const getElementByIdMock:jest.Mock = jest.fn();
-    getElementByIdMock.mockReturnValueOnce('test::HTMLElement:')
+    const getElementByIdMock: jest.Mock = jest.fn();
+    getElementByIdMock.mockReturnValueOnce('test::HTMLElement:');
     const document: Document = {getElementById: getElementByIdMock as any} as Document;
 
     new StartUp(document).start();
 
-    expect(ReactDOM.render).toBeCalledWith(<StrictMode><HelloWorld/></StrictMode>, 'test::HTMLElement:');
-    expect(getElementByIdMock).toBeCalledWith('root')
+
+    //TODO expect(ReactDOM.render).toBeCalledWith(<StrictMode><Entry adapter={adapter} model={entryModel}/></StrictMode>, 'test::HTMLElement:');
+    expect(getElementByIdMock).toBeCalledWith('root');
   });
 });
