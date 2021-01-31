@@ -18,7 +18,7 @@ export default class Entry extends Component<Properties, State> {
   public render(): JSX.Element {
     const model: EntryModel = this.props.model;
     return (
-      <list-entity key={'list-entry-' + model.id}>
+      <list-entity>
         <list-label>
           {model.label}
         </list-label>

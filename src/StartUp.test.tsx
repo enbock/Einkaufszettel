@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, StrictMode} from 'react';
+import ReactDOM from 'react-dom';
 import StartUp from './StartUp';
-import Entry from './EntireList/Entry';
+import EntireList from './EntireList/EntireList';
 
 jest.mock('react-dom', function () {
   return {
@@ -8,12 +9,12 @@ jest.mock('react-dom', function () {
   };
 });
 
-jest.mock('./EntireList/Entry');
+jest.mock('./EntireList/EntireList');
 
 describe(StartUp, function () {
   it('should start the application', function () {
-    (Entry as jest.Mock).mockImplementation(function () {
-      return class Entry extends Component<any, any> {
+    (EntireList as jest.Mock).mockImplementation(function () {
+      return class EntireList extends Component<any, any> {
       };
     });
 
@@ -23,8 +24,7 @@ describe(StartUp, function () {
 
     new StartUp(document).start();
 
-
-    //TODO expect(ReactDOM.render).toBeCalledWith(<StrictMode><Entry adapter={adapter} model={entryModel}/></StrictMode>, 'test::HTMLElement:');
+    expect(ReactDOM.render).toBeCalledWith(<StrictMode><EntireList/></StrictMode>, 'test::HTMLElement:');
     expect(getElementByIdMock).toBeCalledWith('root');
   });
 });
