@@ -1,7 +1,8 @@
 import EntireListAdapter from '../EntireListAdapter';
 import EntireListController from '../EntireListController';
 import EntireListModel from '../EntireListModel';
-import {Response} from '../EntireListInteractor';
+import EntireListInteractor, {Response} from '../EntireListInteractor';
+import EntryEntity from '../EntryEntity';
 
 export class EntireListContainer {
   public readonly adapter: EntireListAdapter = new EntireListAdapter();
@@ -12,12 +13,14 @@ export class EntireListContainer {
         return new EntireListModel();
       }
     },
-    {
-      loadEntireList(): Response {
-        /** TODO Implementation of EntireListInteractor */
-        return {} as Response;
+    new EntireListInteractor(
+      {
+        getEntireList(): EntryEntity[] {
+          /** TODO Implementation of Storage */
+          return [];
+        }
       }
-    }
+    )
   );
 }
 
