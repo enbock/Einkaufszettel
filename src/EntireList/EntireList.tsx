@@ -41,12 +41,14 @@ export default class EntireList extends Component<Properties, State> {
     return (
       <entire-list>
         <entity-list>
-          {list.map((entryModel: EntryModel): JSX.Element => (
-            <Entry key={'list-entry-' + entryModel.id} adapter={this.adapter} model={entryModel}/>
-          ))}
+          {list.map(this.renderEntry.bind(this))}
         </entity-list>
         <visual-background/>
       </entire-list>
     );
+  }
+
+  private renderEntry(entryModel: EntryModel): JSX.Element {
+    return <Entry key={'list-entry-' + entryModel.id} adapter={this.adapter} model={entryModel}/>;
   }
 }

@@ -1,5 +1,6 @@
 import Container, {EntireListContainer} from './Container';
 import EntireListAdapter from '../EntireListAdapter';
+import EntireListController from '../EntireListController';
 
 describe(EntireListContainer, function () {
   it('should provide the adapter', function () {
@@ -7,6 +8,6 @@ describe(EntireListContainer, function () {
   });
 
   it('should provide the controller', function () {
-    expect(Container.controller).not.toBeUndefined();
+    expect(Container.controller).toBeInstanceOf(EntireListController);
   });
 })
