@@ -15,7 +15,7 @@ export class EntireListContainer {
     {
       loadEntireList(): Response {
         /** TODO Implementation of EntireListInteractor */
-        return new Response();
+        return {} as Response;
       }
     }
   );
