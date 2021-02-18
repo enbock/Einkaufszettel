@@ -4,6 +4,7 @@ import EntireListModel from './EntireListModel';
 import EntryModel from './EntryModel';
 import EntireListPresenter from './EntireListPresenter';
 import EntireListInteractor, {Response} from './EntireListInteractor';
+import EntryEntity from './EntryEntity';
 
 describe(EntireListController, function () {
   let view: EntireList, controller: EntireListController, entireListPresenter: EntireListPresenter,
@@ -11,8 +12,8 @@ describe(EntireListController, function () {
 
   beforeEach(function () {
     view = {model: null} as unknown as EntireList;
-    entireListPresenter = {presentList: jest.fn()};
-    entireListInteractor = {loadEntireList: jest.fn()};
+    entireListPresenter = {presentLoadResponse: jest.fn()} as unknown as EntireListPresenter;
+    entireListInteractor = {loadEntireList: jest.fn()} as unknown as EntireListInteractor;
     controller = new EntireListController(entireListPresenter, entireListInteractor);
   });
 
@@ -21,15 +22,18 @@ describe(EntireListController, function () {
     entry.id = 'test::id:';
     const model: EntireListModel = new EntireListModel();
     model.list = [entry];
-    const response: Response = {response: 'data'} as Response;
+    const entryEntity: EntryEntity = new EntryEntity();
+    entryEntity.id = 'test::id:';
+    const response: Response = new Response();
+    response.entireList = [entryEntity];
 
     (entireListInteractor.loadEntireList as jest.Mock).mockReturnValueOnce(response);
-    (entireListPresenter.presentList as jest.Mock).mockReturnValueOnce(model);
+    (entireListPresenter.presentLoadResponse as jest.Mock).mockReturnValueOnce(model);
 
     controller.attach(view);
 
     expect(entireListInteractor.loadEntireList).toBeCalledWith();
-    expect(entireListPresenter.presentList).toBeCalledWith(response);
+    expect(entireListPresenter.presentLoadResponse).toBeCalledWith(response);
     expect(view.model).toBe(model);
   });
 });

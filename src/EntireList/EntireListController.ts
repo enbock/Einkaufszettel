@@ -26,6 +26,6 @@ export default class EntireListController {
 
   private loadAndDisplayEntireList(): void {
     let response: Response = this.entireListInteractor.loadEntireList();
-    this.view.model = this.entireListPresenter.presentList(response);
+    this.view.model = this.entireListPresenter.presentLoadResponse(response);
   }
 }

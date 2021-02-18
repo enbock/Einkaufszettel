@@ -1,23 +1,18 @@
 import EntireListAdapter from '../EntireListAdapter';
 import EntireListController from '../EntireListController';
-import EntireListModel from '../EntireListModel';
-import EntireListInteractor, {Response} from '../EntireListInteractor';
+import EntireListInteractor from '../EntireListInteractor';
 import EntryEntity from '../EntryEntity';
+import EntireListPresenter from '../EntireListPresenter';
 
 export class EntireListContainer {
   public readonly adapter: EntireListAdapter = new EntireListAdapter();
   public readonly controller: EntireListController = new EntireListController(
-    {
-      presentList(response: Response): EntireListModel {
-        /** TODO Implementation of EntireListPresenter */
-        return new EntireListModel();
-      }
-    },
+    new EntireListPresenter(),
     new EntireListInteractor(
       {
         getEntireList(): EntryEntity[] {
           /** TODO Implementation of Storage */
-          return [];
+          return [new EntryEntity()];
         }
       }
     )
