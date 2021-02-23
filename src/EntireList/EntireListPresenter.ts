@@ -1,6 +1,6 @@
 import EntireListModel from './EntireListModel';
 import {Response} from './EntireListInteractor';
-import EntryEntity from './EntryEntity';
+import EntryEntity from './ListStorage/EntryEntity';
 import EntryModel from './EntryModel';
 
 export default class EntireListPresenter {

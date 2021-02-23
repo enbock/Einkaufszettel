@@ -1,22 +1,21 @@
 import EntireListAdapter from '../EntireListAdapter';
 import EntireListController from '../EntireListController';
 import EntireListInteractor from '../EntireListInteractor';
-import EntryEntity from '../EntryEntity';
 import EntireListPresenter from '../EntireListPresenter';
+import LocalListStorage from '../ListStorage/LocalStorage/LocalStorage';
+import LocalStorageParser from '../ListStorage/LocalStorage/Parser';
 
 export class EntireListContainer {
   public readonly adapter: EntireListAdapter = new EntireListAdapter();
-  public readonly controller: EntireListController = new EntireListController(
-    new EntireListPresenter(),
-    new EntireListInteractor(
-      {
-        getEntireList(): EntryEntity[] {
-          /** TODO Implementation of Storage */
-          return [new EntryEntity()];
-        }
-      }
-    )
-  );
+  public readonly controller: EntireListController;
+
+  constructor() {
+    const listStorage = new LocalListStorage(global.localStorage, new LocalStorageParser());
+    this.controller = new EntireListController(
+      new EntireListPresenter(),
+      new EntireListInteractor(listStorage)
+    );
+  }
 }
 
 const Container: EntireListContainer = new EntireListContainer();

@@ -4,7 +4,7 @@ import EntireListModel from './EntireListModel';
 import EntryModel from './EntryModel';
 import EntireListPresenter from './EntireListPresenter';
 import EntireListInteractor, {Response} from './EntireListInteractor';
-import EntryEntity from './EntryEntity';
+import EntryEntity from './ListStorage/EntryEntity';
 
 describe(EntireListController, function () {
   let view: EntireList, controller: EntireListController, entireListPresenter: EntireListPresenter,

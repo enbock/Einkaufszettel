@@ -1,6 +1,6 @@
 import EntireListPresenter from './EntireListPresenter';
 import {Response} from './EntireListInteractor';
-import EntryEntity from './EntryEntity';
+import EntryEntity from './ListStorage/EntryEntity';
 import EntireListModel from './EntireListModel';
 import EntryModel from './EntryModel';
 

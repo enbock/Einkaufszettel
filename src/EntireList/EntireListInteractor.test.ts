@@ -1,6 +1,6 @@
 import EntireListInteractor, {Response} from './EntireListInteractor';
-import EntryEntity from './EntryEntity';
-import ListStorage from './ListStorage';
+import EntryEntity from './ListStorage/EntryEntity';
+import ListStorage from './ListStorage/ListStorage';
 
 describe(EntireListInteractor, function () {
   let interactor:EntireListInteractor, listStorage: ListStorage;
