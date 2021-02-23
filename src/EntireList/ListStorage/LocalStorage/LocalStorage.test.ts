@@ -25,7 +25,7 @@ describe(LocalStorage, function () {
     entity.id = 'test::id:';
     const expectedList: EntryEntity[] = [entity];
 
-    const json:string = '{"json":"data"}';
+    const json: string = '{"json":"data"}';
     (storage.getItem as jest.Mock).mockReturnValueOnce(json);
     (parser.parseEntireList as jest.Mock).mockReturnValueOnce(expectedList);
 
