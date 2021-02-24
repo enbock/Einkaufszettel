@@ -3,7 +3,7 @@ import EntryModel from './EntryModel';
 import Entry, {Adapter as EntryAdapter} from './Entry';
 import EntireListModel from './EntireListModel';
 import Container from './DependencyInjection/Container';
-import './EntireList.css'
+import './Artefacts/EntireList.css'
 
 export interface Adapter extends EntryAdapter {
 }

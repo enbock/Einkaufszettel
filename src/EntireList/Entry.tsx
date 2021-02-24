@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import SubmitIcon from './SubmitIcon.svg';
+import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import EntryModel from './EntryModel';
 
 export interface Adapter {
