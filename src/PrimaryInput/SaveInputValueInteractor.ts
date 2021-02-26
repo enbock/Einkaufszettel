@@ -1,8 +1,11 @@
+import {PresentableResponse} from './PrimaryInputPresenter';
+
 export class Request {
   public newInputValue: string = '';
 }
 
-export class Response {
+export class Response implements PresentableResponse {
+  public inputValue: string = '';
 }
 
 export default class SaveInputValueInteractor {
