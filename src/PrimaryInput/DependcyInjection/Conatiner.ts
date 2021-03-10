@@ -16,6 +16,9 @@ export class PrimaryInputContainer {
 
   constructor() {
     const temporaryMemory: TemporaryMemory = {
+      clearInputValue(): void {
+        // TODO EKZ-61 Implement persisting
+      },
       readInputValue(): string {
         // TODO EKZ-61 Implement persisting
         return '';
@@ -26,7 +29,11 @@ export class PrimaryInputContainer {
     };
     this.controller = new PrimaryInputController(
       this.adapter,
-      new AddEntryInteractor(GlobalContainer.listStorage, new UuidGenerator(UuidVersion4)),
+      new AddEntryInteractor(
+        GlobalContainer.listStorage,
+        new UuidGenerator(UuidVersion4),
+        temporaryMemory
+      ),
       new SaveInputValueInteractor(temporaryMemory),
       new GetInputValueInteractor(temporaryMemory),
       new PrimaryInputPresenter()
