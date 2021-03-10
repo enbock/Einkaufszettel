@@ -5,27 +5,27 @@ import AddEntryInteractor from '../AddEntryInteractor';
 import SaveInputValueInteractor from '../SaveInputValueInteractor';
 import GetInputValueInteractor from '../GetInputValueInteractor';
 import PrimaryInputPresenter from '../PrimaryInputPresenter';
+import TemporaryMemory from '../TemporaryMemory/TemporaryMemory';
 
 export class PrimaryInputContainer {
   public adapter: Adapter = new PrimaryInputAdapter();
   public controller: PrimaryInputController;
 
   constructor() {
+    const temporaryMemory:TemporaryMemory = {
+      readInputValue(): string {
+        // TODO EKZ-61 Implement persisting
+        return '';
+      },
+      storeInputValue(inputValue: string): void {
+        // TODO EKZ-61 Implement persisting
+      }
+    };
     this.controller = new PrimaryInputController(
       this.adapter,
       new AddEntryInteractor(),
-      new SaveInputValueInteractor(
-        {
-          readInputValue(): string {
-            // TODO EKZ-61 Implement persisting
-            return '';
-          },
-          storeInputValue(inputValue: string): void {
-            // TODO EKZ-61 Implement persisting
-          }
-        }
-      ),
-      new GetInputValueInteractor(),
+      new SaveInputValueInteractor(temporaryMemory),
+      new GetInputValueInteractor(temporaryMemory),
       new PrimaryInputPresenter()
     );
   }
