@@ -1,4 +1,5 @@
 import {PresentableResponse} from './PrimaryInputPresenter';
+import TemporaryMemory from './TemporaryMemory/TemporaryMemory';
 
 export class Request {
   public newInputValue: string = '';
@@ -9,8 +10,19 @@ export class Response implements PresentableResponse {
 }
 
 export default class SaveInputValueInteractor {
+  private readonly temporaryMemory: TemporaryMemory;
+
+  constructor(temporaryMemory: TemporaryMemory) {
+    this.temporaryMemory = temporaryMemory;
+  }
+
   public saveInputValue(request: Request): Response {
-    // TODO EKZ-41 Implement interactor
-    return new Response();
+    const inputValue: string = request.newInputValue;
+    this.temporaryMemory.storeInputValue(inputValue);
+
+    const response: Response = new Response();
+    response.inputValue = inputValue;
+
+    return response;
   }
 }

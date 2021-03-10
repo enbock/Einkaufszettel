@@ -14,7 +14,17 @@ export class PrimaryInputContainer {
     this.controller = new PrimaryInputController(
       this.adapter,
       new AddEntryInteractor(),
-      new SaveInputValueInteractor(),
+      new SaveInputValueInteractor(
+        {
+          readInputValue(): string {
+            // TODO EKZ-61 Implement persisting
+            return '';
+          },
+          storeInputValue(inputValue: string): void {
+            // TODO EKZ-61 Implement persisting
+          }
+        }
+      ),
       new GetInputValueInteractor(),
       new PrimaryInputPresenter()
     );
