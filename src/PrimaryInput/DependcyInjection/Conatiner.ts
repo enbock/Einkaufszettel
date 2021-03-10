@@ -6,13 +6,16 @@ import SaveInputValueInteractor from '../SaveInputValueInteractor';
 import GetInputValueInteractor from '../GetInputValueInteractor';
 import PrimaryInputPresenter from '../PrimaryInputPresenter';
 import TemporaryMemory from '../TemporaryMemory/TemporaryMemory';
+import GlobalContainer from '../../DependencyInjection/Container';
+import {v4 as UuidVersion4} from 'uuid';
+import UuidGenerator from '../UniqueIdentifierGenerator/UuidGenerator';
 
 export class PrimaryInputContainer {
   public adapter: Adapter = new PrimaryInputAdapter();
   public controller: PrimaryInputController;
 
   constructor() {
-    const temporaryMemory:TemporaryMemory = {
+    const temporaryMemory: TemporaryMemory = {
       readInputValue(): string {
         // TODO EKZ-61 Implement persisting
         return '';
@@ -23,7 +26,7 @@ export class PrimaryInputContainer {
     };
     this.controller = new PrimaryInputController(
       this.adapter,
-      new AddEntryInteractor(),
+      new AddEntryInteractor(GlobalContainer.listStorage, new UuidGenerator(UuidVersion4)),
       new SaveInputValueInteractor(temporaryMemory),
       new GetInputValueInteractor(temporaryMemory),
       new PrimaryInputPresenter()

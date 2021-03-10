@@ -16,4 +16,8 @@ export default class LocalStorage implements ListStorage {
     if (list === null) return [];
     return this.parser.parseEntireList(list);
   }
+
+  public addEntryToEntireList(entry: EntryEntity): void {
+    // TODO EKZ-61 Implement persisting
+  }
 }
