@@ -2,9 +2,9 @@ import PrimaryInput, {Adapter} from './PrimaryInput';
 import PrimaryInputModel from './PrimaryInputModel';
 import {fireEvent, render, RenderResult} from '@testing-library/react';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
-import Container from './DependcyInjection/Conatiner';
+import Container from './DependencyInjection/Container';
 
-jest.mock('./DependcyInjection/Conatiner', function () {
+jest.mock('./DependencyInjection/Container', function () {
   return {adapter: null, controller: {attach: jest.fn()}};
 });
 
@@ -18,7 +18,7 @@ describe(PrimaryInput, function () {
     adapter.onInputChange = jest.fn();
     adapter.onSubmit = jest.fn();
     Container.adapter = adapter;
-    Container.controller.attach.mockImplementation(attachModel);
+    (Container.controller.attach as jest.Mock).mockImplementation(attachModel);
   });
 
   function attachModel(view: PrimaryInput): void {

@@ -11,7 +11,8 @@ export class EntireListContainer {
   constructor() {
     this.controller = new EntireListController(
       new EntireListPresenter(),
-      new EntireListLoadInteractor(GlobalContainer.listStorage)
+      new EntireListLoadInteractor(GlobalContainer.listStorage),
+      this.adapter
     );
   }
 }

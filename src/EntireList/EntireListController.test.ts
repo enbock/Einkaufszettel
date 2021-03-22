@@ -1,4 +1,4 @@
-import EntireListController from './EntireListController';
+import EntireListController, {Adapter} from './EntireListController';
 import EntireList from './EntireList';
 import EntireListModel from './EntireListModel';
 import EntryModel from './EntryModel';
@@ -7,17 +7,22 @@ import EntireListLoadInteractor, {Response} from './EntireListLoadInteractor';
 import EntryEntity from './ListStorage/EntryEntity';
 
 describe(EntireListController, function () {
-  let view: EntireList, controller: EntireListController, entireListPresenter: EntireListPresenter,
-    entireListInteractor: EntireListLoadInteractor;
+  let view: EntireList,
+    controller: EntireListController,
+    entireListPresenter: EntireListPresenter,
+    entireListInteractor: EntireListLoadInteractor,
+    adapter: Adapter
+  ;
 
   beforeEach(function () {
     view = {model: null} as unknown as EntireList;
     entireListPresenter = {presentLoadResponse: jest.fn()} as unknown as EntireListPresenter;
     entireListInteractor = {loadEntireList: jest.fn()} as unknown as EntireListLoadInteractor;
-    controller = new EntireListController(entireListPresenter, entireListInteractor);
+    adapter = {onListChange: jest.fn()};
+    controller = new EntireListController(entireListPresenter, entireListInteractor, adapter);
   });
 
-  it('should control the display of current list', function () {
+  function prepareAttachAndData() {
     const entry: EntryModel = new EntryModel();
     entry.id = 'test::id:';
     const model: EntireListModel = new EntireListModel();
@@ -29,11 +34,37 @@ describe(EntireListController, function () {
 
     (entireListInteractor.loadEntireList as jest.Mock).mockReturnValueOnce(response);
     (entireListPresenter.presentLoadResponse as jest.Mock).mockReturnValueOnce(model);
+    return {model, response};
+  }
+
+  it('should control the display of current list', function () {
+    const {model, response} = prepareAttachAndData();
 
     controller.attach(view);
 
-    expect(entireListInteractor.loadEntireList).toBeCalledWith();
+    expect(entireListInteractor.loadEntireList).toBeCalled();
     expect(entireListPresenter.presentLoadResponse).toBeCalledWith(response);
     expect(view.model).toBe(model);
+  });
+
+  it('should load list on adapter call', function () {
+    const {model, response} = prepareAttachAndData();
+    controller.attach(view);
+
+    (entireListInteractor.loadEntireList as jest.Mock).mockReturnValueOnce(response);
+    (entireListPresenter.presentLoadResponse as jest.Mock).mockReturnValueOnce(model);
+
+    adapter.onListChange();
+
+    expect(entireListInteractor.loadEntireList).toBeCalledTimes(2);
+    expect(entireListPresenter.presentLoadResponse).toBeCalledWith(response);
+    expect(entireListPresenter.presentLoadResponse).toBeCalledTimes(2);
+    expect(view.model).toBe(model);
+  });
+
+  it('should should not load list of not attached to view', function () {
+    adapter.onListChange();
+
+    expect(entireListInteractor.loadEntireList).not.toBeCalled();
   });
 });

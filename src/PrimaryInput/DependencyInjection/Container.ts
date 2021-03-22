@@ -7,6 +7,7 @@ import GetInputValueInteractor from '../GetInputValueInteractor';
 import PrimaryInputPresenter from '../PrimaryInputPresenter';
 import TemporaryMemory from '../FormMemory/TemporaryMemory';
 import GlobalContainer from '../../DependencyInjection/Container';
+import EntireListContainer from '../../EntireList/DependencyInjection/Container';
 import {v4 as UuidVersion4} from 'uuid';
 import UuidGenerator from '../UniqueIdentifierGenerator/UuidGenerator';
 import FormMemory from '../FormMemory/FormMemory';
@@ -26,7 +27,8 @@ export class PrimaryInputContainer {
       ),
       new SaveInputValueInteractor(temporaryMemory),
       new GetInputValueInteractor(temporaryMemory),
-      new PrimaryInputPresenter()
+      new PrimaryInputPresenter(),
+      EntireListContainer.adapter
     );
   }
 }

@@ -1,6 +1,10 @@
-import {Adapter} from './EntireList';
+import {Adapter as ViewAdapter} from './EntireList';
+import {Adapter as ControllerAdapter} from './EntireListController';
 
-export default class EntireListAdapter implements Adapter {
+export default class EntireListAdapter implements ViewAdapter, ControllerAdapter {
   public onEntryButtonClick(id: string): void {
+  }
+
+  public onListChange(): void {
   }
 }

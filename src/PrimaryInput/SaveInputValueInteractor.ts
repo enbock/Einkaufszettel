@@ -10,15 +10,15 @@ export class Response implements PresentableResponse {
 }
 
 export default class SaveInputValueInteractor {
-  private readonly temporaryMemory: FormMemory;
+  private readonly formMemory: FormMemory;
 
-  constructor(temporaryMemory: FormMemory) {
-    this.temporaryMemory = temporaryMemory;
+  constructor(formMemory: FormMemory) {
+    this.formMemory = formMemory;
   }
 
   public saveInputValue(request: Request): Response {
     const inputValue: string = request.newInputValue;
-    this.temporaryMemory.storeInputValue(inputValue);
+    this.formMemory.storeInputValue(inputValue);
 
     const response: Response = new Response();
     response.inputValue = inputValue;

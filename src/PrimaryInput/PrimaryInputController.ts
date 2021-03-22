@@ -3,6 +3,7 @@ import AddEntryInteractor from './AddEntryInteractor';
 import PrimaryInputPresenter, {PresentableResponse} from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from './SaveInputValueInteractor';
 import GetInputValueInteractor from './GetInputValueInteractor';
+import {Adapter as EntireListControllerAdapter} from '../EntireList/EntireListController';
 
 export default class PrimaryInputController {
   private readonly adapter: Adapter;
@@ -10,6 +11,7 @@ export default class PrimaryInputController {
   private readonly saveInputValueInteractor: SaveInputValueInteractor;
   private readonly getInputValueInteractor: GetInputValueInteractor;
   private readonly presenter: PrimaryInputPresenter;
+  private readonly entireListControllerAdapter: EntireListControllerAdapter;
   private viewInstance: PrimaryInput | undefined;
 
   constructor(
@@ -17,13 +19,15 @@ export default class PrimaryInputController {
     addEntryInteractor: AddEntryInteractor,
     saveInputValueInteractor: SaveInputValueInteractor,
     getInputValueInteractor: GetInputValueInteractor,
-    presenter: PrimaryInputPresenter
+    presenter: PrimaryInputPresenter,
+    entireListAdapter: EntireListControllerAdapter
   ) {
     this.adapter = adapter;
     this.addEntryInteractor = addEntryInteractor;
     this.saveInputValueInteractor = saveInputValueInteractor;
     this.getInputValueInteractor = getInputValueInteractor;
     this.presenter = presenter;
+    this.entireListControllerAdapter = entireListAdapter;
   }
 
   private get view(): PrimaryInput {
@@ -53,6 +57,7 @@ export default class PrimaryInputController {
   private addNewEntry(): void {
     const response: PresentableResponse = this.addEntryInteractor.addNewEntry();
     this.actualizeOutput(response);
+    this.entireListControllerAdapter.onListChange();
   }
 
   private saveInputValue(newValue: string): void {

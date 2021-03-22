@@ -6,41 +6,51 @@ import PrimaryInputPresenter, {PresentableResponse} from './PrimaryInputPresente
 import PrimaryInputModel from './PrimaryInputModel';
 import SaveInputValueInteractor, {Request as SaveRequest} from './SaveInputValueInteractor';
 import GetInputValueInteractor from './GetInputValueInteractor';
+import {Adapter as EntireListControllerAdapter} from '../EntireList/EntireListController';
 
 describe(PrimaryInputController, function () {
-  let adapter: PrimaryInputAdapter, controller: PrimaryInputController, addEntryInteractor: AddEntryInteractor,
-    primaryInput: PrimaryInput, presenter: PrimaryInputPresenter, saveInputValueInteractor: SaveInputValueInteractor,
-    getInputValueInteractor: GetInputValueInteractor;
+  let adapter: PrimaryInputAdapter,
+    controller: PrimaryInputController,
+    addEntryInteractor: AddEntryInteractor,
+    primaryInput: PrimaryInput,
+    presenter: PrimaryInputPresenter,
+    saveInputValueInteractor: SaveInputValueInteractor,
+    getInputValueInteractor: GetInputValueInteractor,
+    entireListControllerAdapter: EntireListControllerAdapter;
 
   beforeEach(function () {
     adapter = new PrimaryInputAdapter();
     addEntryInteractor = {
       addNewEntry: jest.fn()
-    };
+    } as any;
     saveInputValueInteractor = {
       saveInputValue: jest.fn()
-    };
+    } as any;
     getInputValueInteractor = {
       getInputValue: jest.fn()
-    };
+    } as any;
     presenter = {
       present: jest.fn()
+    };
+    entireListControllerAdapter = {
+      onListChange: jest.fn()
     };
     controller = new PrimaryInputController(
       adapter,
       addEntryInteractor,
       saveInputValueInteractor,
       getInputValueInteractor,
-      presenter
+      presenter,
+      entireListControllerAdapter
     );
     primaryInput = {model: undefined} as unknown as PrimaryInput;
   });
 
-  it('should create new entry on incoming submit', function () {
-    const response: PresentableResponse = {test: 'response'};
+  it('should create new entry on incoming submit and inform entire list about', function () {
+    const response: PresentableResponse = {inputValue: 'response'};
     const model: PrimaryInputModel = new PrimaryInputModel();
     model.inputValue = 'test';
-    const getValueResponse: PresentableResponse = {test: 'response'};
+    const getValueResponse: PresentableResponse = {inputValue: 'response'};
 
     (addEntryInteractor.addNewEntry as jest.Mock).mockReturnValueOnce(response);
     prepareMocksAndAttachView(getValueResponse, model);
@@ -51,6 +61,7 @@ describe(PrimaryInputController, function () {
     expect(presenter.present).toBeCalledWith(response);
     expect(presenter.present).toBeCalledWith(getValueResponse);
     expect(primaryInput.model).toBe(model);
+    expect(entireListControllerAdapter.onListChange).toBeCalled();
   });
 
   function prepareMocksAndAttachView(getValueResponse: PresentableResponse, model: PrimaryInputModel) {
@@ -64,8 +75,8 @@ describe(PrimaryInputController, function () {
   it('should take new value of input field', function () {
     const expectedRequest: SaveRequest = new SaveRequest();
     expectedRequest.newInputValue = 'test::newValue:';
-    const getValueResponse: PresentableResponse = {test: 'response'};
-    const response: PresentableResponse = {test: 'response'};
+    const getValueResponse: PresentableResponse = {inputValue: 'response'};
+    const response: PresentableResponse = {inputValue: 'response'};
     const model: PrimaryInputModel = new PrimaryInputModel();
     model.inputValue = 'test';
 
@@ -81,7 +92,7 @@ describe(PrimaryInputController, function () {
   });
 
   it('should show current input value', function () {
-    const response: PresentableResponse = {test: 'response'};
+    const response: PresentableResponse = {inputValue: 'response'};
     const model: PrimaryInputModel = new PrimaryInputModel();
     model.inputValue = 'test';
 
