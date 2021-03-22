@@ -1,5 +1,5 @@
 import GetInputValueInteractor, {Response} from './GetInputValueInteractor';
-import TemporaryMemory from './TemporaryMemory/TemporaryMemory';
+import TemporaryMemory from './FormMemory/TemporaryMemory';
 
 describe(GetInputValueInteractor, function () {
   let temporaryMemory: TemporaryMemory, interactor: GetInputValueInteractor;

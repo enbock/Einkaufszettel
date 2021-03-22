@@ -1,5 +1,5 @@
 import SaveInputValueInteractor, {Request, Response} from './SaveInputValueInteractor';
-import TemporaryMemory from './TemporaryMemory/TemporaryMemory';
+import TemporaryMemory from './FormMemory/TemporaryMemory';
 
 describe(SaveInputValueInteractor, function () {
   let temporaryMemory: TemporaryMemory, interactor: SaveInputValueInteractor;

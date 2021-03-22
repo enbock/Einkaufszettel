@@ -2,7 +2,7 @@ import AddEntryInteractor, {Response} from './AddEntryInteractor';
 import ListStorage from '../EntireList/ListStorage/ListStorage';
 import EntryEntity from '../EntireList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
-import TemporaryMemory from './TemporaryMemory/TemporaryMemory';
+import TemporaryMemory from './FormMemory/TemporaryMemory';
 
 describe(AddEntryInteractor, function () {
   let storage: ListStorage,

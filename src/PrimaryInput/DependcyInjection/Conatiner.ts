@@ -5,7 +5,7 @@ import AddEntryInteractor from '../AddEntryInteractor';
 import SaveInputValueInteractor from '../SaveInputValueInteractor';
 import GetInputValueInteractor from '../GetInputValueInteractor';
 import PrimaryInputPresenter from '../PrimaryInputPresenter';
-import TemporaryMemory from '../TemporaryMemory/TemporaryMemory';
+import TemporaryMemory from '../FormMemory/TemporaryMemory';
 import GlobalContainer from '../../DependencyInjection/Container';
 import {v4 as UuidVersion4} from 'uuid';
 import UuidGenerator from '../UniqueIdentifierGenerator/UuidGenerator';
@@ -15,18 +15,7 @@ export class PrimaryInputContainer {
   public controller: PrimaryInputController;
 
   constructor() {
-    const temporaryMemory: TemporaryMemory = {
-      clearInputValue(): void {
-        // TODO EKZ-61 Implement persisting
-      },
-      readInputValue(): string {
-        // TODO EKZ-61 Implement persisting
-        return '';
-      },
-      storeInputValue(inputValue: string): void {
-        // TODO EKZ-61 Implement persisting
-      }
-    };
+    const temporaryMemory: TemporaryMemory = new TemporaryMemory();
     this.controller = new PrimaryInputController(
       this.adapter,
       new AddEntryInteractor(

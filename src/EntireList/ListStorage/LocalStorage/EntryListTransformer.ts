@@ -9,7 +9,7 @@ export default class EntryListTransformer {
 
   public formatEntireList(list: EntryEntity[]): string {
     const json: Object[] = list.map((entity: EntryEntity) => EntryListTransformer.formatEntity(entity));
-    return JSON.stringify(json);
+    return JSON.stringify({list: json});
   }
 
   private static parseEntity(entity: any): EntryEntity {

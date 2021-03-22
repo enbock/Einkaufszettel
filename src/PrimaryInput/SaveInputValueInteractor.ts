@@ -1,5 +1,5 @@
 import {PresentableResponse} from './PrimaryInputPresenter';
-import TemporaryMemory from './TemporaryMemory/TemporaryMemory';
+import TemporaryMemory from './FormMemory/TemporaryMemory';
 
 export class Request {
   public newInputValue: string = '';

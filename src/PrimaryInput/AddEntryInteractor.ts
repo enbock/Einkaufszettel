@@ -2,7 +2,7 @@ import {PresentableResponse} from './PrimaryInputPresenter';
 import ListStorage from '../EntireList/ListStorage/ListStorage';
 import EntryEntity from '../EntireList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
-import TemporaryMemory from './TemporaryMemory/TemporaryMemory';
+import TemporaryMemory from './FormMemory/TemporaryMemory';
 
 export class Response implements PresentableResponse {
   public inputValue: string = '';

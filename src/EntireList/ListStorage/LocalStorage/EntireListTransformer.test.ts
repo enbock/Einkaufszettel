@@ -38,8 +38,21 @@ describe(EntireListTransformer, function () {
 
     expect(result).toContain('"id":"test::id:"');
     expect(result).toContain('"name":"test::name:"');
-    expect(result).toContain('[{');
+    expect(result).toContain('{"list":[{');
     expect(result).toContain('},{');
-    expect(result).toContain('}]');
+    expect(result).toContain('}]}');
+  });
+
+  it('should convert wise versa', function () {
+    const entry: EntryEntity = new EntryEntity();
+    entry.id = 'test::id:';
+    entry.name = 'test::name:';
+    const entireList: EntryEntity[] = [entry];
+
+    const json:string = transformer.formatEntireList(entireList);
+    const result:EntryEntity[] = transformer.parseEntireList(json);
+
+    expect(result).not.toBe(entireList);
+    expect(result).toEqual(entireList);
   });
 });
