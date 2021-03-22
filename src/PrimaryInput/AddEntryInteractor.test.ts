@@ -14,7 +14,7 @@ describe(AddEntryInteractor, function () {
   beforeEach(function () {
     storage = {
       getEntireList: jest.fn(),
-      addEntryToEntireList: jest.fn()
+      saveEntireList: jest.fn()
     };
     idGenerator = {
       generate: jest.fn()
@@ -30,18 +30,23 @@ describe(AddEntryInteractor, function () {
   it('should add new entry into the entire list and save in storage', function () {
     const id: string = 'test::id';
     const inputValue: string = 'test::inputValue:';
-    const expectedEntry: EntryEntity = new EntryEntity();
-    expectedEntry.id = id;
-    expectedEntry.name = inputValue;
+    const newEntry: EntryEntity = new EntryEntity();
+    newEntry.id = id;
+    newEntry.name = inputValue;
     const expectedResponse: Response = new Response();
     expectedResponse.inputValue = '';
+    const oldEntry:EntryEntity = new EntryEntity();
+    oldEntry.id = 'test::oldEntry';
+    const entireList:EntryEntity[] = [oldEntry];
 
+    (storage.getEntireList as jest.Mock).mockReturnValueOnce(entireList);
     (idGenerator.generate as jest.Mock).mockReturnValueOnce(id);
     (temporaryMemory.readInputValue as jest.Mock).mockReturnValueOnce(inputValue);
 
     const result: Response = interactor.addNewEntry();
 
-    expect(storage.addEntryToEntireList).toBeCalledWith(expectedEntry);
+    expect(storage.getEntireList).toBeCalled();
+    expect(storage.saveEntireList).toBeCalledWith([oldEntry, newEntry]);
     expect(idGenerator.generate).toBeCalled();
     expect(temporaryMemory.readInputValue).toBeCalled();
     expect(temporaryMemory.clearInputValue).toBeCalled();

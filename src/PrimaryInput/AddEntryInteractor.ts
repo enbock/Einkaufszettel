@@ -25,7 +25,9 @@ export default class AddEntryInteractor {
     entry.id = this.idGenerator.generate();
     entry.name = this.temporaryMemory.readInputValue();
 
-    this.storage.addEntryToEntireList(entry);
+    const currentList:EntryEntity[] = this.storage.getEntireList();
+    currentList.push(entry);
+    this.storage.saveEntireList(currentList);
     this.temporaryMemory.clearInputValue();
 
     return new Response();

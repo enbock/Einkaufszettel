@@ -1,6 +1,6 @@
 import EntireListAdapter from '../EntireListAdapter';
 import EntireListController from '../EntireListController';
-import EntireListInteractor from '../EntireListInteractor';
+import EntireListLoadInteractor from '../EntireListLoadInteractor';
 import EntireListPresenter from '../EntireListPresenter';
 import GlobalContainer from '../../DependencyInjection/Container';
 
@@ -11,7 +11,7 @@ export class EntireListContainer {
   constructor() {
     this.controller = new EntireListController(
       new EntireListPresenter(),
-      new EntireListInteractor(GlobalContainer.listStorage)
+      new EntireListLoadInteractor(GlobalContainer.listStorage)
     );
   }
 }

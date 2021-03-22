@@ -1,5 +1,5 @@
 import EntireListModel from './EntireListModel';
-import {Response} from './EntireListInteractor';
+import {Response} from './EntireListLoadInteractor';
 import EntryEntity from './ListStorage/EntryEntity';
 import EntryModel from './EntryModel';
 

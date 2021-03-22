@@ -1,9 +1,9 @@
 import LocalStorage from './LocalStorage';
 import EntryEntity from '../EntryEntity';
-import Parser from './Parser';
+import EntryListTransformer from './EntryListTransformer';
 
 describe(LocalStorage, function () {
-  let localStorage: LocalStorage, storage: Storage, parser: Parser;
+  let localStorage: LocalStorage, storage: Storage, transformer: EntryListTransformer;
 
   beforeEach(function () {
     storage = {
@@ -14,10 +14,11 @@ describe(LocalStorage, function () {
       setItem: jest.fn(),
       clear: jest.fn()
     };
-    parser = {
+    transformer = {
+      formatEntireList: jest.fn(),
       parseEntireList: jest.fn()
     };
-    localStorage = new LocalStorage(storage, parser);
+    localStorage = new LocalStorage(storage, transformer);
   });
 
   it('should load the entire list', function () {
@@ -27,12 +28,12 @@ describe(LocalStorage, function () {
 
     const json: string = '{"json":"data"}';
     (storage.getItem as jest.Mock).mockReturnValueOnce(json);
-    (parser.parseEntireList as jest.Mock).mockReturnValueOnce(expectedList);
+    (transformer.parseEntireList as jest.Mock).mockReturnValueOnce(expectedList);
 
     const result: EntryEntity[] = localStorage.getEntireList();
 
     expect(storage.getItem).toBeCalledWith('entire-list');
-    expect(parser.parseEntireList).toBeCalledWith(json);
+    expect(transformer.parseEntireList).toBeCalledWith(json);
     expect(result).toBe(expectedList);
   });
 
@@ -44,8 +45,21 @@ describe(LocalStorage, function () {
     const result: EntryEntity[] = localStorage.getEntireList();
 
     expect(storage.getItem).toBeCalledWith('entire-list');
-    expect(parser.parseEntireList).not.toBeCalled();
+    expect(transformer.parseEntireList).not.toBeCalled();
     expect(result).not.toBe(expectedList);
     expect(result).toEqual(expectedList);
+  });
+
+  it('should save the entire list', function () {
+    const entity: EntryEntity = new EntryEntity();
+    entity.id = 'test::id:';
+    const entireList: EntryEntity[] = [entity];
+    const json: string = '{"json":"data"}';
+
+    (transformer.formatEntireList as jest.Mock).mockReturnValueOnce(json);
+    localStorage.saveEntireList(entireList);
+
+    expect(transformer.formatEntireList).toBeCalledWith(entireList);
+    expect(storage.setItem).toBeCalledWith('entire-list', json);
   });
 });

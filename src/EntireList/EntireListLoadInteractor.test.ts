@@ -1,16 +1,16 @@
-import EntireListInteractor, {Response} from './EntireListInteractor';
+import EntireListLoadInteractor, {Response} from './EntireListLoadInteractor';
 import EntryEntity from './ListStorage/EntryEntity';
 import ListStorage from './ListStorage/ListStorage';
 
-describe(EntireListInteractor, function () {
-  let interactor: EntireListInteractor, listStorage: ListStorage;
+describe(EntireListLoadInteractor, function () {
+  let interactor: EntireListLoadInteractor, listStorage: ListStorage;
 
   beforeEach(function () {
     listStorage = {
-      addEntryToEntireList: jest.fn,
+      saveEntireList: jest.fn,
       getEntireList: jest.fn()
     };
-    interactor = new EntireListInteractor(listStorage);
+    interactor = new EntireListLoadInteractor(listStorage);
   });
 
   it('should load the entire list and return through the response model', function () {

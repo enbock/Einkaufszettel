@@ -5,7 +5,7 @@ export class Response {
   public entireList: EntryEntity[] = [];
 }
 
-export default class EntireListInteractor {
+export default class EntireListLoadInteractor {
   private readonly listStorage: ListStorage;
 
   constructor(listStorage: ListStorage) {

@@ -1,13 +1,13 @@
 import EntireList from './EntireList';
 import EntireListPresenter from './EntireListPresenter';
-import EntireListInteractor, {Response} from './EntireListInteractor';
+import EntireListLoadInteractor, {Response} from './EntireListLoadInteractor';
 
 export default class EntireListController {
   private externalView: EntireList | undefined;
   private readonly entireListPresenter: EntireListPresenter;
-  private readonly entireListInteractor: EntireListInteractor;
+  private readonly entireListInteractor: EntireListLoadInteractor;
 
-  constructor(entireListPresenter: EntireListPresenter, entireListInteractor: EntireListInteractor) {
+  constructor(entireListPresenter: EntireListPresenter, entireListInteractor: EntireListLoadInteractor) {
     this.entireListPresenter = entireListPresenter;
     this.entireListInteractor = entireListInteractor;
   }

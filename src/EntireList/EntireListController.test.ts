@@ -3,17 +3,17 @@ import EntireList from './EntireList';
 import EntireListModel from './EntireListModel';
 import EntryModel from './EntryModel';
 import EntireListPresenter from './EntireListPresenter';
-import EntireListInteractor, {Response} from './EntireListInteractor';
+import EntireListLoadInteractor, {Response} from './EntireListLoadInteractor';
 import EntryEntity from './ListStorage/EntryEntity';
 
 describe(EntireListController, function () {
   let view: EntireList, controller: EntireListController, entireListPresenter: EntireListPresenter,
-    entireListInteractor: EntireListInteractor;
+    entireListInteractor: EntireListLoadInteractor;
 
   beforeEach(function () {
     view = {model: null} as unknown as EntireList;
     entireListPresenter = {presentLoadResponse: jest.fn()} as unknown as EntireListPresenter;
-    entireListInteractor = {loadEntireList: jest.fn()} as unknown as EntireListInteractor;
+    entireListInteractor = {loadEntireList: jest.fn()} as unknown as EntireListLoadInteractor;
     controller = new EntireListController(entireListPresenter, entireListInteractor);
   });
 

@@ -1,7 +1,7 @@
 import EntryEntity from './EntryEntity';
 
 export default interface ListStorage {
-  addEntryToEntireList(entry: EntryEntity): void;
+  saveEntireList(list: EntryEntity[]): void;
 
   getEntireList(): EntryEntity[];
 }
