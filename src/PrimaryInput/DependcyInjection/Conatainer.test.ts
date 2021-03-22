@@ -10,4 +10,4 @@ describe(PrimaryInputContainer, function () {
   it('should provide the controller', function () {
     expect(Conatiner.controller).toBeInstanceOf(PrimaryInputController);
   });
-})
+});

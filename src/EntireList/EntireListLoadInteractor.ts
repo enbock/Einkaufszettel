@@ -13,7 +13,7 @@ export default class EntireListLoadInteractor {
   }
 
   public loadEntireList(): Response {
-    const response:Response = new Response();
+    const response: Response = new Response();
     response.entireList = this.listStorage.getEntireList();
     return response;
   }

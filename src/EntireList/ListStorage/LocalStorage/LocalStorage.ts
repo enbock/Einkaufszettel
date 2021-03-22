@@ -18,6 +18,6 @@ export default class LocalStorage implements ListStorage {
   }
 
   public saveEntireList(list: EntryEntity[]): void {
-    this.storage.setItem('entire-list',this.transformer.formatEntireList(list));
+    this.storage.setItem('entire-list', this.transformer.formatEntireList(list));
   }
 }

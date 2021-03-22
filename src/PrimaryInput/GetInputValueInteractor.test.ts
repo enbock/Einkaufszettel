@@ -1,11 +1,12 @@
 import GetInputValueInteractor, {Response} from './GetInputValueInteractor';
-import TemporaryMemory from './FormMemory/TemporaryMemory';
+import FormMemory from './FormMemory/FormMemory';
 
 describe(GetInputValueInteractor, function () {
-  let temporaryMemory: TemporaryMemory, interactor: GetInputValueInteractor;
+  let temporaryMemory: FormMemory, interactor: GetInputValueInteractor;
 
   beforeEach(function () {
     temporaryMemory = {
+      clearInputValue: jest.fn(),
       readInputValue: jest.fn(),
       storeInputValue: jest.fn()
     };

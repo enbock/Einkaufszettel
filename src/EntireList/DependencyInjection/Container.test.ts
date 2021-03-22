@@ -10,4 +10,4 @@ describe(EntireListContainer, function () {
   it('should provide the controller', function () {
     expect(Container.controller).toBeInstanceOf(EntireListController);
   });
-})
+});

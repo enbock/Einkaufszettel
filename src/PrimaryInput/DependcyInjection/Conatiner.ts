@@ -9,13 +9,14 @@ import TemporaryMemory from '../FormMemory/TemporaryMemory';
 import GlobalContainer from '../../DependencyInjection/Container';
 import {v4 as UuidVersion4} from 'uuid';
 import UuidGenerator from '../UniqueIdentifierGenerator/UuidGenerator';
+import FormMemory from '../FormMemory/FormMemory';
 
 export class PrimaryInputContainer {
   public adapter: Adapter = new PrimaryInputAdapter();
   public controller: PrimaryInputController;
 
   constructor() {
-    const temporaryMemory: TemporaryMemory = new TemporaryMemory();
+    const temporaryMemory: FormMemory = new TemporaryMemory();
     this.controller = new PrimaryInputController(
       this.adapter,
       new AddEntryInteractor(

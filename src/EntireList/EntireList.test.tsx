@@ -9,10 +9,10 @@ jest.mock('./DependencyInjection/Container', function () {
 });
 
 jest.mock('./Entry', function () {
-  return function (props:any):JSX.Element {
+  return function (props: any): JSX.Element {
     return <div>::test:Entry:{JSON.stringify(props.model)}{props.adapter}</div>;
-  }
-})
+  };
+});
 
 describe(EntireList, function () {
   it('should show the list', function () {

@@ -2,13 +2,13 @@ import AddEntryInteractor, {Response} from './AddEntryInteractor';
 import ListStorage from '../EntireList/ListStorage/ListStorage';
 import EntryEntity from '../EntireList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
-import TemporaryMemory from './FormMemory/TemporaryMemory';
+import FormMemory from './FormMemory/FormMemory';
 
 describe(AddEntryInteractor, function () {
   let storage: ListStorage,
     interactor: AddEntryInteractor,
     idGenerator: UniqueIdentifierGenerator,
-    temporaryMemory: TemporaryMemory
+    temporaryMemory: FormMemory
   ;
 
   beforeEach(function () {
@@ -35,9 +35,9 @@ describe(AddEntryInteractor, function () {
     newEntry.name = inputValue;
     const expectedResponse: Response = new Response();
     expectedResponse.inputValue = '';
-    const oldEntry:EntryEntity = new EntryEntity();
+    const oldEntry: EntryEntity = new EntryEntity();
     oldEntry.id = 'test::oldEntry';
-    const entireList:EntryEntity[] = [oldEntry];
+    const entireList: EntryEntity[] = [oldEntry];
 
     (storage.getEntireList as jest.Mock).mockReturnValueOnce(entireList);
     (idGenerator.generate as jest.Mock).mockReturnValueOnce(id);

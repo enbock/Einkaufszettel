@@ -1,5 +1,5 @@
 import {PresentableResponse} from './PrimaryInputPresenter';
-import TemporaryMemory from './FormMemory/TemporaryMemory';
+import FormMemory from './FormMemory/FormMemory';
 
 export class Request {
   public newInputValue: string = '';
@@ -10,9 +10,9 @@ export class Response implements PresentableResponse {
 }
 
 export default class SaveInputValueInteractor {
-  private readonly temporaryMemory: TemporaryMemory;
+  private readonly temporaryMemory: FormMemory;
 
-  constructor(temporaryMemory: TemporaryMemory) {
+  constructor(temporaryMemory: FormMemory) {
     this.temporaryMemory = temporaryMemory;
   }
 
