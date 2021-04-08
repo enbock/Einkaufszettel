@@ -7,7 +7,7 @@ export interface Adapter {
 }
 
 export default class EntireListController {
-  private externalView: EntireList | undefined;
+  private externalView?: EntireList;
   private readonly entireListPresenter: EntireListPresenter;
   private readonly entireListInteractor: EntireListLoadInteractor;
   private readonly adapter: Adapter;
@@ -23,10 +23,7 @@ export default class EntireListController {
   }
 
   private get view(): EntireList {
-    if (this.externalView === undefined) {
-      throw Error('External view not given by attach().');
-    }
-    return this.externalView;
+    return this.externalView as EntireList;
   }
 
   public attach(view: EntireList): void {

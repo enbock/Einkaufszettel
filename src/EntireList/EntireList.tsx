@@ -16,7 +16,7 @@ interface State {
 }
 
 export default class EntireList extends Component<Properties, State> {
-  private adapter: Adapter;
+  private readonly adapter: Adapter;
 
   constructor(props: Properties) {
     super(props);
