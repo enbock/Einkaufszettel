@@ -13,7 +13,7 @@ export default class EntryListTransformer {
   }
 
   private static parseEntity(entity: any): EntryEntity {
-    const entryEntity = new EntryEntity();
+    const entryEntity: EntryEntity = new EntryEntity();
     entryEntity.id = get(entity, 'id', '');
     entryEntity.name = get(entity, 'name', '');
     return entryEntity;
