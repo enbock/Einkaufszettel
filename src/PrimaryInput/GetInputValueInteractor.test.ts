@@ -1,15 +1,12 @@
 import GetInputValueInteractor, {Response} from './GetInputValueInteractor';
 import FormMemory from './FormMemory/FormMemory';
+import {mock, MockProxy} from 'jest-mock-extended';
 
 describe(GetInputValueInteractor, function () {
-  let temporaryMemory: FormMemory, interactor: GetInputValueInteractor;
+  let temporaryMemory: MockProxy<FormMemory>, interactor: GetInputValueInteractor;
 
   beforeEach(function () {
-    temporaryMemory = {
-      clearInputValue: jest.fn(),
-      readInputValue: jest.fn(),
-      storeInputValue: jest.fn()
-    };
+    temporaryMemory = mock<FormMemory>();
     interactor = new GetInputValueInteractor(temporaryMemory);
   });
 
@@ -18,7 +15,7 @@ describe(GetInputValueInteractor, function () {
     const expectedResponse: Response = new Response();
     expectedResponse.inputValue = inputValue;
 
-    (temporaryMemory.readInputValue as jest.Mock).mockReturnValueOnce(inputValue);
+    temporaryMemory.readInputValue.mockReturnValueOnce(inputValue);
 
     const result: Response = interactor.getInputValue();
 
