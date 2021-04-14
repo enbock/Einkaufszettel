@@ -51,6 +51,7 @@
   "jest": {
     "collectCoverageFrom": [
       "!src/index.ts",
+      "!src/*.js",
       "!src/**/*.svg"
     ]
   }
