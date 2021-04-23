@@ -1,1 +1,0 @@
-# Der Einkaufszettel Prototyp

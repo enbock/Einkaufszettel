@@ -4,6 +4,7 @@ import EntireList from './EntireList/EntireList';
 import PrimaryInput from './PrimaryInput/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
+import Navigation from './Navigation/Navigation';
 
 export default class StartUp {
   private readonly document: Document;
@@ -19,6 +20,7 @@ export default class StartUp {
 
     ReactDOM.render(
       <StrictMode>
+        <Navigation />
         <PrimaryInput/>
         <EntireList/>
       </StrictMode>,
