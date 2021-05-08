@@ -1,9 +1,12 @@
+import TabEntity, {TabId} from './TabEntity';
+
 export class ActivateTabRequest {
   public newTabId: string = '';
 }
 
 export class LoadResponse {
-  public activateTab: string = '';
+  public activateTab: TabId = '';
+  public tabs: TabEntity[] = [];
 }
 
 export default class NavigationInteractor {
@@ -12,6 +15,15 @@ export default class NavigationInteractor {
   }
 
   public loadTabs(): LoadResponse {
-    return new LoadResponse();
+    // TODO Loading of tabs
+    const loadResponse: LoadResponse = new LoadResponse();
+    const e1: TabEntity = new TabEntity();
+    e1.name = 'entireList';
+    const e2: TabEntity = new TabEntity();
+    e2.name = 'shoppingList';
+    loadResponse.tabs = [e1, e2];
+    loadResponse.activateTab = 'entireList';
+
+    return loadResponse;
   }
 }

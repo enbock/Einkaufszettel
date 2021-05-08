@@ -5,24 +5,18 @@ interface I18n {
   shoppingListLabel: string
 }
 
-export default class NavigationModel {
-  public navigationTabs: TabModel[] = [];
+interface TabLabelMap {
+  [tabId: string]: string
+}
 
+export default class NavigationModel {
   public static i18n: I18n = {
     entireListLabel: 'Gesamtliste',
     shoppingListLabel: 'Einkaufszettel'
   };
-
-  constructor() {
-    // TODO Presenter
-    const entireListTab: TabModel = new TabModel();
-    entireListTab.isActive = true;
-    entireListTab.name = 'entireList';
-    entireListTab.label = NavigationModel.i18n.entireListLabel;
-    const shoppingListTab: TabModel = new TabModel();
-    shoppingListTab.isActive = false;
-    shoppingListTab.name = 'shoppingList';
-    shoppingListTab.label = NavigationModel.i18n.shoppingListLabel;
-    this.navigationTabs = [entireListTab, shoppingListTab];
-  }
+  public static tabLabelMap: TabLabelMap = {
+    'entireList': NavigationModel.i18n.entireListLabel,
+    'shoppingList': NavigationModel.i18n.shoppingListLabel
+  };
+  public navigationTabs: TabModel[] = [];
 }

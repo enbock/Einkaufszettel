@@ -23,22 +23,25 @@ describe(NavigationController, function () {
   });
 
   it('should control the switch to a new tab', function () {
-    const loadResponse:LoadResponse = new LoadResponse();
+    const loadResponse: LoadResponse = new LoadResponse();
     loadResponse.activateTab = 'test::tab:';
-    const model:NavigationModel = new NavigationModel();
-    const tabModel:TabModel = new TabModel();
-    tabModel.name = 'test::tab:'
+    const model: NavigationModel = new NavigationModel();
+    const tabModel: TabModel = new TabModel();
+    tabModel.name = 'test::tab:';
     model.navigationTabs = [tabModel];
 
-    interactor.loadTabs.mockReturnValueOnce(loadResponse);
-    presenter.present.mockReturnValueOnce(model);
+    interactor.loadTabs.mockReturnValue(loadResponse);
+    presenter.present.mockReturnValue(model);
+
     controller.attach(viewInstance);
     adapter.onNavigationClick('test::listId:');
 
     const expectedRequest: ActivateTabRequest = new ActivateTabRequest();
     expectedRequest.newTabId = 'test::listId:';
     expect(interactor.activateTab).toBeCalledWith(expectedRequest);
+    expect(interactor.loadTabs).toBeCalledTimes(2);
     expect(presenter.present).toBeCalledWith(loadResponse);
+    expect(presenter.present).toBeCalledTimes(2);
     expect(viewInstance.model).toBe(model);
   });
 });
