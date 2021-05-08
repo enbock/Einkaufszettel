@@ -5,7 +5,7 @@ import Container from './DependencyInjection/Container';
 import Tab, {Adapter as TabAdapter} from './Tab';
 import TabModel from './TabModel';
 
-interface Adapter extends TabAdapter {
+export interface Adapter extends TabAdapter {
 }
 
 export interface Properties {
