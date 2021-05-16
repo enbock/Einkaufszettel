@@ -52,6 +52,7 @@
     "collectCoverageFrom": [
       "!src/index.ts",
       "!src/*.js",
+      "!src/**/*.json",
       "!src/**/*.svg"
     ]
   }

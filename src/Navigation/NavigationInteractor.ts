@@ -1,4 +1,6 @@
 import TabEntity, {TabId} from './TabEntity';
+import Memory from './Memory/Memory';
+import ConfigLoader from './Config/ConfigLoader';
 
 export class ActivateTabRequest {
   public newTabId: string = '';
@@ -10,20 +12,24 @@ export class LoadResponse {
 }
 
 export default class NavigationInteractor {
+  private readonly memory: Memory;
+  private readonly configLoader: ConfigLoader;
+
+  constructor(memory: Memory, configLoader: ConfigLoader) {
+    this.configLoader = configLoader;
+    this.memory = memory;
+  }
+
   public activateTab(request: ActivateTabRequest): void {
-    console.log('TODO: App for switch to', request.newTabId);
+    this.memory.storeActiveTab(request.newTabId);
   }
 
   public loadTabs(): LoadResponse {
-    // TODO Loading of tabs
-    const loadResponse: LoadResponse = new LoadResponse();
-    const e1: TabEntity = new TabEntity();
-    e1.name = 'entireList';
-    const e2: TabEntity = new TabEntity();
-    e2.name = 'shoppingList';
-    loadResponse.tabs = [e1, e2];
-    loadResponse.activateTab = 'entireList';
+    const response: LoadResponse = new LoadResponse();
 
-    return loadResponse;
+    response.tabs = this.configLoader.loadTabsFromConfig();
+    response.activateTab = this.memory.getActiveTab();
+
+    return response;
   }
 }
