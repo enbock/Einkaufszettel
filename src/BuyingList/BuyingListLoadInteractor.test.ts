@@ -17,7 +17,7 @@ describe(BuyingListLoadInteractor, function () {
     navigationMemory = mock<Memory>();
     loadingTask = mock<LoadListTask>();
 
-    interactor = new BuyingListLoadInteractor(navigationMemory, [loadingTask]);
+    interactor = new BuyingListLoadInteractor(navigationMemory, [loadingTask, loadingTask]);
   });
 
   it('should load and sort the entire list and return through the response model', function () {
@@ -32,6 +32,7 @@ describe(BuyingListLoadInteractor, function () {
     const entireList: EntryEntity[] = [entry1, entry3, entry4, entry2];
 
     navigationMemory.getActiveTab.mockReturnValueOnce('test::activeList:');
+    loadingTask.support.mockReturnValueOnce(false);
     loadingTask.support.mockReturnValueOnce(true);
     loadingTask.loadList.mockReturnValueOnce(entireList);
 
@@ -39,6 +40,7 @@ describe(BuyingListLoadInteractor, function () {
 
     expect(navigationMemory.getActiveTab).toBeCalled();
     expect(loadingTask.support).toBeCalledWith('test::activeList:');
+    expect(loadingTask.loadList).toBeCalledTimes(1);
     expect(response.activeList).toEqual([entry3, entry2, entry1, entry4]);
   });
 });
