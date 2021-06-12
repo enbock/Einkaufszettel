@@ -1,7 +1,7 @@
 import React, {Component, StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import StartUp from './StartUp';
-import EntireList from './EntireList/EntireList';
+import BuyingList from './BuyingList/BuyingList';
 import PrimaryInput from './PrimaryInput/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
@@ -14,7 +14,7 @@ jest.mock('react-dom', function () {
   };
 });
 
-jest.mock('./EntireList/EntireList');
+jest.mock('./BuyingList/BuyingList');
 jest.mock('./PrimaryInput/PrimaryInput');
 jest.mock('./Navigation/Navigation');
 jest.mock('./serviceWorkerRegistration', function () {
@@ -29,8 +29,8 @@ describe(StartUp, function () {
   });
 
   it('should start the application', function () {
-    (EntireList as jest.Mock).mockImplementation(function () {
-      return class EntireList extends Component<any, any> {
+    (BuyingList as jest.Mock).mockImplementation(function () {
+      return class BuyingList extends Component<any, any> {
       };
     });
     (PrimaryInput as jest.Mock).mockImplementation(function () {
@@ -48,7 +48,7 @@ describe(StartUp, function () {
 
     new StartUp(document, reloader).start();
 
-    const expectedJsx:JSX.Element = <StrictMode><Navigation/><PrimaryInput/><EntireList/></StrictMode>;
+    const expectedJsx:JSX.Element = <StrictMode><Navigation/><PrimaryInput/><BuyingList/></StrictMode>;
     expect(ReactDOM.render).toBeCalledWith(expectedJsx, 'test::HTMLElement:');
     expect(getElementByIdMock).toBeCalledWith('root');
     expect(serviceWorkerRegistration.register).toBeCalledWith(reloader);

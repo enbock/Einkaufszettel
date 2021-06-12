@@ -1,6 +1,6 @@
-import EntireList from './EntireList';
+import BuyingList from './BuyingList';
 import {render, RenderResult} from '@testing-library/react';
-import EntireListModel from './EntireListModel';
+import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
 import Container from './DependencyInjection/Container';
 
@@ -14,7 +14,7 @@ jest.mock('./Entry', function () {
   };
 });
 
-describe(EntireList, function () {
+describe(BuyingList, function () {
   it('should show the list', function () {
     const entry1: EntryModel = new EntryModel();
     entry1.id = 'id-1';
@@ -22,17 +22,17 @@ describe(EntireList, function () {
     const entry2: EntryModel = new EntryModel();
     entry2.id = 'id-2';
     entry2.label = 'test::entry2:';
-    const model: EntireListModel = new EntireListModel();
+    const model: BuyingListModel = new BuyingListModel();
     model.list = [entry1, entry2];
-    let viewInstance: EntireList = new EntireList({});
+    let viewInstance: BuyingList = new BuyingList({});
 
     (Container.controller.attach as jest.Mock).mockImplementation(
-      function (view: EntireList) {
+      function (view: BuyingList) {
         viewInstance = view;
       }
     );
 
-    const result: RenderResult = render(<EntireList/>);
+    const result: RenderResult = render(<BuyingList/>);
     viewInstance.model = model;
 
     expect(result.container.innerHTML).toContain('test::entry1:');

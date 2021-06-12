@@ -1,6 +1,6 @@
 import SessionMemory from './SessionMemory';
 import {mock, MockProxy} from 'jest-mock-extended';
-import {TabId} from '../TabEntity';
+import {SystemTabs, TabId} from '../TabEntity';
 
 describe(SessionMemory, function () {
   let memory: SessionMemory,
@@ -32,6 +32,6 @@ describe(SessionMemory, function () {
     const result: TabId = memory.getActiveTab();
 
     expect(sessionStorage.getItem).toBeCalledWith(SessionMemory.storeKey);
-    expect(result).toBe('entireList');
+    expect(result).toBe(SystemTabs.EntireList);
   });
 });

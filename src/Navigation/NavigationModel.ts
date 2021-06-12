@@ -1,4 +1,5 @@
 import TabModel from './TabModel';
+import {SystemTabs} from './TabEntity';
 
 interface I18n {
   entireListLabel: string,
@@ -15,8 +16,8 @@ export default class NavigationModel {
     shoppingListLabel: 'Einkaufszettel'
   };
   public static tabLabelMap: TabLabelMap = {
-    'entireList': NavigationModel.i18n.entireListLabel,
-    'shoppingList': NavigationModel.i18n.shoppingListLabel
+    [SystemTabs.EntireList]: NavigationModel.i18n.entireListLabel,
+    [SystemTabs.ShoppingList]: NavigationModel.i18n.shoppingListLabel
   };
   public navigationTabs: TabModel[] = [];
 }

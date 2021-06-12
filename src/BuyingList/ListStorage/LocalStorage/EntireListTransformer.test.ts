@@ -1,19 +1,19 @@
-import EntireListTransformer from './EntryListTransformer';
+import EntryListTransformer from './EntryListTransformer';
 import EntryEntity from '../EntryEntity';
 
-describe(EntireListTransformer, function () {
-  let transformer: EntireListTransformer;
+describe(EntryListTransformer, function () {
+  let transformer: EntryListTransformer;
 
   beforeEach(function () {
-    transformer = new EntireListTransformer();
+    transformer = new EntryListTransformer();
   });
 
-  it('should parse the entire list from json to entity', function () {
+  it('should parse the list from json to entity', function () {
     const storageEntity: Object = {id: 'test::id:', name: 'test:name:'};
     const storageList: Object[] = [storageEntity];
     const json: string = JSON.stringify({list: storageList});
 
-    const result: EntryEntity[] = transformer.parseEntireList(json);
+    const result: EntryEntity[] = transformer.parseList(json);
 
     const expectedEntity: EntryEntity = new EntryEntity();
     expectedEntity.id = 'test::id:';
@@ -24,7 +24,7 @@ describe(EntireListTransformer, function () {
   });
 
   it('should handle wrong storage data', function () {
-    const result: EntryEntity[] = transformer.parseEntireList('"test"');
+    const result: EntryEntity[] = transformer.parseList('"test"');
     expect(result).toEqual([]);
   });
 
@@ -34,7 +34,7 @@ describe(EntireListTransformer, function () {
     entry.name = 'test::name:';
     const entireList: EntryEntity[] = [entry, entry];
 
-    const result: string = transformer.formatEntireList(entireList);
+    const result: string = transformer.formatList(entireList);
 
     expect(result).toContain('"id":"test::id:"');
     expect(result).toContain('"name":"test::name:"');
@@ -49,8 +49,8 @@ describe(EntireListTransformer, function () {
     entry.name = 'test::name:';
     const entireList: EntryEntity[] = [entry];
 
-    const json: string = transformer.formatEntireList(entireList);
-    const result: EntryEntity[] = transformer.parseEntireList(json);
+    const json: string = transformer.formatList(entireList);
+    const result: EntryEntity[] = transformer.parseList(json);
 
     expect(result).not.toBe(entireList);
     expect(result).toEqual(entireList);

@@ -1,5 +1,5 @@
 import ConfigLoader from './ConfigLoader';
-import TabEntity from '../TabEntity';
+import TabEntity, {SystemTabs} from '../TabEntity';
 
 describe(ConfigLoader, function () {
   let configLoader: ConfigLoader;
@@ -12,9 +12,9 @@ describe(ConfigLoader, function () {
     const result: TabEntity[] = configLoader.loadTabsFromConfig();
 
     const entireList: TabEntity = new TabEntity();
-    entireList.name = 'entireList';
+    entireList.name = SystemTabs.EntireList;
     const shoppingList: TabEntity = new TabEntity();
-    shoppingList.name = 'shoppingList';
+    shoppingList.name = SystemTabs.ShoppingList;
     const expectedEntities: TabEntity[] = [entireList, shoppingList];
 
     expect(result).toEqual(expectedEntities);

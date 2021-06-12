@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React, {StrictMode} from 'react';
-import EntireList from './EntireList/EntireList';
+import BuyingList from './BuyingList/BuyingList';
 import PrimaryInput from './PrimaryInput/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
@@ -22,7 +22,7 @@ export default class StartUp {
       <StrictMode>
         <Navigation />
         <PrimaryInput/>
-        <EntireList/>
+        <BuyingList/>
       </StrictMode>,
       this.document.getElementById('root')
     );

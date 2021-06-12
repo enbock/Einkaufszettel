@@ -1,9 +1,9 @@
 import {Component} from 'react';
 import EntryModel from './EntryModel';
 import Entry, {Adapter as EntryAdapter} from './Entry';
-import EntireListModel from './EntireListModel';
+import BuyingListModel from './BuyingListModel';
 import Container from './DependencyInjection/Container';
-import './Artefacts/EntireList.css';
+import './Artefacts/BuyingList.css';
 
 export interface Adapter extends EntryAdapter {
 }
@@ -12,22 +12,22 @@ interface Properties {
 }
 
 interface State {
-  model: EntireListModel
+  model: BuyingListModel
 }
 
-export default class EntireList extends Component<Properties, State> {
+export default class BuyingList extends Component<Properties, State> {
   private readonly adapter: Adapter;
 
   constructor(props: Properties) {
     super(props);
 
     this.state = {
-      model: new EntireListModel()
+      model: new BuyingListModel()
     };
     this.adapter = Container.adapter;
   }
 
-  public set model(value: EntireListModel) {
+  public set model(value: BuyingListModel) {
     this.setState({model: value});
   }
 

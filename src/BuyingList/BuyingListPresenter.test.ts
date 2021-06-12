@@ -1,14 +1,14 @@
-import EntireListPresenter from './EntireListPresenter';
-import {Response} from './EntireListLoadInteractor';
+import BuyingListPresenter from './BuyingListPresenter';
+import {Response} from './BuyingListLoadInteractor';
 import EntryEntity from './ListStorage/EntryEntity';
-import EntireListModel from './EntireListModel';
+import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
 
-describe(EntireListPresenter, function () {
-  let presenter: EntireListPresenter;
+describe(BuyingListPresenter, function () {
+  let presenter: BuyingListPresenter;
 
   beforeEach(function () {
-    presenter = new EntireListPresenter();
+    presenter = new BuyingListPresenter();
   });
 
   it('should present the load response as view model', function () {
@@ -16,15 +16,15 @@ describe(EntireListPresenter, function () {
     entry.id = 'test::id:';
     entry.name = 'test::name:';
     const response: Response = new Response();
-    response.entireList = [entry, entry];
+    response.activeList = [entry, entry];
 
     const expectedEntry: EntryModel = new EntryModel();
     expectedEntry.id = 'test::id:';
     expectedEntry.label = 'test::name:';
-    const expectedModel: EntireListModel = new EntireListModel();
+    const expectedModel: BuyingListModel = new BuyingListModel();
     expectedModel.list = [expectedEntry, expectedEntry];
 
-    const result: EntireListModel = presenter.presentLoadResponse(response);
+    const result: BuyingListModel = presenter.presentLoadResponse(response);
 
     expect(result).toEqual(expectedModel);
   });

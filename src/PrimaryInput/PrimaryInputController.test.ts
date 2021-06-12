@@ -6,7 +6,7 @@ import PrimaryInputPresenter, {PresentableResponse} from './PrimaryInputPresente
 import PrimaryInputModel from './PrimaryInputModel';
 import SaveInputValueInteractor, {Request as SaveRequest} from './SaveInputValueInteractor';
 import GetInputValueInteractor from './GetInputValueInteractor';
-import {Adapter as EntireListControllerAdapter} from '../EntireList/EntireListController';
+import {Adapter as BuyingListAdapter} from '../BuyingList/BuyingListController';
 
 describe(PrimaryInputController, function () {
   let adapter: PrimaryInputAdapter,
@@ -16,7 +16,7 @@ describe(PrimaryInputController, function () {
     presenter: PrimaryInputPresenter,
     saveInputValueInteractor: SaveInputValueInteractor,
     getInputValueInteractor: GetInputValueInteractor,
-    entireListControllerAdapter: EntireListControllerAdapter;
+    entireListControllerAdapter: BuyingListAdapter;
 
   beforeEach(function () {
     adapter = new PrimaryInputAdapter();

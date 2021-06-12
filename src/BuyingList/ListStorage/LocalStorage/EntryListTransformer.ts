@@ -2,12 +2,12 @@ import EntryEntity from '../EntryEntity';
 import get from 'lodash.get';
 
 export default class EntryListTransformer {
-  public parseEntireList(json: string): EntryEntity[] {
+  public parseList(json: string): EntryEntity[] {
     const list = get(JSON.parse(json), 'list', []);
     return list.map((entity: any) => EntryListTransformer.parseEntity(entity));
   }
 
-  public formatEntireList(list: EntryEntity[]): string {
+  public formatList(list: EntryEntity[]): string {
     const json: Object[] = list.map((entity: EntryEntity) => EntryListTransformer.formatEntity(entity));
     return JSON.stringify({list: json});
   }

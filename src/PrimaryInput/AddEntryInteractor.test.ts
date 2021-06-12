@@ -1,21 +1,19 @@
 import AddEntryInteractor, {Response} from './AddEntryInteractor';
-import ListStorage from '../EntireList/ListStorage/ListStorage';
-import EntryEntity from '../EntireList/ListStorage/EntryEntity';
+import ListStorage from '../BuyingList/ListStorage/ListStorage';
+import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from './FormMemory/FormMemory';
+import {mock, MockProxy} from 'jest-mock-extended';
 
 describe(AddEntryInteractor, function () {
-  let storage: ListStorage,
+  let storage: ListStorage & MockProxy<ListStorage>,
     interactor: AddEntryInteractor,
     idGenerator: UniqueIdentifierGenerator,
     temporaryMemory: FormMemory
   ;
 
   beforeEach(function () {
-    storage = {
-      getEntireList: jest.fn(),
-      saveEntireList: jest.fn()
-    };
+    storage = mock<ListStorage>();
     idGenerator = {
       generate: jest.fn()
     };

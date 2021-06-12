@@ -1,9 +1,9 @@
 import Memory from './Memory';
-import {TabId} from '../TabEntity';
+import {SystemTabs, TabId} from '../TabEntity';
 
 export default class SessionMemory implements Memory {
   public static storeKey: string = 'NavigationSessionMemory::activeTab';
-  public static defaultData: TabId = 'entireList';
+  public static defaultData: TabId = SystemTabs.EntireList;
   private readonly storage: Storage;
 
   constructor(sessionStorage: Storage) {

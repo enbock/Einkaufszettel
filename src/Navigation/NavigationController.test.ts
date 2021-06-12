@@ -5,13 +5,15 @@ import Navigation, {Adapter} from './Navigation';
 import NavigationPresenter from './NavigationPresenter';
 import NavigationModel from './NavigationModel';
 import TabModel from './TabModel';
+import {Adapter as BuyingListAdapter} from '../BuyingList/BuyingListController';
 
 describe(NavigationController, function () {
   let controller: NavigationController,
     interactor: NavigationInteractor & MockProxy<NavigationInteractor>,
     viewInstance: Navigation & MockProxy<Navigation>,
     adapter: Adapter & MockProxy<Adapter>,
-    presenter: NavigationPresenter & MockProxy<NavigationPresenter>
+    presenter: NavigationPresenter & MockProxy<NavigationPresenter>,
+    listAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>
   ;
 
   beforeEach(function () {
@@ -19,7 +21,8 @@ describe(NavigationController, function () {
     viewInstance = mock<Navigation>();
     adapter = mock<Adapter>();
     presenter = mock<NavigationPresenter>();
-    controller = new NavigationController(interactor, adapter, presenter);
+    listAdapter = mock<BuyingListAdapter>();
+    controller = new NavigationController(interactor, adapter, presenter,listAdapter);
   });
 
   it('should control the switch to a new tab', function () {
@@ -43,5 +46,6 @@ describe(NavigationController, function () {
     expect(presenter.present).toBeCalledWith(loadResponse);
     expect(presenter.present).toBeCalledTimes(2);
     expect(viewInstance.model).toBe(model);
+    expect(listAdapter.onListChange).toBeCalled();
   });
 });

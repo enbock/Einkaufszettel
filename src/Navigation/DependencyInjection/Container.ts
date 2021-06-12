@@ -3,14 +3,15 @@ import NavigationController from '../NavigationController';
 import NavigationInteractor from '../NavigationInteractor';
 import NavigationPresenter from '../NavigationPresenter';
 import ConfigLoader from '../Config/ConfigLoader';
-import SessionMemory from '../Memory/SessionMemory';
+import GlobalContainer from '../../DependencyInjection/Container';
 
 export class NavigationContainer {
   public adapter: NavigationAdapter = new NavigationAdapter();
   public controller: NavigationController = new NavigationController(
-    new NavigationInteractor(new SessionMemory(window.sessionStorage), new ConfigLoader()),
+    new NavigationInteractor(GlobalContainer.navigationMemory, new ConfigLoader()),
     this.adapter,
-    new NavigationPresenter()
+    new NavigationPresenter(),
+    GlobalContainer.listAdapter
   );
 }
 

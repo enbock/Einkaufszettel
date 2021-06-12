@@ -15,8 +15,8 @@ describe(LocalStorage, function () {
       clear: jest.fn()
     };
     transformer = {
-      formatEntireList: jest.fn(),
-      parseEntireList: jest.fn()
+      formatList: jest.fn(),
+      parseList: jest.fn()
     };
     localStorage = new LocalStorage(storage, transformer);
   });
@@ -28,26 +28,17 @@ describe(LocalStorage, function () {
 
     const json: string = '{"json":"data"}';
     (storage.getItem as jest.Mock).mockReturnValueOnce(json);
-    (transformer.parseEntireList as jest.Mock).mockReturnValueOnce(expectedList);
+    (transformer.parseList as jest.Mock).mockReturnValueOnce(expectedList);
 
     const result: EntryEntity[] = localStorage.getEntireList();
 
     expect(storage.getItem).toBeCalledWith('entire-list');
-    expect(transformer.parseEntireList).toBeCalledWith(json);
+    expect(transformer.parseList).toBeCalledWith(json);
     expect(result).toBe(expectedList);
   });
 
   it('should load an empty entire list', function () {
-    const expectedList: EntryEntity[] = [];
-
-    (storage.getItem as jest.Mock).mockReturnValueOnce(null);
-
-    const result: EntryEntity[] = localStorage.getEntireList();
-
-    expect(storage.getItem).toBeCalledWith('entire-list');
-    expect(transformer.parseEntireList).not.toBeCalled();
-    expect(result).not.toBe(expectedList);
-    expect(result).toEqual(expectedList);
+    testEmptyList('entire-list', () => localStorage.getEntireList());
   });
 
   it('should save the entire list', function () {
@@ -56,10 +47,27 @@ describe(LocalStorage, function () {
     const entireList: EntryEntity[] = [entity];
     const json: string = '{"json":"data"}';
 
-    (transformer.formatEntireList as jest.Mock).mockReturnValueOnce(json);
+    (transformer.formatList as jest.Mock).mockReturnValueOnce(json);
     localStorage.saveEntireList(entireList);
 
-    expect(transformer.formatEntireList).toBeCalledWith(entireList);
+    expect(transformer.formatList).toBeCalledWith(entireList);
     expect(storage.setItem).toBeCalledWith('entire-list', json);
   });
+
+  it('should load an empty shopping list', function () {
+    testEmptyList('shopping-list', () => localStorage.getShoppingList());
+  });
+
+  function testEmptyList(key: string, loadCallback: () => EntryEntity[]) {
+    const expectedList: EntryEntity[] = [];
+
+    (storage.getItem as jest.Mock).mockReturnValueOnce(null);
+
+    const result: EntryEntity[] = loadCallback();
+
+    expect(storage.getItem).toBeCalledWith(key);
+    expect(transformer.parseList).not.toBeCalled();
+    expect(result).not.toBe(expectedList);
+    expect(result).toEqual(expectedList);
+  }
 });

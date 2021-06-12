@@ -1,6 +1,6 @@
 import {PresentableResponse} from './PrimaryInputPresenter';
-import ListStorage from '../EntireList/ListStorage/ListStorage';
-import EntryEntity from '../EntireList/ListStorage/EntryEntity';
+import ListStorage from '../BuyingList/ListStorage/ListStorage';
+import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from './FormMemory/FormMemory';
 
