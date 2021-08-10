@@ -37,7 +37,7 @@ export default class BuyingListController {
     this.view.model = this.entireListPresenter.presentLoadResponse(response);
   }
 
-  private bindAdapter():void {
+  private bindAdapter(): void {
     this.adapter.onListChange = this.loadAndDisplayList.bind(this);
   }
 }

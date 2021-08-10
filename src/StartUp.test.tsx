@@ -48,7 +48,7 @@ describe(StartUp, function () {
 
     new StartUp(document, reloader).start();
 
-    const expectedJsx:JSX.Element = <StrictMode><Navigation/><PrimaryInput/><BuyingList/></StrictMode>;
+    const expectedJsx: JSX.Element = <StrictMode><Navigation/><PrimaryInput/><BuyingList/></StrictMode>;
     expect(ReactDOM.render).toBeCalledWith(expectedJsx, 'test::HTMLElement:');
     expect(getElementByIdMock).toBeCalledWith('root');
     expect(serviceWorkerRegistration.register).toBeCalledWith(reloader);

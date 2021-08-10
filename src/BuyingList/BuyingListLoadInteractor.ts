@@ -17,21 +17,6 @@ export default class BuyingListLoadInteractor {
     this.navigationMemory = navigationMemory;
   }
 
-  public loadActiveList(): Response {
-    const activeTab: TabId = this.navigationMemory.getActiveTab();
-    let activeList: EntryEntity[] = [];
-    let loadTask: LoadListTask;
-
-    for (loadTask of this.loadListChain) {
-      if (loadTask.support(activeTab) === false) continue;
-      activeList = loadTask.loadList();
-    }
-
-    const response: Response = new Response();
-    response.activeList = BuyingListLoadInteractor.sortList(activeList);
-    return response;
-  }
-
   private static sortList(entireList: EntryEntity[]): EntryEntity[] {
     return entireList.sort(BuyingListLoadInteractor.compareNames);
   }
@@ -47,5 +32,20 @@ export default class BuyingListLoadInteractor {
     }
 
     return 0;
+  }
+
+  public loadActiveList(): Response {
+    const activeTab: TabId = this.navigationMemory.getActiveTab();
+    let activeList: EntryEntity[] = [];
+    let loadTask: LoadListTask;
+
+    for (loadTask of this.loadListChain) {
+      if (loadTask.support(activeTab) === false) continue;
+      activeList = loadTask.loadList();
+    }
+
+    const response: Response = new Response();
+    response.activeList = BuyingListLoadInteractor.sortList(activeList);
+    return response;
   }
 }

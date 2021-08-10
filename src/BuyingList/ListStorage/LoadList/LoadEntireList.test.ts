@@ -17,9 +17,9 @@ describe(LoadEntireList, function () {
   it('should can load entire list', function () {
     listStorage.getEntireList.mockReturnValueOnce(['test::entire-list:' as any]);
 
-    const actual:EntryEntity[] = task.loadList();
+    const actual: EntryEntity[] = task.loadList();
 
-    expect(actual).toEqual(['test::entire-list:'])
+    expect(actual).toEqual(['test::entire-list:']);
   });
 
   it('should checks type of list', function () {

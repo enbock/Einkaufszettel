@@ -3,7 +3,7 @@ import EntryEntity from '../EntryEntity';
 import {SystemTabs, TabId} from '../../../Navigation/TabEntity';
 import ListStorage from '../ListStorage';
 
-export default class LoadShoppingList implements LoadListTask{
+export default class LoadShoppingList implements LoadListTask {
   private listStorage: ListStorage;
 
   constructor(listStorage: ListStorage) {

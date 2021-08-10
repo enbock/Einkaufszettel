@@ -17,9 +17,9 @@ describe(LoadShoppingList, function () {
   it('should can load shopping list', function () {
     listStorage.getShoppingList.mockReturnValueOnce(['test::shopping-list:' as any]);
 
-    const actual:EntryEntity[] = task.loadList();
+    const actual: EntryEntity[] = task.loadList();
 
-    expect(actual).toEqual(['test::shopping-list:'])
+    expect(actual).toEqual(['test::shopping-list:']);
   });
 
   it('should checks type of list', function () {

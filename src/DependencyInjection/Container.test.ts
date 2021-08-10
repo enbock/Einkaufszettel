@@ -9,7 +9,7 @@ describe(GlobalContainer, function () {
   });
 
   it('should provide global store of selected tab', function () {
-    expect(Container.navigationMemory).toBeInstanceOf(NavigationMemory)
+    expect(Container.navigationMemory).toBeInstanceOf(NavigationMemory);
   });
 
   it('should provide the list adapter', function () {

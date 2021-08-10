@@ -9,6 +9,10 @@ export default class TemporaryMemory {
     this.store = TemporaryMemory.factoryStore();
   }
 
+  private static factoryStore(): DataStructure {
+    return {inputValue: ''};
+  }
+
   public storeInputValue(inputValue: string): void {
     this.store.inputValue = inputValue;
   }
@@ -19,9 +23,5 @@ export default class TemporaryMemory {
 
   public clearInputValue(): void {
     this.store = TemporaryMemory.factoryStore();
-  }
-
-  private static factoryStore(): DataStructure {
-    return {inputValue: ''};
   }
 }

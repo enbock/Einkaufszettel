@@ -10,7 +10,7 @@ export default class StartUp {
   private readonly document: Document;
   private readonly reloader: ServiceWorkerUpdateReloader;
 
-  constructor(document: Document, reloader:ServiceWorkerUpdateReloader) {
+  constructor(document: Document, reloader: ServiceWorkerUpdateReloader) {
     this.reloader = reloader;
     this.document = document;
   }
@@ -20,7 +20,7 @@ export default class StartUp {
 
     ReactDOM.render(
       <StrictMode>
-        <Navigation />
+        <Navigation/>
         <PrimaryInput/>
         <BuyingList/>
       </StrictMode>,

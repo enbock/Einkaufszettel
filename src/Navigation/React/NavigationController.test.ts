@@ -22,7 +22,7 @@ describe(NavigationController, function () {
     adapter = mock<Adapter>();
     presenter = mock<NavigationPresenter>();
     listAdapter = mock<BuyingListAdapter>();
-    controller = new NavigationController(interactor, adapter, presenter,listAdapter);
+    controller = new NavigationController(interactor, adapter, presenter, listAdapter);
   });
 
   it('should control the switch to a new tab', function () {

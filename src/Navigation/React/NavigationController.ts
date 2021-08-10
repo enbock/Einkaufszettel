@@ -10,21 +10,24 @@ export default class NavigationController {
   private listAdapter: BuyingListAdapter;
   private presenter: NavigationPresenter;
 
-  constructor(interactor: NavigationInteractor, adapter: Adapter, presenter: NavigationPresenter, listAdapter: BuyingListAdapter) {
+  constructor(interactor: NavigationInteractor,
+              adapter: Adapter,
+              presenter: NavigationPresenter,
+              listAdapter: BuyingListAdapter) {
     this.listAdapter = listAdapter;
     this.presenter = presenter;
     this.adapter = adapter;
     this.interactor = interactor;
   }
 
+  private get view(): Navigation {
+    return this.viewInstance as Navigation;
+  }
+
   public attach(view: Navigation): void {
     this.viewInstance = view;
     this.bindAdapter();
     this.loadAndPresentTabs();
-  }
-
-  private get view(): Navigation {
-    return this.viewInstance as Navigation;
   }
 
   private bindAdapter(): void {
