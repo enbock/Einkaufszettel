@@ -11,7 +11,10 @@ export default class LoadEntireList implements LoadListTask {
   }
 
   public loadList(): EntryEntity[] {
-    return this.listStorage.getEntireList();
+    const shoppingList: EntryEntity[] = this.listStorage.getShoppingList();
+    return this.listStorage.getEntireList().filter(
+      (entry: EntryEntity): boolean => shoppingList.filter((s: EntryEntity) => s.id === entry.id).length == 0
+    );
   }
 
   public support(activeTab: TabId): boolean {

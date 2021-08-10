@@ -1,20 +1,16 @@
-import {PresentableResponse} from './React/PrimaryInputPresenter';
 import FormMemory from './FormMemory/FormMemory';
 
-export class Response implements PresentableResponse {
+export class Response {
   public inputValue: string = '';
 }
 
 export default class GetInputValueInteractor {
-  private readonly temporaryMemory: FormMemory;
-
-  constructor(temporaryMemory: FormMemory) {
-    this.temporaryMemory = temporaryMemory;
+  constructor(private formMemory: FormMemory) {
   }
 
   getInputValue(): Response {
     const response: Response = new Response();
-    response.inputValue = this.temporaryMemory.readInputValue();
+    response.inputValue = this.formMemory.readInputValue();
     return response;
   }
 }

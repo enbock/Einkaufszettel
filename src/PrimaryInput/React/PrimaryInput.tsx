@@ -17,7 +17,7 @@ interface Properties {
 }
 
 interface State {
-  model: PrimaryInputModel
+  model: PrimaryInputModel;
 }
 
 export default class PrimaryInput extends Component<Properties, State> {
@@ -41,7 +41,11 @@ export default class PrimaryInput extends Component<Properties, State> {
     return (
       <primary-input>
         <input-frame>
-          <input name="editLine" value={this.state.model.inputValue} onChange={this.onInputChange.bind(this)}/>
+          <input
+            autoComplete="off"
+            name="editLine" value={this.state.model.inputValue}
+            onChange={this.onInputChange.bind(this)}
+          />
           {this.renderSubmitButton()}
           {this.renderDiscardButton()}
         </input-frame>

@@ -1,8 +1,9 @@
 import PrimaryInputModel from './PrimaryInputModel';
+import {Response as AddResponse} from '../AddEntryInteractor';
+import {Response as GetInputResponse} from '../GetInputValueInteractor';
+import {Response as SaveInputResponse} from '../SaveInputValueInteractor';
 
-export interface PresentableResponse {
-  inputValue: string;
-}
+export type PresentableResponse = AddResponse | GetInputResponse | SaveInputResponse;
 
 export default class PrimaryInputPresenter {
   public present(response: PresentableResponse): PrimaryInputModel {

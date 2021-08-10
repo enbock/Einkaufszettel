@@ -7,4 +7,7 @@ export default class BuyingListAdapter implements ViewAdapter, ControllerAdapter
 
   public onListChange(): void {
   }
+
+  public onFormInput(): void {
+  }
 }

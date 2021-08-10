@@ -1,43 +1,28 @@
 import EntryEntity from './ListStorage/EntryEntity';
-import StringUmlautHelper from '../Helper/StringUmlautHelper';
+import StringHelper from '@enbock/string-helper-ts/StringHelper';
 import Memory from '../Navigation/Memory/Memory';
 import {TabId} from '../Navigation/TabEntity';
 import LoadListTask from './ListStorage/LoadList/LoadListTask';
+import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 
 export class Response {
   public activeList: EntryEntity[] = [];
+  public fullList: EntryEntity[] = [];
 }
 
 export default class BuyingListLoadInteractor {
-  private readonly loadListChain: LoadListTask[];
-  private readonly navigationMemory: Memory;
-
-  constructor(navigationMemory: Memory, loadListChain: LoadListTask[]) {
-    this.loadListChain = loadListChain;
-    this.navigationMemory = navigationMemory;
-  }
-
-  private static sortList(entireList: EntryEntity[]): EntryEntity[] {
-    return entireList.sort(BuyingListLoadInteractor.compareNames);
-  }
-
-  private static compareNames(a: EntryEntity, b: EntryEntity): number {
-    const upperA: string = StringUmlautHelper.replaceUmlaut(a.name).toUpperCase();
-    const upperB: string = StringUmlautHelper.replaceUmlaut(b.name).toUpperCase();
-    if (upperA < upperB) {
-      return -1;
-    }
-    if (upperA > upperB) {
-      return 1;
-    }
-
-    return 0;
+  constructor(
+    private navigationMemory: Memory,
+    private loadListChain: LoadListTask[],
+    private formMemory: FormMemory
+  ) {
   }
 
   public loadActiveList(): Response {
     const activeTab: TabId = this.navigationMemory.getActiveTab();
     let activeList: EntryEntity[] = [];
     let loadTask: LoadListTask;
+    const search: string = StringHelper.replaceUmlaut(this.formMemory.readInputValue().trim()).toLocaleLowerCase();
 
     for (loadTask of this.loadListChain) {
       if (loadTask.support(activeTab) === false) continue;
@@ -45,7 +30,10 @@ export default class BuyingListLoadInteractor {
     }
 
     const response: Response = new Response();
-    response.activeList = BuyingListLoadInteractor.sortList(activeList);
+    response.fullList = StringHelper.sortList(activeList, 'name') as EntryEntity[];
+    response.activeList = response.fullList.filter(
+      (entity: EntryEntity): boolean => StringHelper.replaceUmlaut(entity.name).toLocaleLowerCase().indexOf(search) > -1
+    );
     return response;
   }
 }

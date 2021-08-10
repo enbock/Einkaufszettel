@@ -7,6 +7,7 @@ import PrimaryInputModel from './PrimaryInputModel';
 import SaveInputValueInteractor, {Request as SaveRequest} from '../SaveInputValueInteractor';
 import GetInputValueInteractor from '../GetInputValueInteractor';
 import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
+import {mock, MockProxy} from 'jest-mock-extended';
 
 describe(PrimaryInputController, function () {
   let adapter: PrimaryInputAdapter,
@@ -16,7 +17,7 @@ describe(PrimaryInputController, function () {
     presenter: PrimaryInputPresenter,
     saveInputValueInteractor: SaveInputValueInteractor,
     getInputValueInteractor: GetInputValueInteractor,
-    entireListControllerAdapter: BuyingListAdapter;
+    entireListControllerAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>;
 
   beforeEach(function () {
     adapter = new PrimaryInputAdapter();
@@ -32,9 +33,7 @@ describe(PrimaryInputController, function () {
     presenter = {
       present: jest.fn()
     };
-    entireListControllerAdapter = {
-      onListChange: jest.fn()
-    };
+    entireListControllerAdapter = mock<BuyingListAdapter>();
     controller = new PrimaryInputController(
       adapter,
       addEntryInteractor,
@@ -89,6 +88,7 @@ describe(PrimaryInputController, function () {
     expect(presenter.present).toBeCalledWith(getValueResponse);
     expect(presenter.present).toBeCalledWith(response);
     expect(primaryInput.model).toBe(model);
+    expect(entireListControllerAdapter.onFormInput).toBeCalled();
   });
 
   it('should show current input value', function () {

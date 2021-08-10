@@ -3,7 +3,9 @@ import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 
 export interface Adapter {
-  onListChange(): void
+  onListChange(): void;
+
+  onFormInput(): void;
 }
 
 export default class BuyingListController {
@@ -39,5 +41,6 @@ export default class BuyingListController {
 
   private bindAdapter(): void {
     this.adapter.onListChange = this.loadAndDisplayList.bind(this);
+    this.adapter.onFormInput = this.loadAndDisplayList.bind(this);
   }
 }

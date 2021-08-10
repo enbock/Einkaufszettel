@@ -15,11 +15,18 @@ describe(LoadEntireList, function () {
   });
 
   it('should can load entire list', function () {
-    listStorage.getEntireList.mockReturnValueOnce(['test::entire-list:' as any]);
+    const entry1: EntryEntity = new EntryEntity();
+    entry1.id = 'test::1:';
+    const entry2: EntryEntity = new EntryEntity();
+    entry2.id = 'test::2:';
+    const shoppingListEntry1: EntryEntity = new EntryEntity();
+    shoppingListEntry1.id = 'test::2:';
+    listStorage.getEntireList.mockReturnValueOnce([entry2, entry1]);
+    listStorage.getShoppingList.mockReturnValueOnce([shoppingListEntry1]);
 
     const actual: EntryEntity[] = task.loadList();
 
-    expect(actual).toEqual(['test::entire-list:']);
+    expect(actual).toEqual([entry1]);
   });
 
   it('should checks type of list', function () {

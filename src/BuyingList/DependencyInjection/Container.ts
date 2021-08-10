@@ -15,7 +15,11 @@ export class BuyingListContainer {
     const shoppingListLoadTask: LoadShoppingList = new LoadShoppingList(GlobalContainer.listStorage);
     this.controller = new BuyingListController(
       new BuyingListPresenter(),
-      new BuyingListLoadInteractor(GlobalContainer.navigationMemory, [entireListLoadTask, shoppingListLoadTask]),
+      new BuyingListLoadInteractor(
+        GlobalContainer.navigationMemory,
+        [entireListLoadTask, shoppingListLoadTask],
+        GlobalContainer.formMemory
+      ),
       this.adapter
     );
   }

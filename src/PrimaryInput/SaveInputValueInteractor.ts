@@ -1,11 +1,10 @@
-import {PresentableResponse} from './React/PrimaryInputPresenter';
 import FormMemory from './FormMemory/FormMemory';
 
 export class Request {
   public newInputValue: string = '';
 }
 
-export class Response implements PresentableResponse {
+export class Response {
   public inputValue: string = '';
 }
 

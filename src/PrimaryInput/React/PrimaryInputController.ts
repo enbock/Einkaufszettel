@@ -65,5 +65,6 @@ export default class PrimaryInputController {
     request.newInputValue = newValue;
     const response: PresentableResponse = this.saveInputValueInteractor.saveInputValue(request);
     this.actualizeOutput(response);
+    this.entireListControllerAdapter.onFormInput();
   }
 }

@@ -1,10 +1,9 @@
-import {PresentableResponse} from './React/PrimaryInputPresenter';
 import ListStorage from '../BuyingList/ListStorage/ListStorage';
 import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from './FormMemory/FormMemory';
 
-export class Response implements PresentableResponse {
+export class Response {
   public inputValue: string = '';
 }
 
@@ -20,7 +19,6 @@ export default class AddEntryInteractor {
   }
 
   public addNewEntry(): Response {
-
     const entry: EntryEntity = new EntryEntity();
     entry.id = this.idGenerator.generate();
     entry.name = this.temporaryMemory.readInputValue();
