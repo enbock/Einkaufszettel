@@ -1,6 +1,6 @@
 import BuyingListPresenter from './BuyingListPresenter';
-import {Response} from './BuyingListLoadInteractor';
-import EntryEntity from './ListStorage/EntryEntity';
+import {Response} from '../BuyingListLoadInteractor';
+import EntryEntity from '../ListStorage/EntryEntity';
 import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
 

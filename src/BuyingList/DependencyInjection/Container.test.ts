@@ -1,6 +1,6 @@
 import Container, {BuyingListContainer} from './Container';
-import BuyingListAdapter from '../BuyingListAdapter';
-import BuyingListController from '../BuyingListController';
+import BuyingListAdapter from '../React/BuyingListAdapter';
+import BuyingListController from '../React/BuyingListController';
 
 describe(BuyingListContainer, function () {
   it('should provide the adapter', function () {

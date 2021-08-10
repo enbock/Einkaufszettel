@@ -1,7 +1,7 @@
-import {LoadResponse} from './NavigationInteractor';
-import NavigationModel from './NavigationModel';
+import {LoadResponse} from '../NavigationInteractor';
+import NavigationModel from '../NavigationModel';
 import TabModel from './TabModel';
-import TabEntity from './TabEntity';
+import TabEntity from '../TabEntity';
 
 export default class NavigationPresenter {
   public present(response: LoadResponse): NavigationModel {

@@ -1,12 +1,12 @@
 import PrimaryInputController from './PrimaryInputController';
-import AddEntryInteractor from './AddEntryInteractor';
+import AddEntryInteractor from '../AddEntryInteractor';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
 import PrimaryInput from './PrimaryInput';
 import PrimaryInputPresenter, {PresentableResponse} from './PrimaryInputPresenter';
 import PrimaryInputModel from './PrimaryInputModel';
-import SaveInputValueInteractor, {Request as SaveRequest} from './SaveInputValueInteractor';
-import GetInputValueInteractor from './GetInputValueInteractor';
-import {Adapter as BuyingListAdapter} from '../BuyingList/BuyingListController';
+import SaveInputValueInteractor, {Request as SaveRequest} from '../SaveInputValueInteractor';
+import GetInputValueInteractor from '../GetInputValueInteractor';
+import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
 
 describe(PrimaryInputController, function () {
   let adapter: PrimaryInputAdapter,

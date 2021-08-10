@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom';
 import React, {StrictMode} from 'react';
-import BuyingList from './BuyingList/BuyingList';
-import PrimaryInput from './PrimaryInput/PrimaryInput';
+import BuyingList from './BuyingList/React/BuyingList';
+import PrimaryInput from './PrimaryInput/React/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
-import Navigation from './Navigation/Navigation';
+import Navigation from './Navigation/React/Navigation';
 
 export default class StartUp {
   private readonly document: Document;

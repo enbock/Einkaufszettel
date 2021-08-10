@@ -1,6 +1,6 @@
 import BuyingList from './BuyingList';
 import BuyingListPresenter from './BuyingListPresenter';
-import BuyingListLoadInteractor, {Response} from './BuyingListLoadInteractor';
+import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 
 export interface Adapter {
   onListChange(): void

@@ -1,8 +1,8 @@
 import NavigationPresenter from './NavigationPresenter';
 import TabModel from './TabModel';
-import NavigationModel from './NavigationModel';
-import {LoadResponse} from './NavigationInteractor';
-import TabEntity, {SystemTabs} from './TabEntity';
+import NavigationModel from '../NavigationModel';
+import {LoadResponse} from '../NavigationInteractor';
+import TabEntity, {SystemTabs} from '../TabEntity';
 
 describe(NavigationPresenter, function () {
   let presenter: NavigationPresenter;

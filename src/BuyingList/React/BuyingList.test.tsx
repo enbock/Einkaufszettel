@@ -2,9 +2,9 @@ import BuyingList from './BuyingList';
 import {render, RenderResult} from '@testing-library/react';
 import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
-import Container from './DependencyInjection/Container';
+import Container from '../DependencyInjection/Container';
 
-jest.mock('./DependencyInjection/Container', function () {
+jest.mock('../DependencyInjection/Container', function () {
   return {controller: {attach: jest.fn()}, adapter: 'test::Adapter:'};
 });
 

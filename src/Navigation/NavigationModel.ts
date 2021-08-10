@@ -1,4 +1,4 @@
-import TabModel from './TabModel';
+import TabModel from './React/TabModel';
 import {SystemTabs} from './TabEntity';
 
 interface I18n {

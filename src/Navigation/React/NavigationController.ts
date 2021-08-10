@@ -1,7 +1,7 @@
-import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './NavigationInteractor';
+import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../NavigationInteractor';
 import Navigation, {Adapter} from './Navigation';
 import NavigationPresenter from './NavigationPresenter';
-import {Adapter as BuyingListAdapter} from '../BuyingList/BuyingListController';
+import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
 
 export default class NavigationController {
   private readonly interactor: NavigationInteractor;

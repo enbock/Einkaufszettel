@@ -3,7 +3,7 @@ import DiscardIcon from './Artefacts/DiscardIcon.svg';
 import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import PrimaryInputModel from './PrimaryInputModel';
 import './Artefacts/PrimaryInput.css';
-import Container from './DependencyInjection/Container';
+import Container from '../DependencyInjection/Container';
 
 export interface Adapter {
   onSubmit(): void;

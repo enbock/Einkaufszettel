@@ -1,4 +1,4 @@
-import {TabId} from './TabEntity';
+import {TabId} from '../TabEntity';
 
 export default class TabModel {
   public isActive: boolean = false;

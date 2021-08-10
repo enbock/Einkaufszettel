@@ -1,4 +1,4 @@
-import {PresentableResponse} from './PrimaryInputPresenter';
+import {PresentableResponse} from './React/PrimaryInputPresenter';
 import ListStorage from '../BuyingList/ListStorage/ListStorage';
 import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';

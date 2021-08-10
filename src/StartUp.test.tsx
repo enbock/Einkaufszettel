@@ -1,12 +1,12 @@
 import React, {Component, StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import StartUp from './StartUp';
-import BuyingList from './BuyingList/BuyingList';
-import PrimaryInput from './PrimaryInput/PrimaryInput';
+import BuyingList from './BuyingList/React/BuyingList';
+import PrimaryInput from './PrimaryInput/React/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
 import {mock} from 'jest-mock-extended';
-import Navigation from './Navigation/Navigation';
+import Navigation from './Navigation/React/Navigation';
 
 jest.mock('react-dom', function () {
   return {
@@ -14,9 +14,9 @@ jest.mock('react-dom', function () {
   };
 });
 
-jest.mock('./BuyingList/BuyingList');
-jest.mock('./PrimaryInput/PrimaryInput');
-jest.mock('./Navigation/Navigation');
+jest.mock('./BuyingList/React/BuyingList');
+jest.mock('./PrimaryInput/React/PrimaryInput');
+jest.mock('./Navigation/React/Navigation');
 jest.mock('./serviceWorkerRegistration', function () {
   return {register: jest.fn()};
 });

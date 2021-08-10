@@ -1,7 +1,7 @@
-import NavigationAdapter from '../NavigationAdapter';
-import NavigationController from '../NavigationController';
+import NavigationAdapter from '../React/NavigationAdapter';
+import NavigationController from '../React/NavigationController';
 import NavigationInteractor from '../NavigationInteractor';
-import NavigationPresenter from '../NavigationPresenter';
+import NavigationPresenter from '../React/NavigationPresenter';
 import ConfigLoader from '../Config/ConfigLoader';
 import GlobalContainer from '../../DependencyInjection/Container';
 

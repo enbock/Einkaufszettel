@@ -2,9 +2,9 @@ import PrimaryInput, {Adapter} from './PrimaryInput';
 import PrimaryInputModel from './PrimaryInputModel';
 import {fireEvent, render, RenderResult} from '@testing-library/react';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
-import Container from './DependencyInjection/Container';
+import Container from '../DependencyInjection/Container';
 
-jest.mock('./DependencyInjection/Container', function () {
+jest.mock('../DependencyInjection/Container', function () {
   return {adapter: null, controller: {attach: jest.fn()}};
 });
 

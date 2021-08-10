@@ -1,4 +1,4 @@
-import {PresentableResponse} from './PrimaryInputPresenter';
+import {PresentableResponse} from './React/PrimaryInputPresenter';
 import FormMemory from './FormMemory/FormMemory';
 
 export class Request {

@@ -1,9 +1,9 @@
 import PrimaryInput, {Adapter} from './PrimaryInput';
-import AddEntryInteractor from './AddEntryInteractor';
+import AddEntryInteractor from '../AddEntryInteractor';
 import PrimaryInputPresenter, {PresentableResponse} from './PrimaryInputPresenter';
-import SaveInputValueInteractor, {Request as SaveValueRequest} from './SaveInputValueInteractor';
-import GetInputValueInteractor from './GetInputValueInteractor';
-import {Adapter as BuyingListAdapter} from '../BuyingList/BuyingListController';
+import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
+import GetInputValueInteractor from '../GetInputValueInteractor';
+import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
 
 export default class PrimaryInputController {
   private readonly adapter: Adapter;

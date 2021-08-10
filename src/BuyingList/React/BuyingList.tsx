@@ -2,7 +2,7 @@ import {Component} from 'react';
 import EntryModel from './EntryModel';
 import Entry, {Adapter as EntryAdapter} from './Entry';
 import BuyingListModel from './BuyingListModel';
-import Container from './DependencyInjection/Container';
+import Container from '../DependencyInjection/Container';
 import './Artefacts/BuyingList.css';
 
 export interface Adapter extends EntryAdapter {

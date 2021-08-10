@@ -1,12 +1,12 @@
 import Navigation, {Properties} from './Navigation';
-import NavigationModel from './NavigationModel';
+import NavigationModel from '../NavigationModel';
 import {render, RenderResult} from '@testing-library/react';
-import Container from './DependencyInjection/Container';
+import Container from '../DependencyInjection/Container';
 import NavigationAdapter from './NavigationAdapter';
 import {mock} from 'jest-mock-extended';
 import TabModel from './TabModel';
 
-jest.mock('./DependencyInjection/Container', function () {
+jest.mock('../DependencyInjection/Container', function () {
   return {controller: {attach: jest.fn()}};
 });
 

@@ -1,7 +1,7 @@
 import Container, {GlobalContainer} from './Container';
 import LocalStorage from '../BuyingList/ListStorage/LocalStorage/LocalStorage';
 import NavigationMemory from '../Navigation/Memory/SessionMemory';
-import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
+import BuyingListAdapter from '../BuyingList/React/BuyingListAdapter';
 
 describe(GlobalContainer, function () {
   it('should global provide the list store', function () {

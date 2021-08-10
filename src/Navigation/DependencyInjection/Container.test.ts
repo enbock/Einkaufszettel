@@ -1,6 +1,6 @@
 import Container, {NavigationContainer} from './Container';
-import NavigationAdapter from '../NavigationAdapter';
-import NavigationController from '../NavigationController';
+import NavigationAdapter from '../React/NavigationAdapter';
+import NavigationController from '../React/NavigationController';
 
 describe(NavigationContainer, function () {
   it('should provide the controller', function () {

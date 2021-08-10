@@ -1,6 +1,6 @@
 import Container, {PrimaryInputContainer} from './Container';
-import PrimaryInputAdapter from '../PrimaryInputAdapter';
-import PrimaryInputController from '../PrimaryInputController';
+import PrimaryInputAdapter from '../React/PrimaryInputAdapter';
+import PrimaryInputController from '../React/PrimaryInputController';
 
 describe(PrimaryInputContainer, function () {
   it('should provide the adapter', function () {

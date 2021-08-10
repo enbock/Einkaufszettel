@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Navigation.css';
-import NavigationModel from './NavigationModel';
-import Container from './DependencyInjection/Container';
+import NavigationModel from '../NavigationModel';
+import Container from '../DependencyInjection/Container';
 import Tab, {Adapter as TabAdapter} from './Tab';
 import TabModel from './TabModel';
 

@@ -1,11 +1,11 @@
 import NavigationController from './NavigationController';
-import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './NavigationInteractor';
+import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../NavigationInteractor';
 import {mock, MockProxy} from 'jest-mock-extended';
 import Navigation, {Adapter} from './Navigation';
 import NavigationPresenter from './NavigationPresenter';
-import NavigationModel from './NavigationModel';
+import NavigationModel from '../NavigationModel';
 import TabModel from './TabModel';
-import {Adapter as BuyingListAdapter} from '../BuyingList/BuyingListController';
+import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
 
 describe(NavigationController, function () {
   let controller: NavigationController,

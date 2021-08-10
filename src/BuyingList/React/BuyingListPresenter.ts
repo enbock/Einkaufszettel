@@ -1,6 +1,6 @@
 import BuyingListModel from './BuyingListModel';
-import {Response} from './BuyingListLoadInteractor';
-import EntryEntity from './ListStorage/EntryEntity';
+import {Response} from '../BuyingListLoadInteractor';
+import EntryEntity from '../ListStorage/EntryEntity';
 import EntryModel from './EntryModel';
 
 export default class BuyingListPresenter {
