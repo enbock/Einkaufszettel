@@ -47,6 +47,7 @@ describe(PrimaryInput, function () {
   });
 
   it('should call the adapter when submit button is pressed', function () {
+    model.showSubmitButton = true;
     const result: RenderResult = renderUi();
     const button: Element = result.container.querySelector('button[name="submit"]') as Element;
 
@@ -56,6 +57,7 @@ describe(PrimaryInput, function () {
   });
 
   it('should call the adapter when discard button is pressed', function () {
+    model.showDiscardButton = true;
     const result: RenderResult = renderUi();
     const button: Element = result.container.querySelector('button[name="discard"]') as Element;
 

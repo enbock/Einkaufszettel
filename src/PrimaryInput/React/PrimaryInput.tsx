@@ -42,15 +42,29 @@ export default class PrimaryInput extends Component<Properties, State> {
       <primary-input>
         <input-frame>
           <input name="editLine" value={this.state.model.inputValue} onChange={this.onInputChange.bind(this)}/>
-          <button name="submit" onClick={() => this.adapter.onSubmit()}>
-            <img src={SubmitIcon} alt="Übernehmen"/>
-          </button>
-          <button name="discard" onClick={() => this.adapter.onDiscard()}>
-            <img src={DiscardIcon} alt="Verwerfen"/>
-          </button>
+          {this.renderSubmitButton()}
+          {this.renderDiscardButton()}
         </input-frame>
       </primary-input>
     );
+  }
+
+  private renderSubmitButton(): JSX.Element | null {
+    if (this.state.model.showSubmitButton === false) return null;
+
+    return (
+      <button name="submit" onClick={() => this.adapter.onSubmit()}>
+        <img src={SubmitIcon} alt="Übernehmen"/>
+      </button>
+    );
+  }
+
+  private renderDiscardButton(): JSX.Element | null {
+    if (this.state.model.showDiscardButton === false) return null;
+
+    return <button name="discard" onClick={() => this.adapter.onDiscard()}>
+      <img src={DiscardIcon} alt="Verwerfen"/>
+    </button>;
   }
 
   private onInputChange(event: ChangeEvent<HTMLInputElement>): void {
