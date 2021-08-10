@@ -1,9 +1,7 @@
-import {Adapter} from '../React/PrimaryInput';
-import PrimaryInputAdapter from '../React/PrimaryInputAdapter';
 import PrimaryInputController from '../React/PrimaryInputController';
 import AddEntryInteractor from '../AddEntryInteractor';
 import SaveInputValueInteractor from '../SaveInputValueInteractor';
-import GetInputValueInteractor from '../GetInputValueInteractor';
+import LoadInteractor from '../LoadInteractor';
 import PrimaryInputPresenter from '../React/PrimaryInputPresenter';
 import GlobalContainer from '../../DependencyInjection/Container';
 import BuyingListContainer from '../../BuyingList/DependencyInjection/Container';
@@ -11,19 +9,23 @@ import {v4 as UuidVersion4} from 'uuid';
 import UuidGenerator from '../UniqueIdentifierGenerator/UuidGenerator';
 
 export class PrimaryInputContainer {
-  public adapter: Adapter = new PrimaryInputAdapter();
   public controller: PrimaryInputController;
 
   constructor() {
     this.controller = new PrimaryInputController(
-      this.adapter,
+      GlobalContainer.inputAdapter,
       new AddEntryInteractor(
         GlobalContainer.listStorage,
         new UuidGenerator(UuidVersion4),
-        GlobalContainer.formMemory
+        GlobalContainer.formMemory,
+        GlobalContainer.navigationMemory
       ),
       new SaveInputValueInteractor(GlobalContainer.formMemory),
-      new GetInputValueInteractor(GlobalContainer.formMemory),
+      new LoadInteractor(
+        GlobalContainer.formMemory,
+        GlobalContainer.listStorage,
+        GlobalContainer.navigationMemory
+      ),
       new PrimaryInputPresenter(),
       BuyingListContainer.adapter
     );

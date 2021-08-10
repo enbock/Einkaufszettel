@@ -6,6 +6,7 @@ import NavigationPresenter from './NavigationPresenter';
 import NavigationModel from '../NavigationModel';
 import TabModel from './TabModel';
 import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
+import PrimaryInputAdapter from '../../PrimaryInput/React/PrimaryInputAdapter';
 
 describe(NavigationController, function () {
   let controller: NavigationController,
@@ -13,7 +14,8 @@ describe(NavigationController, function () {
     viewInstance: Navigation & MockProxy<Navigation>,
     adapter: Adapter & MockProxy<Adapter>,
     presenter: NavigationPresenter & MockProxy<NavigationPresenter>,
-    listAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>
+    listAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
+    inputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
   ;
 
   beforeEach(function () {
@@ -22,7 +24,8 @@ describe(NavigationController, function () {
     adapter = mock<Adapter>();
     presenter = mock<NavigationPresenter>();
     listAdapter = mock<BuyingListAdapter>();
-    controller = new NavigationController(interactor, adapter, presenter, listAdapter);
+    inputAdapter = mock<PrimaryInputAdapter>();
+    controller = new NavigationController(interactor, adapter, presenter, listAdapter, inputAdapter);
   });
 
   it('should control the switch to a new tab', function () {
@@ -47,5 +50,6 @@ describe(NavigationController, function () {
     expect(presenter.present).toBeCalledTimes(2);
     expect(viewInstance.model).toBe(model);
     expect(listAdapter.onListChange).toBeCalled();
+    expect(inputAdapter.onListChange).toBeCalled();
   });
 });

@@ -58,6 +58,19 @@ describe(LocalStorage, function () {
     testEmptyList('shopping-list', () => localStorage.getShoppingList());
   });
 
+  it('should save the shopping list', function () {
+    const entity: EntryEntity = new EntryEntity();
+    entity.id = 'test::id:';
+    const entireList: EntryEntity[] = [entity];
+    const json: string = '{"json":"data"}';
+
+    (transformer.formatList as jest.Mock).mockReturnValueOnce(json);
+    localStorage.saveShoppingList(entireList);
+
+    expect(transformer.formatList).toBeCalledWith(entireList);
+    expect(storage.setItem).toBeCalledWith('shopping-list', json);
+  });
+
   function testEmptyList(key: string, loadCallback: () => EntryEntity[]) {
     const expectedList: EntryEntity[] = [];
 

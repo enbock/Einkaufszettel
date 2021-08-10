@@ -23,6 +23,10 @@ export default class LocalStorage implements ListStorage {
     return this.loadListFromStorage('shopping-list');
   }
 
+  public saveShoppingList(list: EntryEntity[]): void {
+    this.storage.setItem('shopping-list', this.transformer.formatList(list));
+  }
+
   private loadListFromStorage(key: string) {
     const list: string | null = this.storage.getItem(key);
     if (list === null) return [];

@@ -1,4 +1,4 @@
-import {Adapter} from './PrimaryInput';
+import {Adapter} from './PrimaryInputController';
 
 export default class PrimaryInputAdapter implements Adapter {
   public onDiscard(): void {
@@ -8,5 +8,8 @@ export default class PrimaryInputAdapter implements Adapter {
   }
 
   public onSubmit(): void {
+  }
+
+  public onListChange(): void {
   }
 }

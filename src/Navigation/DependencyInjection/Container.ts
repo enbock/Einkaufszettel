@@ -11,7 +11,8 @@ export class NavigationContainer {
     new NavigationInteractor(GlobalContainer.navigationMemory, new ConfigLoader()),
     this.adapter,
     new NavigationPresenter(),
-    GlobalContainer.listAdapter
+    GlobalContainer.listAdapter,
+    GlobalContainer.inputAdapter
   );
 }
 

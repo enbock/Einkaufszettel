@@ -1,23 +1,27 @@
-import PrimaryInput, {Adapter} from './PrimaryInput';
+import PrimaryInput from './PrimaryInput';
 import PrimaryInputModel from './PrimaryInputModel';
 import {fireEvent, render, RenderResult} from '@testing-library/react';
-import PrimaryInputAdapter from './PrimaryInputAdapter';
 import Container from '../DependencyInjection/Container';
+import GlobalContainer from '../../DependencyInjection/Container';
 
 jest.mock('../DependencyInjection/Container', function () {
-  return {adapter: null, controller: {attach: jest.fn()}};
+  return {controller: {attach: jest.fn()}};
+});
+jest.mock('../../DependencyInjection/Container', function () {
+  return {
+    inputAdapter: {
+      onInputChange: jest.fn(),
+      onSubmit: jest.fn(),
+      onDiscard: jest.fn()
+    }
+  };
 });
 
 describe(PrimaryInput, function () {
-  let model: PrimaryInputModel, adapter: Adapter;
+  let model: PrimaryInputModel;
 
   beforeEach(function () {
     model = new PrimaryInputModel();
-    adapter = new PrimaryInputAdapter();
-    adapter.onDiscard = jest.fn();
-    adapter.onInputChange = jest.fn();
-    adapter.onSubmit = jest.fn();
-    Container.adapter = adapter;
     (Container.controller.attach as jest.Mock).mockImplementation(attachModel);
   });
 
@@ -43,7 +47,7 @@ describe(PrimaryInput, function () {
 
     fireEvent.change(inputField, {target: {value: 'test::newValue:'}});
 
-    expect(adapter.onInputChange).toBeCalledWith('test::newValue:');
+    expect(GlobalContainer.inputAdapter.onInputChange).toBeCalledWith('test::newValue:');
   });
 
   it('should call the adapter when submit button is pressed', function () {
@@ -53,7 +57,7 @@ describe(PrimaryInput, function () {
 
     fireEvent.click(button);
 
-    expect(adapter.onSubmit).toBeCalled();
+    expect(GlobalContainer.inputAdapter.onSubmit).toBeCalled();
   });
 
   it('should call the adapter when discard button is pressed', function () {
@@ -63,6 +67,6 @@ describe(PrimaryInput, function () {
 
     fireEvent.click(button);
 
-    expect(adapter.onDiscard).toBeCalled();
+    expect(GlobalContainer.inputAdapter.onDiscard).toBeCalled();
   });
 });

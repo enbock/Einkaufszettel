@@ -6,4 +6,6 @@ export default interface ListStorage {
   getEntireList(): EntryEntity[];
 
   getShoppingList(): EntryEntity[];
+
+  saveShoppingList(list: EntryEntity[]): void;
 }

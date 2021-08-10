@@ -2,22 +2,18 @@ import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../Navigat
 import Navigation, {Adapter} from './Navigation';
 import NavigationPresenter from './NavigationPresenter';
 import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
+import PrimaryInputAdapter from '../../PrimaryInput/React/PrimaryInputAdapter';
 
 export default class NavigationController {
-  private readonly interactor: NavigationInteractor;
   private viewInstance?: Navigation;
-  private readonly adapter: Adapter;
-  private listAdapter: BuyingListAdapter;
-  private presenter: NavigationPresenter;
 
-  constructor(interactor: NavigationInteractor,
-              adapter: Adapter,
-              presenter: NavigationPresenter,
-              listAdapter: BuyingListAdapter) {
-    this.listAdapter = listAdapter;
-    this.presenter = presenter;
-    this.adapter = adapter;
-    this.interactor = interactor;
+  constructor(
+    private interactor: NavigationInteractor,
+    private adapter: Adapter,
+    private presenter: NavigationPresenter,
+    private listAdapter: BuyingListAdapter,
+    private inputAdapter: PrimaryInputAdapter
+  ) {
   }
 
   private get view(): Navigation {
@@ -39,6 +35,7 @@ export default class NavigationController {
     request.newTabId = activeList;
     this.interactor.activateTab(request);
     this.listAdapter.onListChange();
+    this.inputAdapter.onListChange();
     this.loadAndPresentTabs();
   }
 

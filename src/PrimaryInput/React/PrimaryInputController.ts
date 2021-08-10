@@ -1,15 +1,18 @@
-import PrimaryInput, {Adapter} from './PrimaryInput';
+import PrimaryInput, {Adapter as TemplateAdapter} from './PrimaryInput';
 import AddEntryInteractor from '../AddEntryInteractor';
-import PrimaryInputPresenter, {PresentableResponse} from './PrimaryInputPresenter';
+import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
-import GetInputValueInteractor from '../GetInputValueInteractor';
+import LoadInteractor, {LoadResponse as LoadResponse} from '../LoadInteractor';
 import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
+
+export interface Adapter extends TemplateAdapter {
+  onListChange(): void;
+}
 
 export default class PrimaryInputController {
   private readonly adapter: Adapter;
   private readonly addEntryInteractor: AddEntryInteractor;
   private readonly saveInputValueInteractor: SaveInputValueInteractor;
-  private readonly getInputValueInteractor: GetInputValueInteractor;
   private readonly presenter: PrimaryInputPresenter;
   private readonly entireListControllerAdapter: BuyingListAdapter;
   private viewInstance: PrimaryInput | undefined;
@@ -18,14 +21,13 @@ export default class PrimaryInputController {
     adapter: Adapter,
     addEntryInteractor: AddEntryInteractor,
     saveInputValueInteractor: SaveInputValueInteractor,
-    getInputValueInteractor: GetInputValueInteractor,
+    private loadInteractor: LoadInteractor,
     presenter: PrimaryInputPresenter,
     entireListAdapter: BuyingListAdapter
   ) {
     this.adapter = adapter;
     this.addEntryInteractor = addEntryInteractor;
     this.saveInputValueInteractor = saveInputValueInteractor;
-    this.getInputValueInteractor = getInputValueInteractor;
     this.presenter = presenter;
     this.entireListControllerAdapter = entireListAdapter;
   }
@@ -37,34 +39,31 @@ export default class PrimaryInputController {
   attach(view: PrimaryInput): void {
     this.viewInstance = view;
     this.bindAdapter();
-    this.getCurrentInputValue();
+    this.actualizeOutput();
   }
 
-  private getCurrentInputValue(): void {
-    const response: PresentableResponse = this.getInputValueInteractor.getInputValue();
-    this.actualizeOutput(response);
-  }
-
-  private actualizeOutput(response: PresentableResponse) {
+  private actualizeOutput() {
+    const response: LoadResponse = this.loadInteractor.loadData();
     this.view.model = this.presenter.present(response);
   }
 
   private bindAdapter(): void {
     this.adapter.onSubmit = this.addNewEntry.bind(this);
     this.adapter.onInputChange = this.saveInputValue.bind(this);
+    this.adapter.onListChange = this.actualizeOutput.bind(this);
   }
 
   private addNewEntry(): void {
-    const response: PresentableResponse = this.addEntryInteractor.addNewEntry();
-    this.actualizeOutput(response);
+    this.addEntryInteractor.addNewEntry();
+    this.actualizeOutput();
     this.entireListControllerAdapter.onListChange();
   }
 
   private saveInputValue(newValue: string): void {
     const request: SaveValueRequest = new SaveValueRequest();
     request.newInputValue = newValue;
-    const response: PresentableResponse = this.saveInputValueInteractor.saveInputValue(request);
-    this.actualizeOutput(response);
+    this.saveInputValueInteractor.saveInputValue(request);
+    this.actualizeOutput();
     this.entireListControllerAdapter.onFormInput();
   }
 }

@@ -1,15 +1,18 @@
-import AddEntryInteractor, {Response} from './AddEntryInteractor';
+import AddEntryInteractor from './AddEntryInteractor';
 import ListStorage from '../BuyingList/ListStorage/ListStorage';
 import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from './FormMemory/FormMemory';
 import {mock, MockProxy} from 'jest-mock-extended';
+import NavigationMemory from '../Navigation/Memory/Memory';
+import {SystemTabs} from '../Navigation/TabEntity';
 
 describe(AddEntryInteractor, function () {
   let storage: ListStorage & MockProxy<ListStorage>,
     interactor: AddEntryInteractor,
     idGenerator: UniqueIdentifierGenerator,
-    temporaryMemory: FormMemory
+    temporaryMemory: FormMemory,
+    navigationMemory: NavigationMemory & MockProxy<NavigationMemory>
   ;
 
   beforeEach(function () {
@@ -22,7 +25,8 @@ describe(AddEntryInteractor, function () {
       readInputValue: jest.fn(),
       storeInputValue: jest.fn()
     };
-    interactor = new AddEntryInteractor(storage, idGenerator, temporaryMemory);
+    navigationMemory = mock<NavigationMemory>();
+    interactor = new AddEntryInteractor(storage, idGenerator, temporaryMemory, navigationMemory);
   });
 
   it('should add new entry into the entire list and save in storage', function () {
@@ -31,8 +35,6 @@ describe(AddEntryInteractor, function () {
     const newEntry: EntryEntity = new EntryEntity();
     newEntry.id = id;
     newEntry.name = inputValue;
-    const expectedResponse: Response = new Response();
-    expectedResponse.inputValue = '';
     const oldEntry: EntryEntity = new EntryEntity();
     oldEntry.id = 'test::oldEntry';
     const entireList: EntryEntity[] = [oldEntry];
@@ -40,14 +42,80 @@ describe(AddEntryInteractor, function () {
     (storage.getEntireList as jest.Mock).mockReturnValueOnce(entireList);
     (idGenerator.generate as jest.Mock).mockReturnValueOnce(id);
     (temporaryMemory.readInputValue as jest.Mock).mockReturnValueOnce(inputValue);
+    storage.getShoppingList.mockReturnValueOnce([]);
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.EntireList);
 
-    const result: Response = interactor.addNewEntry();
+    interactor.addNewEntry();
 
     expect(storage.getEntireList).toBeCalled();
     expect(storage.saveEntireList).toBeCalledWith([oldEntry, newEntry]);
+    expect(storage.saveShoppingList).not.toBeCalled();
     expect(idGenerator.generate).toBeCalled();
     expect(temporaryMemory.readInputValue).toBeCalled();
     expect(temporaryMemory.clearInputValue).toBeCalled();
-    expect(result).toEqual(expectedResponse);
+  });
+
+  it('should avoid double addings', function () {
+    const id: string = 'test::id:';
+    const inputValue: string = 'test::inputValue:';
+    const newEntry: EntryEntity = new EntryEntity();
+    newEntry.id = id;
+    newEntry.name = inputValue;
+    const oldEntry: EntryEntity = new EntryEntity();
+    oldEntry.id = 'test::old-id:';
+    oldEntry.name = ' TEST::InputValue: ';
+
+    (storage.getEntireList as jest.Mock).mockReturnValueOnce([oldEntry]);
+    (idGenerator.generate as jest.Mock).mockReturnValueOnce(id);
+    (temporaryMemory.readInputValue as jest.Mock).mockReturnValueOnce(inputValue);
+    storage.getShoppingList.mockReturnValueOnce([]);
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.ShoppingList);
+
+    interactor.addNewEntry();
+
+    expect(storage.getEntireList).toBeCalled();
+    expect(storage.saveEntireList).toBeCalledWith([oldEntry]);
+    expect(storage.saveShoppingList).toBeCalledWith([oldEntry]);
+    expect(idGenerator.generate).toBeCalled();
+    expect(temporaryMemory.readInputValue).toBeCalled();
+    expect(temporaryMemory.clearInputValue).toBeCalled();
+  });
+
+  it('should add new entry also to shipping list, if active', function () {
+    const id: string = 'test::id';
+    const inputValue: string = 'test::inputValue:';
+    const newEntry: EntryEntity = new EntryEntity();
+    newEntry.id = id;
+    newEntry.name = inputValue;
+
+    (storage.getEntireList as jest.Mock).mockReturnValueOnce([]);
+    (idGenerator.generate as jest.Mock).mockReturnValueOnce(id);
+    (temporaryMemory.readInputValue as jest.Mock).mockReturnValueOnce(inputValue);
+    storage.getShoppingList.mockReturnValueOnce([]);
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.ShoppingList);
+
+    interactor.addNewEntry();
+
+    expect(storage.saveShoppingList).toBeCalledWith([newEntry]);
+  });
+
+  it('should not double add entry to shopping list', function () {
+    const newEntry: EntryEntity = new EntryEntity();
+    newEntry.id = 'test::id:';
+    newEntry.name = 'test::name:';
+    storage.getShoppingList.mockReturnValueOnce([newEntry]);
+    interactor.addToShoppingList(newEntry);
+
+    expect(storage.saveShoppingList).not.toBeCalled();
+  });
+
+  it('should add entry to shopping list', function () {
+    const newEntry: EntryEntity = new EntryEntity();
+    newEntry.id = 'test::id:';
+    newEntry.name = 'test::name:';
+    storage.getShoppingList.mockReturnValueOnce([]);
+    interactor.addToShoppingList(newEntry);
+
+    expect(storage.saveShoppingList).toBeCalledWith([newEntry]);
   });
 });

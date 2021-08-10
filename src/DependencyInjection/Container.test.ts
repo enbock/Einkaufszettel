@@ -3,6 +3,7 @@ import LocalStorage from '../BuyingList/ListStorage/LocalStorage/LocalStorage';
 import NavigationMemory from '../Navigation/Memory/SessionMemory';
 import BuyingListAdapter from '../BuyingList/React/BuyingListAdapter';
 import TemporaryMemory from '../PrimaryInput/FormMemory/TemporaryMemory';
+import PrimaryInputAdapter from '../PrimaryInput/React/PrimaryInputAdapter';
 
 describe(GlobalContainer, function () {
   it('should global provide the list store', function () {
@@ -19,5 +20,8 @@ describe(GlobalContainer, function () {
 
   it('should provide the form memory', function () {
     expect(Container.formMemory).toBeInstanceOf(TemporaryMemory);
+  });
+  it('should provide the adapter', function () {
+    expect(Container.inputAdapter).toBeInstanceOf(PrimaryInputAdapter);
   });
 });

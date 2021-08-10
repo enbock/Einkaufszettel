@@ -2,32 +2,41 @@ import ListStorage from '../BuyingList/ListStorage/ListStorage';
 import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from './FormMemory/FormMemory';
-
-export class Response {
-  public inputValue: string = '';
-}
+import NavigationMemory from '../Navigation/Memory/Memory';
+import {SystemTabs} from '../Navigation/TabEntity';
 
 export default class AddEntryInteractor {
-  private readonly storage: ListStorage;
-  private readonly idGenerator: UniqueIdentifierGenerator;
-  private readonly temporaryMemory: FormMemory;
-
-  constructor(storage: ListStorage, idGenerator: UniqueIdentifierGenerator, temporaryMemory: FormMemory) {
-    this.storage = storage;
-    this.idGenerator = idGenerator;
-    this.temporaryMemory = temporaryMemory;
+  constructor(
+    private storage: ListStorage,
+    private idGenerator: UniqueIdentifierGenerator,
+    private formMemory: FormMemory,
+    private navigationMemory: NavigationMemory
+  ) {
   }
 
-  public addNewEntry(): Response {
-    const entry: EntryEntity = new EntryEntity();
+  public addNewEntry(): void {
+    let entry: EntryEntity = new EntryEntity();
     entry.id = this.idGenerator.generate();
-    entry.name = this.temporaryMemory.readInputValue();
+    entry.name = this.formMemory.readInputValue();
 
     const currentList: EntryEntity[] = this.storage.getEntireList();
-    currentList.push(entry);
-    this.storage.saveEntireList(currentList);
-    this.temporaryMemory.clearInputValue();
+    const foundExistingEntries = currentList.filter(
+      (e: EntryEntity) => e.name.trim().toLowerCase() == entry.name.trim().toLowerCase()
+    );
+    const alreadyExisting: boolean = foundExistingEntries.length > 0;
+    if (alreadyExisting == false) currentList.push(entry);
+    else entry = foundExistingEntries[0];
 
-    return new Response();
+    this.storage.saveEntireList(currentList);
+    this.formMemory.clearInputValue();
+
+    if (this.navigationMemory.getActiveTab() == SystemTabs.ShoppingList) this.addToShoppingList(entry);
+  }
+
+  public addToShoppingList(entry: EntryEntity): void {
+    const list: EntryEntity[] = this.storage.getShoppingList();
+    if (list.indexOf(entry) != -1) return;
+    list.push(entry);
+    this.storage.saveShoppingList(list);
   }
 }

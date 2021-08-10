@@ -4,6 +4,7 @@ import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import PrimaryInputModel from './PrimaryInputModel';
 import './Artefacts/PrimaryInput.css';
 import Container from '../DependencyInjection/Container';
+import GlobalContainer from '../../DependencyInjection/Container';
 
 export interface Adapter {
   onSubmit(): void;
@@ -25,7 +26,7 @@ export default class PrimaryInput extends Component<Properties, State> {
 
   constructor(props: Readonly<Properties>) {
     super(props);
-    this.adapter = Container.adapter;
+    this.adapter = GlobalContainer.inputAdapter;
     this.state = {model: new PrimaryInputModel()};
   }
 
@@ -54,7 +55,7 @@ export default class PrimaryInput extends Component<Properties, State> {
   }
 
   private renderSubmitButton(): JSX.Element | null {
-    if (this.state.model.showSubmitButton === false) return null;
+    if (this.state.model.showSubmitButton === false) return <button name="placeholder"/>;
 
     return (
       <button name="submit" onClick={() => this.adapter.onSubmit()}>

@@ -4,10 +4,6 @@ export class Request {
   public newInputValue: string = '';
 }
 
-export class Response {
-  public inputValue: string = '';
-}
-
 export default class SaveInputValueInteractor {
   private readonly formMemory: FormMemory;
 
@@ -15,13 +11,8 @@ export default class SaveInputValueInteractor {
     this.formMemory = formMemory;
   }
 
-  public saveInputValue(request: Request): Response {
+  public saveInputValue(request: Request): void {
     const inputValue: string = request.newInputValue;
     this.formMemory.storeInputValue(inputValue);
-
-    const response: Response = new Response();
-    response.inputValue = inputValue;
-
-    return response;
   }
 }

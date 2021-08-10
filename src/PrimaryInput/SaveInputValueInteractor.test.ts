@@ -1,4 +1,4 @@
-import SaveInputValueInteractor, {Request, Response} from './SaveInputValueInteractor';
+import SaveInputValueInteractor, {Request} from './SaveInputValueInteractor';
 import FormMemory from './FormMemory/FormMemory';
 
 describe(SaveInputValueInteractor, function () {
@@ -17,12 +17,9 @@ describe(SaveInputValueInteractor, function () {
     const newValue: string = 'test::newValue:';
     const request: Request = new Request();
     request.newInputValue = newValue;
-    const expectedResponse: Response = new Response();
-    expectedResponse.inputValue = newValue;
 
-    const result: Response = interactor.saveInputValue(request);
+    interactor.saveInputValue(request);
 
     expect(temporaryMemory.storeInputValue).toBeCalledWith(newValue);
-    expect(expectedResponse).toEqual(result);
   });
 });
