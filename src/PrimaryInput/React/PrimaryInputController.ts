@@ -2,7 +2,7 @@ import PrimaryInput, {Adapter as TemplateAdapter} from './PrimaryInput';
 import AddEntryInteractor from '../AddEntryInteractor';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
-import LoadInteractor, {LoadResponse as LoadResponse} from '../LoadInteractor';
+import LoadInteractor, {LoadResponse} from '../LoadInteractor';
 import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
 
 export interface Adapter extends TemplateAdapter {
