@@ -1,5 +1,5 @@
 import PrimaryInput, {Adapter as TemplateAdapter} from './PrimaryInput';
-import AddEntryInteractor from '../../BuyingList/AddEntryInteractor';
+import ListInteractor from '../../BuyingList/ListInteractor';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
 import LoadInteractor, {LoadResponse} from '../LoadInteractor';
@@ -11,7 +11,7 @@ export interface Adapter extends TemplateAdapter {
 
 export default class PrimaryInputController {
   private readonly adapter: Adapter;
-  private readonly addEntryInteractor: AddEntryInteractor;
+  private readonly addEntryInteractor: ListInteractor;
   private readonly saveInputValueInteractor: SaveInputValueInteractor;
   private readonly presenter: PrimaryInputPresenter;
   private readonly entireListControllerAdapter: BuyingListAdapter;
@@ -19,7 +19,7 @@ export default class PrimaryInputController {
 
   constructor(
     adapter: Adapter,
-    addEntryInteractor: AddEntryInteractor,
+    addEntryInteractor: ListInteractor,
     saveInputValueInteractor: SaveInputValueInteractor,
     private loadInteractor: LoadInteractor,
     presenter: PrimaryInputPresenter,

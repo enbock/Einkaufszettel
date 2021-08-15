@@ -1,7 +1,7 @@
 import BuyingList, {Adapter as ViewAdapter} from './BuyingList';
 import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
-import AddEntryInteractor from '../AddEntryInteractor';
+import ListInteractor from '../ListInteractor';
 import {EntryEntityId} from '../ListStorage/EntryEntity';
 
 export interface Adapter extends ViewAdapter {
@@ -17,7 +17,7 @@ export default class BuyingListController {
     private entireListPresenter: BuyingListPresenter,
     private entireListInteractor: BuyingListLoadInteractor,
     private adapter: Adapter,
-    private addEntryInteractor: AddEntryInteractor
+    private addEntryInteractor: ListInteractor
   ) {
   }
 
@@ -39,11 +39,11 @@ export default class BuyingListController {
   private bindAdapter(): void {
     this.adapter.onListChange = this.loadAndDisplayList.bind(this);
     this.adapter.onFormInput = this.loadAndDisplayList.bind(this);
-    this.adapter.onEntryButtonClick = this.addEntryToShoppingCart.bind(this);
+    this.adapter.onEntryButtonClick = this.addOrRemoveEntry.bind(this);
   }
 
-  private addEntryToShoppingCart(id: EntryEntityId): void {
-    this.addEntryInteractor.addEntryIdToShoppingList(id);
+  private addOrRemoveEntry(id: EntryEntityId): void {
+    this.addEntryInteractor.addOrRemoveEntry(id);
     this.loadAndDisplayList();
   }
 }

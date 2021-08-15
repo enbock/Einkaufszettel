@@ -1,5 +1,5 @@
 import PrimaryInputController from './PrimaryInputController';
-import AddEntryInteractor from '../../BuyingList/AddEntryInteractor';
+import ListInteractor from '../../BuyingList/ListInteractor';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
 import PrimaryInput from './PrimaryInput';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
@@ -12,7 +12,7 @@ import {mock, MockProxy} from 'jest-mock-extended';
 describe(PrimaryInputController, function () {
   let adapter: PrimaryInputAdapter,
     controller: PrimaryInputController,
-    addEntryInteractor: AddEntryInteractor & MockProxy<AddEntryInteractor>,
+    addEntryInteractor: ListInteractor & MockProxy<ListInteractor>,
     primaryInput: PrimaryInput,
     presenter: PrimaryInputPresenter,
     saveInputValueInteractor: SaveInputValueInteractor & MockProxy<SaveInputValueInteractor>,
@@ -21,7 +21,7 @@ describe(PrimaryInputController, function () {
 
   beforeEach(function () {
     adapter = new PrimaryInputAdapter();
-    addEntryInteractor = mock<AddEntryInteractor>();
+    addEntryInteractor = mock<ListInteractor>();
     saveInputValueInteractor = mock<SaveInputValueInteractor>();
     loadInteractor = mock<LoadInteractor>();
     presenter = {

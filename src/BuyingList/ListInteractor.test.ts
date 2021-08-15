@@ -1,4 +1,4 @@
-import AddEntryInteractor from './AddEntryInteractor';
+import ListInteractor from './ListInteractor';
 import ListStorage from './ListStorage/ListStorage';
 import EntryEntity from './ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from '../PrimaryInput/UniqueIdentifierGenerator/UniqueIdentifierGenerator';
@@ -7,9 +7,9 @@ import {mock, MockProxy} from 'jest-mock-extended';
 import NavigationMemory from '../Navigation/Memory/Memory';
 import {SystemTabs} from '../Navigation/TabEntity';
 
-describe(AddEntryInteractor, function () {
+describe(ListInteractor, function () {
   let storage: ListStorage & MockProxy<ListStorage>,
-    interactor: AddEntryInteractor,
+    interactor: ListInteractor,
     idGenerator: UniqueIdentifierGenerator,
     temporaryMemory: FormMemory,
     navigationMemory: NavigationMemory & MockProxy<NavigationMemory>
@@ -26,7 +26,7 @@ describe(AddEntryInteractor, function () {
       storeInputValue: jest.fn()
     };
     navigationMemory = mock<NavigationMemory>();
-    interactor = new AddEntryInteractor(storage, idGenerator, temporaryMemory, navigationMemory);
+    interactor = new ListInteractor(storage, idGenerator, temporaryMemory, navigationMemory);
   });
 
   it('should add new entry into the entire list and save in storage', function () {
@@ -125,14 +125,29 @@ describe(AddEntryInteractor, function () {
     newEntry.name = 'test::name:';
     storage.getEntireList.mockReturnValueOnce([newEntry]);
     storage.getShoppingList.mockReturnValueOnce([]);
-    interactor.addEntryIdToShoppingList('test::id:');
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.EntireList);
+    interactor.addOrRemoveEntry('test::id:');
 
     expect(storage.saveShoppingList).toBeCalledWith([newEntry]);
   });
 
+  it('should remove entry-id to shopping list', function () {
+    const entry1: EntryEntity = new EntryEntity();
+    entry1.id = 'test::id:';
+    const entry2: EntryEntity = new EntryEntity();
+    entry2.id = 'test::id2:';
+
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.ShoppingList);
+    storage.getShoppingList.mockReturnValueOnce([entry1, entry2]);
+    interactor.addOrRemoveEntry('test::id:');
+
+    expect(storage.saveShoppingList).toBeCalledWith([entry2]);
+  });
+
   it('should ignore wrong entry-id while adding to shopping list', function () {
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.EntireList);
     storage.getEntireList.mockReturnValueOnce([]);
-    interactor.addEntryIdToShoppingList('test::id:');
+    interactor.addOrRemoveEntry('test::id:');
 
     expect(storage.saveShoppingList).not.toBeCalled();
   });

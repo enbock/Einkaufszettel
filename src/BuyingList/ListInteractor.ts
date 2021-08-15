@@ -5,7 +5,7 @@ import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 import NavigationMemory from '../Navigation/Memory/Memory';
 import {SystemTabs} from '../Navigation/TabEntity';
 
-export default class AddEntryInteractor {
+export default class ListInteractor {
   constructor(
     private storage: ListStorage,
     private idGenerator: UniqueIdentifierGenerator,
@@ -20,8 +20,8 @@ export default class AddEntryInteractor {
     entry.name = this.formMemory.readInputValue();
 
     const currentList: EntryEntity[] = this.storage.getEntireList();
-    const foundExistingEntries = currentList.filter(
-      (e: EntryEntity) => e.name.trim().toLowerCase() == entry.name.trim().toLowerCase()
+    const foundExistingEntries: EntryEntity[] = currentList.filter(
+      (e: EntryEntity): boolean => e.name.trim().toLowerCase() == entry.name.trim().toLowerCase()
     );
     const alreadyExisting: boolean = foundExistingEntries.length > 0;
     if (alreadyExisting == false) currentList.push(entry);
@@ -40,7 +40,17 @@ export default class AddEntryInteractor {
     this.storage.saveShoppingList(list);
   }
 
-  public addEntryIdToShoppingList(id: EntryEntityId): void {
+  public addOrRemoveEntry(id: EntryEntityId): void {
+    if (this.navigationMemory.getActiveTab() == SystemTabs.ShoppingList) this.removeEntryIdFromShoppingList(id);
+    else this.addEntryIdToShoppingList(id);
+  }
+
+  public removeEntryIdFromShoppingList(id: EntryEntityId) {
+    const list: EntryEntity[] = this.storage.getShoppingList().filter((e: EntryEntity): boolean => e.id != id);
+    this.storage.saveShoppingList(list);
+  }
+
+  private addEntryIdToShoppingList(id: EntryEntityId) {
     const list: EntryEntity[] = this.storage.getEntireList();
     const foundEntry: EntryEntity[] = list.filter((e: EntryEntity): boolean => e.id == id);
     if (foundEntry.length == 0) return;

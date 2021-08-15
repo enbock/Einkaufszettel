@@ -1,7 +1,7 @@
 import Container, {BuyingListContainer} from './Container';
 import BuyingListAdapter from '../React/BuyingListAdapter';
 import BuyingListController from '../React/BuyingListController';
-import AddEntryInteractor from '../AddEntryInteractor';
+import ListInteractor from '../ListInteractor';
 
 describe(BuyingListContainer, function () {
   it('should provide the adapter', function () {
@@ -13,6 +13,6 @@ describe(BuyingListContainer, function () {
   });
 
   it('should provide add entry interactor', function () {
-    expect(Container.addEntryInteractor).toBeInstanceOf(AddEntryInteractor);
+    expect(Container.addEntryInteractor).toBeInstanceOf(ListInteractor);
   });
 });
