@@ -1,5 +1,5 @@
 import PrimaryInput, {Adapter as TemplateAdapter} from './PrimaryInput';
-import AddEntryInteractor from '../AddEntryInteractor';
+import AddEntryInteractor from '../../BuyingList/AddEntryInteractor';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
 import LoadInteractor, {LoadResponse} from '../LoadInteractor';

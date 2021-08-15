@@ -1,35 +1,32 @@
-import BuyingList from './BuyingList';
+import BuyingList, {Adapter as ViewAdapter} from './BuyingList';
 import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
+import AddEntryInteractor from '../AddEntryInteractor';
+import {EntryEntityId} from '../ListStorage/EntryEntity';
 
-export interface Adapter {
+export interface Adapter extends ViewAdapter {
   onListChange(): void;
 
   onFormInput(): void;
 }
 
 export default class BuyingListController {
-  private externalView?: BuyingList;
-  private readonly entireListPresenter: BuyingListPresenter;
-  private readonly entireListInteractor: BuyingListLoadInteractor;
-  private readonly adapter: Adapter;
+  private viewInstance?: BuyingList;
 
   constructor(
-    entireListPresenter: BuyingListPresenter,
-    entireListInteractor: BuyingListLoadInteractor,
-    adapter: Adapter
+    private entireListPresenter: BuyingListPresenter,
+    private entireListInteractor: BuyingListLoadInteractor,
+    private adapter: Adapter,
+    private addEntryInteractor: AddEntryInteractor
   ) {
-    this.entireListPresenter = entireListPresenter;
-    this.entireListInteractor = entireListInteractor;
-    this.adapter = adapter;
   }
 
   private get view(): BuyingList {
-    return this.externalView as BuyingList;
+    return this.viewInstance as BuyingList;
   }
 
   public attach(view: BuyingList): void {
-    this.externalView = view;
+    this.viewInstance = view;
     this.loadAndDisplayList();
     this.bindAdapter();
   }
@@ -42,5 +39,11 @@ export default class BuyingListController {
   private bindAdapter(): void {
     this.adapter.onListChange = this.loadAndDisplayList.bind(this);
     this.adapter.onFormInput = this.loadAndDisplayList.bind(this);
+    this.adapter.onEntryButtonClick = this.addEntryToShoppingCart.bind(this);
+  }
+
+  private addEntryToShoppingCart(id: EntryEntityId): void {
+    this.addEntryInteractor.addEntryIdToShoppingList(id);
+    this.loadAndDisplayList();
   }
 }

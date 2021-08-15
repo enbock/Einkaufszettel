@@ -1,8 +1,8 @@
 import AddEntryInteractor from './AddEntryInteractor';
-import ListStorage from '../BuyingList/ListStorage/ListStorage';
-import EntryEntity from '../BuyingList/ListStorage/EntryEntity';
-import UniqueIdentifierGenerator from './UniqueIdentifierGenerator/UniqueIdentifierGenerator';
-import FormMemory from './FormMemory/FormMemory';
+import ListStorage from './ListStorage/ListStorage';
+import EntryEntity from './ListStorage/EntryEntity';
+import UniqueIdentifierGenerator from '../PrimaryInput/UniqueIdentifierGenerator/UniqueIdentifierGenerator';
+import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 import {mock, MockProxy} from 'jest-mock-extended';
 import NavigationMemory from '../Navigation/Memory/Memory';
 import {SystemTabs} from '../Navigation/TabEntity';
@@ -117,5 +117,23 @@ describe(AddEntryInteractor, function () {
     interactor.addToShoppingList(newEntry);
 
     expect(storage.saveShoppingList).toBeCalledWith([newEntry]);
+  });
+
+  it('should add entry-id to shopping list', function () {
+    const newEntry: EntryEntity = new EntryEntity();
+    newEntry.id = 'test::id:';
+    newEntry.name = 'test::name:';
+    storage.getEntireList.mockReturnValueOnce([newEntry]);
+    storage.getShoppingList.mockReturnValueOnce([]);
+    interactor.addEntryIdToShoppingList('test::id:');
+
+    expect(storage.saveShoppingList).toBeCalledWith([newEntry]);
+  });
+
+  it('should ignore wrong entry-id while adding to shopping list', function () {
+    storage.getEntireList.mockReturnValueOnce([]);
+    interactor.addEntryIdToShoppingList('test::id:');
+
+    expect(storage.saveShoppingList).not.toBeCalled();
   });
 });

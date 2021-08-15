@@ -6,13 +6,15 @@ import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 import EntryEntity from '../ListStorage/EntryEntity';
 import {mock, MockProxy} from 'jest-mock-extended';
+import AddEntryInteractor from '../AddEntryInteractor';
 
 describe(BuyingListController, function () {
   let view: BuyingList & MockProxy<BuyingList>,
     controller: BuyingListController,
     entireListPresenter: BuyingListPresenter & MockProxy<BuyingListPresenter>,
     entireListInteractor: BuyingListLoadInteractor & MockProxy<BuyingListLoadInteractor>,
-    adapter: Adapter
+    adapter: Adapter,
+    addEntryInteractor: AddEntryInteractor & MockProxy<AddEntryInteractor>
   ;
 
   beforeEach(function () {
@@ -20,7 +22,13 @@ describe(BuyingListController, function () {
     entireListPresenter = mock<BuyingListPresenter>();
     entireListInteractor = mock<BuyingListLoadInteractor>();
     adapter = mock<Adapter>();
-    controller = new BuyingListController(entireListPresenter, entireListInteractor, adapter);
+    addEntryInteractor = mock<AddEntryInteractor>();
+    controller = new BuyingListController(
+      entireListPresenter,
+      entireListInteractor,
+      adapter,
+      addEntryInteractor
+    );
   });
 
   function prepareAttachAndData() {
@@ -67,5 +75,14 @@ describe(BuyingListController, function () {
     adapter.onListChange();
 
     expect(entireListInteractor.loadActiveList).not.toBeCalled();
+  });
+
+  it('should add entry', function () {
+    prepareAttachAndData();
+    controller.attach(view);
+
+    adapter.onEntryButtonClick('test::id:');
+
+    expect(addEntryInteractor.addEntryIdToShoppingList).toBeCalledWith('test::id:');
   });
 });

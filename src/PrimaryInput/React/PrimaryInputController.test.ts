@@ -1,5 +1,5 @@
 import PrimaryInputController from './PrimaryInputController';
-import AddEntryInteractor from '../AddEntryInteractor';
+import AddEntryInteractor from '../../BuyingList/AddEntryInteractor';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
 import PrimaryInput from './PrimaryInput';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
