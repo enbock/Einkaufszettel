@@ -32,6 +32,6 @@ describe(SessionMemory, function () {
     const result: TabId = memory.getActiveTab();
 
     expect(sessionStorage.getItem).toBeCalledWith(SessionMemory.storeKey);
-    expect(result).toBe(SystemTabs.EntireList);
+    expect(result).toBe(SystemTabs.ShoppingList);
   });
 });

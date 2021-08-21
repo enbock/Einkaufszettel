@@ -3,7 +3,7 @@ import {SystemTabs, TabId} from '../TabEntity';
 
 export default class SessionMemory implements Memory {
   public static storeKey: string = 'NavigationSessionMemory::activeTab';
-  public static defaultData: TabId = SystemTabs.EntireList;
+  public static defaultData: TabId = SystemTabs.ShoppingList;
   private readonly storage: Storage;
 
   constructor(sessionStorage: Storage) {
