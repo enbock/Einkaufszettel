@@ -1,12 +1,15 @@
 import Entry, {Adapter} from './Entry';
 import {fireEvent, render, RenderResult} from '@testing-library/react';
 import EntryModel from './EntryModel';
+import {mock, MockProxy} from 'jest-mock-extended';
 
 describe(Entry, function () {
-  let adapter: Adapter, model: EntryModel;
+  let adapter: Adapter & MockProxy<Adapter>,
+    model: EntryModel
+  ;
 
   beforeEach(function () {
-    adapter = {onEntryButtonClick: jest.fn()};
+    adapter = mock<Adapter>();
     model = new EntryModel();
   });
 
@@ -27,5 +30,14 @@ describe(Entry, function () {
     fireEvent.click(button);
 
     expect(adapter.onEntryButtonClick).toBeCalledWith('test::id:');
+  });
+
+  it('should trigger the adapter on click of the label', function () {
+    model.id = 'test::id:';
+    const result: RenderResult = renderUi();
+    const button: Element = result.container.getElementsByTagName('list-label').item(0) as Element;
+    fireEvent.click(button);
+
+    expect(adapter.onSelectClick).toBeCalledWith('test::id:');
   });
 });

@@ -6,6 +6,9 @@ export default class BuyingListAdapter implements ViewAdapter, ControllerAdapter
   public onEntryButtonClick(id: EntryId): void {
   }
 
+  public onSelectClick(id: EntryId): void {
+  }
+
   public onListChange(): void {
   }
 
