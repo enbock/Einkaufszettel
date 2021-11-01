@@ -3,6 +3,7 @@ import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 import ListInteractor from '../ListInteractor';
 import {EntryId} from '../ListStorage/EntryEntity';
+import PrimaryInputAdapter from '../../PrimaryInput/React/PrimaryInputAdapter';
 
 export interface Adapter extends ViewAdapter {
   onListChange(): void;
@@ -16,8 +17,9 @@ export default class BuyingListController {
   constructor(
     private entireListPresenter: BuyingListPresenter,
     private entireListInteractor: BuyingListLoadInteractor,
+    private listInteractor: ListInteractor,
     private adapter: Adapter,
-    private addEntryInteractor: ListInteractor
+    private primaryInputAdapter: PrimaryInputAdapter
   ) {
   }
 
@@ -40,10 +42,17 @@ export default class BuyingListController {
     this.adapter.onListChange = this.loadAndDisplayList.bind(this);
     this.adapter.onFormInput = this.loadAndDisplayList.bind(this);
     this.adapter.onEntryButtonClick = this.addOrRemoveEntry.bind(this);
+    this.adapter.onSelectClick = this.changeSelectedEntry.bind(this);
   }
 
   private addOrRemoveEntry(id: EntryId): void {
-    this.addEntryInteractor.addOrRemoveEntry(id);
+    this.listInteractor.addOrRemoveEntry(id);
+    this.loadAndDisplayList();
+  }
+
+  private changeSelectedEntry(id: EntryId): void {
+    this.listInteractor.changeSelectedEntry(id);
+    this.primaryInputAdapter.onListChange();
     this.loadAndDisplayList();
   }
 }

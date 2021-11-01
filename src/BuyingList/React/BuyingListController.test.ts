@@ -7,6 +7,7 @@ import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 import EntryEntity from '../ListStorage/EntryEntity';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ListInteractor from '../ListInteractor';
+import PrimaryInputAdapter from '../../PrimaryInput/React/PrimaryInputAdapter';
 
 describe(BuyingListController, function () {
   let view: BuyingList & MockProxy<BuyingList>,
@@ -14,7 +15,8 @@ describe(BuyingListController, function () {
     entireListPresenter: BuyingListPresenter & MockProxy<BuyingListPresenter>,
     entireListInteractor: BuyingListLoadInteractor & MockProxy<BuyingListLoadInteractor>,
     adapter: Adapter,
-    addEntryInteractor: ListInteractor & MockProxy<ListInteractor>
+    listInteractor: ListInteractor & MockProxy<ListInteractor>,
+    primaryInputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
   ;
 
   beforeEach(function () {
@@ -22,12 +24,14 @@ describe(BuyingListController, function () {
     entireListPresenter = mock<BuyingListPresenter>();
     entireListInteractor = mock<BuyingListLoadInteractor>();
     adapter = mock<Adapter>();
-    addEntryInteractor = mock<ListInteractor>();
+    listInteractor = mock<ListInteractor>();
+    primaryInputAdapter = mock<PrimaryInputAdapter>();
     controller = new BuyingListController(
       entireListPresenter,
       entireListInteractor,
+      listInteractor,
       adapter,
-      addEntryInteractor
+      primaryInputAdapter
     );
   });
 
@@ -83,6 +87,16 @@ describe(BuyingListController, function () {
 
     adapter.onEntryButtonClick('test::id:');
 
-    expect(addEntryInteractor.addOrRemoveEntry).toBeCalledWith('test::id:');
+    expect(listInteractor.addOrRemoveEntry).toBeCalledWith('test::id:');
+  });
+
+  it('should selected an entry', function () {
+    prepareAttachAndData();
+    controller.attach(view);
+
+    adapter.onSelectClick('test::id:');
+
+    expect(listInteractor.changeSelectedEntry).toBeCalledWith('test::id:');
+    expect(primaryInputAdapter.onListChange).toBeCalled();
   });
 });

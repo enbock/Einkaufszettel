@@ -3,14 +3,18 @@ import EntryEntity, {EntryId} from './ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from '../PrimaryInput/UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 import NavigationMemory from '../Navigation/Memory/Memory';
-import {SystemTabs} from '../Navigation/TabEntity';
+import {SystemTabs, TabId} from '../Navigation/TabEntity';
+import SelectionStorage from './SelectionStorage/SelectionStorage';
+import LoadListTask from './InteractorTask/LoadListTask';
 
 export default class ListInteractor {
   constructor(
     private storage: ListStorage,
     private idGenerator: UniqueIdentifierGenerator,
     private formMemory: FormMemory,
-    private navigationMemory: NavigationMemory
+    private navigationMemory: NavigationMemory,
+    private selectionStorage: SelectionStorage,
+    private loadListChain: LoadListTask[]
   ) {
   }
 
@@ -48,6 +52,20 @@ export default class ListInteractor {
   public removeEntryIdFromShoppingList(id: EntryId) {
     const list: EntryEntity[] = this.storage.getShoppingList().filter((e: EntryEntity): boolean => e.id != id);
     this.storage.saveShoppingList(list);
+  }
+
+  public changeSelectedEntry(selectedId: EntryId) {
+    this.selectionStorage.saveSelectedEntry(selectedId);
+
+    const activeTab: TabId = this.navigationMemory.getActiveTab();
+    let activeList: EntryEntity[] = [];
+    for (const loadTask of this.loadListChain) {
+      if (loadTask.support(activeTab) === false) continue;
+      activeList = loadTask.loadList();
+    }
+
+    const selectedEntry: EntryEntity = activeList.filter((e: EntryEntity): boolean => e.id == selectedId)[0];
+    this.formMemory.storeInputValue(selectedEntry.name);
   }
 
   private addEntryIdToShoppingList(id: EntryId) {
