@@ -1,5 +1,5 @@
 import ListStorage from './ListStorage/ListStorage';
-import EntryEntity, {EntryEntityId} from './ListStorage/EntryEntity';
+import EntryEntity, {EntryId} from './ListStorage/EntryEntity';
 import UniqueIdentifierGenerator from '../PrimaryInput/UniqueIdentifierGenerator/UniqueIdentifierGenerator';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 import NavigationMemory from '../Navigation/Memory/Memory';
@@ -40,17 +40,17 @@ export default class ListInteractor {
     this.storage.saveShoppingList(list);
   }
 
-  public addOrRemoveEntry(id: EntryEntityId): void {
+  public addOrRemoveEntry(id: EntryId): void {
     if (this.navigationMemory.getActiveTab() == SystemTabs.ShoppingList) this.removeEntryIdFromShoppingList(id);
     else this.addEntryIdToShoppingList(id);
   }
 
-  public removeEntryIdFromShoppingList(id: EntryEntityId) {
+  public removeEntryIdFromShoppingList(id: EntryId) {
     const list: EntryEntity[] = this.storage.getShoppingList().filter((e: EntryEntity): boolean => e.id != id);
     this.storage.saveShoppingList(list);
   }
 
-  private addEntryIdToShoppingList(id: EntryEntityId) {
+  private addEntryIdToShoppingList(id: EntryId) {
     const list: EntryEntity[] = this.storage.getEntireList();
     const foundEntry: EntryEntity[] = list.filter((e: EntryEntity): boolean => e.id == id);
     if (foundEntry.length == 0) return;

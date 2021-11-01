@@ -1,8 +1,8 @@
 import LoadEntireList from './LoadEntireList';
-import ListStorage from '../ListStorage';
+import ListStorage from '../ListStorage/ListStorage';
 import {mock, MockProxy} from 'jest-mock-extended';
-import EntryEntity from '../EntryEntity';
-import {SystemTabs} from '../../../Navigation/TabEntity';
+import EntryEntity from '../ListStorage/EntryEntity';
+import {SystemTabs} from '../../Navigation/TabEntity';
 
 describe(LoadEntireList, function () {
   let task: LoadEntireList,

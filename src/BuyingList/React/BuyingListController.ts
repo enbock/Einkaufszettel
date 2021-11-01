@@ -2,7 +2,7 @@ import BuyingList, {Adapter as ViewAdapter} from './BuyingList';
 import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 import ListInteractor from '../ListInteractor';
-import {EntryEntityId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../ListStorage/EntryEntity';
 
 export interface Adapter extends ViewAdapter {
   onListChange(): void;
@@ -42,7 +42,7 @@ export default class BuyingListController {
     this.adapter.onEntryButtonClick = this.addOrRemoveEntry.bind(this);
   }
 
-  private addOrRemoveEntry(id: EntryEntityId): void {
+  private addOrRemoveEntry(id: EntryId): void {
     this.addEntryInteractor.addOrRemoveEntry(id);
     this.loadAndDisplayList();
   }

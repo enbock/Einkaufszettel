@@ -3,7 +3,7 @@ import EntryEntity from './ListStorage/EntryEntity';
 import ListStorage from './ListStorage/ListStorage';
 import Memory from '../Navigation/Memory/Memory';
 import {mock, MockProxy} from 'jest-mock-extended';
-import LoadListTask from './ListStorage/LoadList/LoadListTask';
+import LoadListTask from './InteractorTask/LoadListTask';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 
 describe(BuyingListLoadInteractor, function () {

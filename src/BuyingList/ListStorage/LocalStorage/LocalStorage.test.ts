@@ -1,23 +1,17 @@
 import LocalStorage from './LocalStorage';
 import EntryEntity from '../EntryEntity';
 import EntryListTransformer from './EntryListTransformer';
+import {mock, MockProxy} from 'jest-mock-extended';
 
 describe(LocalStorage, function () {
-  let localStorage: LocalStorage, storage: Storage, transformer: EntryListTransformer;
+  let localStorage: LocalStorage,
+    storage: Storage & MockProxy<Storage>,
+    transformer: EntryListTransformer & MockProxy<EntryListTransformer>
+  ;
 
   beforeEach(function () {
-    storage = {
-      getItem: jest.fn(),
-      key: jest.fn(),
-      length: 0,
-      removeItem: jest.fn(),
-      setItem: jest.fn(),
-      clear: jest.fn()
-    };
-    transformer = {
-      formatList: jest.fn(),
-      parseList: jest.fn()
-    };
+    storage = mock<Storage>();
+    transformer = mock<EntryListTransformer>();
     localStorage = new LocalStorage(storage, transformer);
   });
 
@@ -27,8 +21,8 @@ describe(LocalStorage, function () {
     const expectedList: EntryEntity[] = [entity];
 
     const json: string = '{"json":"data"}';
-    (storage.getItem as jest.Mock).mockReturnValueOnce(json);
-    (transformer.parseList as jest.Mock).mockReturnValueOnce(expectedList);
+    storage.getItem.mockReturnValueOnce(json);
+    transformer.parseList.mockReturnValueOnce(expectedList);
 
     const result: EntryEntity[] = localStorage.getEntireList();
 
@@ -47,7 +41,7 @@ describe(LocalStorage, function () {
     const entireList: EntryEntity[] = [entity];
     const json: string = '{"json":"data"}';
 
-    (transformer.formatList as jest.Mock).mockReturnValueOnce(json);
+    transformer.formatList.mockReturnValueOnce(json);
     localStorage.saveEntireList(entireList);
 
     expect(transformer.formatList).toBeCalledWith(entireList);

@@ -1,6 +1,6 @@
-export type EntryEntityId = string;
+export type EntryId = string;
 
 export default class EntryEntity {
-  public id: EntryEntityId = '';
+  public id: EntryId = '';
   public name: string = '';
 }

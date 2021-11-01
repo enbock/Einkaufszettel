@@ -2,7 +2,7 @@ import EntryEntity from './ListStorage/EntryEntity';
 import StringHelper from '@enbock/string-helper-ts/StringHelper';
 import Memory from '../Navigation/Memory/Memory';
 import {TabId} from '../Navigation/TabEntity';
-import LoadListTask from './ListStorage/LoadList/LoadListTask';
+import LoadListTask from './InteractorTask/LoadListTask';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 
 export class Response {
