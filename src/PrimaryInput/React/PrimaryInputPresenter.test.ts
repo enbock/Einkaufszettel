@@ -20,7 +20,7 @@ describe(PrimaryInputPresenter, function () {
 
   it('should disable submit button, if text already in list', function () {
     const entry: EntryEntity = new EntryEntity();
-    entry.name = ' TEST::InputValue: ';
+    entry.name = ' test::inputValue: ';
     const response: LoadResponse = new LoadResponse();
     response.inputValue = 'test::inputValue:';
     response.entireList = [entry];
@@ -36,7 +36,7 @@ describe(PrimaryInputPresenter, function () {
 
   it('should enable submit button, if text already in lists but on shopping list page', function () {
     const entry: EntryEntity = new EntryEntity();
-    entry.name = ' TEST::InputValue: ';
+    entry.name = ' test::inputValue: ';
     const response: LoadResponse = new LoadResponse();
     response.inputValue = 'test::inputValue:';
     response.entireList = [entry];
@@ -53,7 +53,7 @@ describe(PrimaryInputPresenter, function () {
 
   it('should disable submit button, if text already in shopping list', function () {
     const entry: EntryEntity = new EntryEntity();
-    entry.name = ' TEST::InputValue: ';
+    entry.name = ' test::inputValue: ';
     const response: LoadResponse = new LoadResponse();
     response.inputValue = 'test::inputValue:';
     response.shoppingList = [entry];

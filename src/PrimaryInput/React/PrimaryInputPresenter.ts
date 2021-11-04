@@ -5,7 +5,7 @@ import {SystemTabs} from '../../Navigation/TabEntity';
 
 export default class PrimaryInputPresenter {
   private static compareEntries(inputValue: string) {
-    return (e: EntryEntity): boolean => e.name.trim().toLowerCase() == inputValue.trim().toLowerCase();
+    return (e: EntryEntity): boolean => e.name.trim() == inputValue.trim();
   }
 
   public present(response: LoadResponse): PrimaryInputModel {
