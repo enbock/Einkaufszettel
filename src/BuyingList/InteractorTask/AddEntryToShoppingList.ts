@@ -16,8 +16,12 @@ export default class AddEntryToShoppingList {
     this.storage.saveShoppingList(list);
   }
 
-  private removeIfExists(list: EntryEntity[], entry: EntryEntity) {
-    const isExisting: boolean = list.filter((e: EntryEntity): boolean => e.id == entry.id).length > 0;
-    if (isExisting) list.splice(list.indexOf(entry), 1);
+  private removeIfExists(list: EntryEntity[], entry: EntryEntity): void {
+    for (let index: number = 0; index < list.length; index++) {
+      const entity: EntryEntity = list[index];
+      if (entity.id != entry.id) continue;
+      list.splice(index, 1);
+      return;
+    }
   }
 }
