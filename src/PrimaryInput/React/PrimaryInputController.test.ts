@@ -44,12 +44,12 @@ describe(PrimaryInputController, function () {
     const model: PrimaryInputModel = new PrimaryInputModel();
     model.inputValue = 'test';
 
-    addEntryInteractor.addNewEntry.mockReturnValueOnce();
+    addEntryInteractor.saveEntry.mockReturnValueOnce();
     prepareMocksAndAttachView(response, model);
 
     adapter.onSubmit();
 
-    expect(addEntryInteractor.addNewEntry).toBeCalled();
+    expect(addEntryInteractor.saveEntry).toBeCalled();
     expect(presenter.present).toBeCalledWith(response);
     expect(presenter.present).toBeCalledTimes(2);
     expect(primaryInput.model).toBe(model);

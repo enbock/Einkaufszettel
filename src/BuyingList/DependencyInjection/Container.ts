@@ -10,6 +10,10 @@ import UuidGenerator from '../../PrimaryInput/UniqueIdentifierGenerator/UuidGene
 import {v4 as UuidVersion4} from 'uuid';
 import SelectionStorage from '../SelectionStorage/SessionStorage/SessionStorage';
 import LoadListTask from '../InteractorTask/LoadListTask';
+import AddNewEntry from '../InteractorTask/AddNewEntry';
+import AddEntryToShoppingList from '../InteractorTask/AddEntryToShoppingList';
+import AddEntryIdToShoppingList from '../InteractorTask/AddEntryIdToShoppingList';
+import UpdateEntry from '../InteractorTask/UpdateEntry';
 
 export class BuyingListContainer {
   public readonly adapter: BuyingListAdapter = GlobalContainer.listAdapter;
@@ -17,15 +21,35 @@ export class BuyingListContainer {
     new LoadEntireList(GlobalContainer.listStorage),
     new LoadShoppingList(GlobalContainer.listStorage)
   ];
+  private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
+  private readonly selectionStorage: SelectionStorage = new SelectionStorage(global.sessionStorage);
   public readonly addEntryInteractor: ListInteractor = new ListInteractor(
     GlobalContainer.listStorage,
-    new UuidGenerator(UuidVersion4),
     GlobalContainer.formMemory,
     GlobalContainer.navigationMemory,
-    new SelectionStorage(global.sessionStorage),
-    this.loadListChain
+    this.selectionStorage,
+    this.loadListChain,
+    new AddNewEntry(
+      GlobalContainer.listStorage,
+      new UuidGenerator(UuidVersion4),
+      GlobalContainer.formMemory,
+      GlobalContainer.navigationMemory,
+      this.addEntryToShoppingList
+    ),
+    this.addEntryToShoppingList,
+    new AddEntryIdToShoppingList(
+      GlobalContainer.listStorage,
+      this.addEntryToShoppingList
+    ),
+    new UpdateEntry(
+      GlobalContainer.listStorage,
+      this.selectionStorage,
+      GlobalContainer.formMemory,
+      GlobalContainer.navigationMemory,
+      this.addEntryToShoppingList
+    )
   );
-  public readonly controller: BuyingListController = new BuyingListController(
+  public controller: BuyingListController = new BuyingListController(
     new BuyingListPresenter(),
     new BuyingListLoadInteractor(
       GlobalContainer.navigationMemory,
@@ -36,6 +60,10 @@ export class BuyingListContainer {
     this.adapter,
     GlobalContainer.inputAdapter
   );
+
+  constructor() {
+    this.selectionStorage = new SelectionStorage(global.sessionStorage);
+  }
 }
 
 const Container: BuyingListContainer = new BuyingListContainer();

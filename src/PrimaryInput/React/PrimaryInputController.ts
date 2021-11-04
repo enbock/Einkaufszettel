@@ -48,13 +48,13 @@ export default class PrimaryInputController {
   }
 
   private bindAdapter(): void {
-    this.adapter.onSubmit = this.addNewEntry.bind(this);
+    this.adapter.onSubmit = this.saveEntry.bind(this);
     this.adapter.onInputChange = this.saveInputValue.bind(this);
     this.adapter.onListChange = this.actualizeOutput.bind(this);
   }
 
-  private addNewEntry(): void {
-    this.addEntryInteractor.addNewEntry();
+  private saveEntry(): void {
+    this.addEntryInteractor.saveEntry();
     this.actualizeOutput();
     this.entireListControllerAdapter.onListChange();
   }
