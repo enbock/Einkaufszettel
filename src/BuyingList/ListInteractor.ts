@@ -1,9 +1,9 @@
-import ListStorage from './ListStorage/ListStorage';
-import EntryEntity, {EntryId} from './ListStorage/EntryEntity';
-import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
-import NavigationMemory from '../Navigation/Memory/Memory';
+import ListStorage from '../ListStorage/ListStorage';
+import EntryEntity, {EntryId} from '../ListStorage/EntryEntity';
+import FormMemory from '../FormMemory/FormMemory';
+import NavigationMemory from '../Memory/Memory';
 import {SystemTabs, TabId} from '../Navigation/TabEntity';
-import SelectionStorage from './SelectionStorage/SelectionStorage';
+import SelectionStorage from '../SelectionStorage/SelectionStorage';
 import LoadListTask from './InteractorTask/LoadListTask';
 import AddNewEntry from './InteractorTask/AddNewEntry';
 import AddEntryIdToShoppingList from './InteractorTask/AddEntryIdToShoppingList';

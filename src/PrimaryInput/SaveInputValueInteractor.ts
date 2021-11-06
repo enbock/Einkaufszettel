@@ -1,4 +1,4 @@
-import FormMemory from './FormMemory/FormMemory';
+import FormMemory from '../FormMemory/FormMemory';
 
 export class Request {
   public newInputValue: string = '';

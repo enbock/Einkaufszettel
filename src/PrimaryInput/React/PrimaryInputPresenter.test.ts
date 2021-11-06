@@ -1,6 +1,6 @@
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import PrimaryInputModel from './PrimaryInputModel';
-import EntryEntity from '../../BuyingList/ListStorage/EntryEntity';
+import EntryEntity from '../../ListStorage/EntryEntity';
 import {LoadResponse} from '../LoadInteractor';
 import {SystemTabs} from '../../Navigation/TabEntity';
 
@@ -12,6 +12,7 @@ describe(PrimaryInputPresenter, function () {
     expectedModel.inputValue = 'test::left-trimmed-value: ';
     expectedModel.showSubmitButton = true;
     expectedModel.showDiscardButton = true;
+    expectedModel.discardLabel = expectedModel.i18n.discard;
 
     const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
@@ -28,6 +29,7 @@ describe(PrimaryInputPresenter, function () {
     expectedModel.inputValue = 'test::inputValue:';
     expectedModel.showSubmitButton = false;
     expectedModel.showDiscardButton = true;
+    expectedModel.discardLabel = expectedModel.i18n.discard;
 
     const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
@@ -45,6 +47,7 @@ describe(PrimaryInputPresenter, function () {
     expectedModel.inputValue = 'test::inputValue:';
     expectedModel.showSubmitButton = true;
     expectedModel.showDiscardButton = true;
+    expectedModel.discardLabel = expectedModel.i18n.discard;
 
     const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
@@ -57,10 +60,12 @@ describe(PrimaryInputPresenter, function () {
     const response: LoadResponse = new LoadResponse();
     response.inputValue = 'test::inputValue:';
     response.shoppingList = [entry];
+    response.currentTab = SystemTabs.EntireList;
     const expectedModel: PrimaryInputModel = new PrimaryInputModel();
     expectedModel.inputValue = 'test::inputValue:';
     expectedModel.showSubmitButton = false;
     expectedModel.showDiscardButton = true;
+    expectedModel.discardLabel = expectedModel.i18n.delete;
 
     const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 

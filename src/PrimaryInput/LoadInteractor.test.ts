@@ -1,9 +1,9 @@
 import LoadInteractor, {LoadResponse} from './LoadInteractor';
-import FormMemory from './FormMemory/FormMemory';
+import FormMemory from '../FormMemory/FormMemory';
 import {mock, MockProxy} from 'jest-mock-extended';
-import ListStorage from '../BuyingList/ListStorage/ListStorage';
+import ListStorage from '../ListStorage/ListStorage';
 import {SystemTabs} from '../Navigation/TabEntity';
-import NavigationMemory from '../Navigation/Memory/Memory';
+import NavigationMemory from '../Memory/Memory';
 
 describe(LoadInteractor, function () {
   let formMemory: MockProxy<FormMemory>,

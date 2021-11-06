@@ -1,5 +1,5 @@
 import Memory from './Memory';
-import {SystemTabs, TabId} from '../TabEntity';
+import {SystemTabs, TabId} from '../Navigation/TabEntity';
 
 export default class SessionMemory implements Memory {
   public static storeKey: string = 'NavigationSessionMemory::activeTab';

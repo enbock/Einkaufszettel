@@ -4,32 +4,24 @@ import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
 import LoadInteractor, {LoadResponse} from '../LoadInteractor';
 import {Adapter as BuyingListAdapter} from '../../BuyingList/React/BuyingListController';
+import RemoveInteractor from '../RemoveInteractor';
 
 export interface Adapter extends TemplateAdapter {
   onListChange(): void;
 }
 
 export default class PrimaryInputController {
-  private readonly adapter: Adapter;
-  private readonly addEntryInteractor: ListInteractor;
-  private readonly saveInputValueInteractor: SaveInputValueInteractor;
-  private readonly presenter: PrimaryInputPresenter;
-  private readonly entireListControllerAdapter: BuyingListAdapter;
-  private viewInstance: PrimaryInput | undefined;
+  private viewInstance?: PrimaryInput;
 
   constructor(
-    adapter: Adapter,
-    addEntryInteractor: ListInteractor,
-    saveInputValueInteractor: SaveInputValueInteractor,
+    private adapter: Adapter,
+    private addEntryInteractor: ListInteractor,
+    private saveInputValueInteractor: SaveInputValueInteractor,
     private loadInteractor: LoadInteractor,
-    presenter: PrimaryInputPresenter,
-    entireListAdapter: BuyingListAdapter
+    private presenter: PrimaryInputPresenter,
+    private entireListControllerAdapter: BuyingListAdapter,
+    private removeInteractor: RemoveInteractor
   ) {
-    this.adapter = adapter;
-    this.addEntryInteractor = addEntryInteractor;
-    this.saveInputValueInteractor = saveInputValueInteractor;
-    this.presenter = presenter;
-    this.entireListControllerAdapter = entireListAdapter;
   }
 
   private get view(): PrimaryInput {
@@ -51,6 +43,7 @@ export default class PrimaryInputController {
     this.adapter.onSubmit = this.saveEntry.bind(this);
     this.adapter.onInputChange = this.saveInputValue.bind(this);
     this.adapter.onListChange = this.actualizeOutput.bind(this);
+    this.adapter.onDiscard = this.deleteOrDiscardEntry.bind(this);
   }
 
   private saveEntry(): void {
@@ -65,5 +58,11 @@ export default class PrimaryInputController {
     this.saveInputValueInteractor.saveInputValue(request);
     this.actualizeOutput();
     this.entireListControllerAdapter.onFormInput();
+  }
+
+  private deleteOrDiscardEntry(): void {
+    this.removeInteractor.deleteOrDiscardEntry();
+    this.actualizeOutput();
+    this.entireListControllerAdapter.onListChange();
   }
 }

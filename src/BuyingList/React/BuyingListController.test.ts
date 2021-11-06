@@ -4,7 +4,7 @@ import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
 import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
-import EntryEntity from '../ListStorage/EntryEntity';
+import EntryEntity from '../../ListStorage/EntryEntity';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ListInteractor from '../ListInteractor';
 import PrimaryInputAdapter from '../../PrimaryInput/React/PrimaryInputAdapter';

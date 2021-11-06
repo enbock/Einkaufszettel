@@ -1,9 +1,9 @@
-import EntryEntity from '../ListStorage/EntryEntity';
+import EntryEntity from '../../ListStorage/EntryEntity';
 import {SystemTabs} from '../../Navigation/TabEntity';
-import ListStorage from '../ListStorage/ListStorage';
+import ListStorage from '../../ListStorage/ListStorage';
 import UniqueIdentifierGenerator from '../../PrimaryInput/UniqueIdentifierGenerator/UniqueIdentifierGenerator';
-import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
-import NavigationMemory from '../../Navigation/Memory/Memory';
+import FormMemory from '../../FormMemory/FormMemory';
+import NavigationMemory from '../../Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 
 export default class AddNewEntry {

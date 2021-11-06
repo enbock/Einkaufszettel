@@ -8,7 +8,6 @@ import LoadShoppingList from '../InteractorTask/LoadShoppingList';
 import ListInteractor from '../ListInteractor';
 import UuidGenerator from '../../PrimaryInput/UniqueIdentifierGenerator/UuidGenerator';
 import {v4 as UuidVersion4} from 'uuid';
-import SelectionStorage from '../SelectionStorage/SessionStorage/SessionStorage';
 import LoadListTask from '../InteractorTask/LoadListTask';
 import AddNewEntry from '../InteractorTask/AddNewEntry';
 import AddEntryToShoppingList from '../InteractorTask/AddEntryToShoppingList';
@@ -22,12 +21,11 @@ export class BuyingListContainer {
     new LoadShoppingList(GlobalContainer.listStorage)
   ];
   private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
-  private readonly selectionStorage: SelectionStorage = new SelectionStorage(global.sessionStorage);
   public readonly addEntryInteractor: ListInteractor = new ListInteractor(
     GlobalContainer.listStorage,
     GlobalContainer.formMemory,
     GlobalContainer.navigationMemory,
-    this.selectionStorage,
+    GlobalContainer.selectionStorage,
     this.loadListChain,
     new AddNewEntry(
       GlobalContainer.listStorage,
@@ -43,7 +41,7 @@ export class BuyingListContainer {
     ),
     new UpdateEntry(
       GlobalContainer.listStorage,
-      this.selectionStorage,
+      GlobalContainer.selectionStorage,
       GlobalContainer.formMemory,
       GlobalContainer.navigationMemory,
       this.addEntryToShoppingList
@@ -60,10 +58,6 @@ export class BuyingListContainer {
     this.adapter,
     GlobalContainer.inputAdapter
   );
-
-  constructor() {
-    this.selectionStorage = new SelectionStorage(global.sessionStorage);
-  }
 }
 
 const Container: BuyingListContainer = new BuyingListContainer();

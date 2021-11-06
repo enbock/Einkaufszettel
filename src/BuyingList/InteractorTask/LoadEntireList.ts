@@ -1,7 +1,7 @@
 import LoadListTask from './LoadListTask';
-import EntryEntity from '../ListStorage/EntryEntity';
+import EntryEntity from '../../ListStorage/EntryEntity';
 import {SystemTabs, TabId} from '../../Navigation/TabEntity';
-import ListStorage from '../ListStorage/ListStorage';
+import ListStorage from '../../ListStorage/ListStorage';
 
 export default class LoadEntireList implements LoadListTask {
   private listStorage: ListStorage;

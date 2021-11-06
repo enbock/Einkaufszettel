@@ -1,5 +1,5 @@
-import EntryEntity, {EntryId} from '../ListStorage/EntryEntity';
-import ListStorage from '../ListStorage/ListStorage';
+import EntryEntity, {EntryId} from '../../ListStorage/EntryEntity';
+import ListStorage from '../../ListStorage/ListStorage';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 
 export default class AddEntryIdToShoppingList {

@@ -1,5 +1,5 @@
 import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './NavigationInteractor';
-import Memory from './Memory/Memory';
+import Memory from '../Memory/Memory';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ConfigLoader from './Config/ConfigLoader';
 import TabEntity from './TabEntity';

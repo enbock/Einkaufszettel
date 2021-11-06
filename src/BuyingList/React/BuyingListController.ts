@@ -2,7 +2,7 @@ import BuyingList, {Adapter as ViewAdapter} from './BuyingList';
 import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 import ListInteractor from '../ListInteractor';
-import {EntryId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../../ListStorage/EntryEntity';
 import PrimaryInputAdapter from '../../PrimaryInput/React/PrimaryInputAdapter';
 
 export interface Adapter extends ViewAdapter {

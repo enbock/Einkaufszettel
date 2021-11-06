@@ -4,6 +4,7 @@ import LoadInteractor from '../LoadInteractor';
 import PrimaryInputPresenter from '../React/PrimaryInputPresenter';
 import GlobalContainer from '../../DependencyInjection/Container';
 import BuyingListContainer from '../../BuyingList/DependencyInjection/Container';
+import RemoveInteractor from '../RemoveInteractor';
 
 export class PrimaryInputContainer {
   public controller: PrimaryInputController;
@@ -19,7 +20,13 @@ export class PrimaryInputContainer {
         GlobalContainer.navigationMemory
       ),
       new PrimaryInputPresenter(),
-      BuyingListContainer.adapter
+      BuyingListContainer.adapter,
+      new RemoveInteractor(
+        GlobalContainer.navigationMemory,
+        GlobalContainer.listStorage,
+        GlobalContainer.selectionStorage,
+        GlobalContainer.formMemory
+      )
     );
   }
 }

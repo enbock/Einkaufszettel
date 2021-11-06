@@ -1,8 +1,8 @@
 import AddEntryIdToShoppingList from './AddEntryIdToShoppingList';
 import {mock, MockProxy} from 'jest-mock-extended';
-import ListStorage from '../ListStorage/ListStorage';
+import ListStorage from '../../ListStorage/ListStorage';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
-import EntryEntity from '../ListStorage/EntryEntity';
+import EntryEntity from '../../ListStorage/EntryEntity';
 
 describe(AddEntryIdToShoppingList, function () {
   let task: AddEntryIdToShoppingList,

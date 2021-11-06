@@ -1,10 +1,10 @@
 import BuyingListLoadInteractor, {Response} from './BuyingListLoadInteractor';
-import EntryEntity from './ListStorage/EntryEntity';
-import ListStorage from './ListStorage/ListStorage';
-import Memory from '../Navigation/Memory/Memory';
+import EntryEntity from '../ListStorage/EntryEntity';
+import ListStorage from '../ListStorage/ListStorage';
+import Memory from '../Memory/Memory';
 import {mock, MockProxy} from 'jest-mock-extended';
 import LoadListTask from './InteractorTask/LoadListTask';
-import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
+import FormMemory from '../FormMemory/FormMemory';
 
 describe(BuyingListLoadInteractor, function () {
   let interactor: BuyingListLoadInteractor,

@@ -1,5 +1,5 @@
 import TabEntity, {TabId} from './TabEntity';
-import Memory from './Memory/Memory';
+import Memory from '../Memory/Memory';
 import ConfigLoader from './Config/ConfigLoader';
 
 export class ActivateTabRequest {

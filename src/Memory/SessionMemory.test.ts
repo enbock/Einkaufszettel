@@ -1,6 +1,6 @@
 import SessionMemory from './SessionMemory';
 import {mock, MockProxy} from 'jest-mock-extended';
-import {SystemTabs, TabId} from '../TabEntity';
+import {SystemTabs, TabId} from '../Navigation/TabEntity';
 
 describe(SessionMemory, function () {
   let memory: SessionMemory,

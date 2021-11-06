@@ -65,10 +65,11 @@ export default class PrimaryInput extends Component<Properties, State> {
   }
 
   private renderDiscardButton(): JSX.Element | null {
-    if (this.state.model.showDiscardButton === false) return null;
+    const model = this.state.model;
+    if (model.showDiscardButton === false) return null;
 
     return <button name="discard" onClick={() => this.adapter.onDiscard()}>
-      <img src={DiscardIcon} alt="Verwerfen"/>
+      <img src={DiscardIcon} alt={model.discardLabel}/>
     </button>;
   }
 

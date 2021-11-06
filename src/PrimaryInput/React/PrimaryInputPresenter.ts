@@ -1,6 +1,6 @@
 import PrimaryInputModel from './PrimaryInputModel';
 import {LoadResponse} from '../LoadInteractor';
-import EntryEntity from '../../BuyingList/ListStorage/EntryEntity';
+import EntryEntity from '../../ListStorage/EntryEntity';
 import {SystemTabs} from '../../Navigation/TabEntity';
 
 export default class PrimaryInputPresenter {
@@ -26,6 +26,7 @@ export default class PrimaryInputPresenter {
       !foundInShoppingList &&
       (!foundInEntireList || response.currentTab == SystemTabs.ShoppingList)
     ;
+    model.discardLabel = response.currentTab == SystemTabs.EntireList ? model.i18n.delete : model.i18n.discard;
 
     return model;
   }

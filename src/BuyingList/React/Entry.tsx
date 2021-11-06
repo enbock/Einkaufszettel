@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import EntryModel from './EntryModel';
-import {EntryId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../../ListStorage/EntryEntity';
 
 export interface Adapter {
   onEntryButtonClick(id: EntryId): void;

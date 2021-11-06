@@ -1,10 +1,10 @@
 import UpdateEntry from './UpdateEntry';
 import {mock, MockProxy} from 'jest-mock-extended';
-import ListStorage from '../ListStorage/ListStorage';
-import SelectionStorage from '../SelectionStorage/SelectionStorage';
-import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
-import EntryEntity from '../ListStorage/EntryEntity';
-import NavigationMemory from '../../Navigation/Memory/Memory';
+import ListStorage from '../../ListStorage/ListStorage';
+import SelectionStorage from '../../SelectionStorage/SelectionStorage';
+import FormMemory from '../../FormMemory/FormMemory';
+import EntryEntity from '../../ListStorage/EntryEntity';
+import NavigationMemory from '../../Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 import {SystemTabs} from '../../Navigation/TabEntity';
 
@@ -52,14 +52,14 @@ describe(UpdateEntry, function () {
   }
 
   it('should update the name of the selected entry and actualize shopping list', function () {
-    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.ShoppingList)
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.ShoppingList);
     const currentEntry = testUpdateEntry();
-    expect(addEntryToShoppingList.addToShoppingList).toBeCalledWith(currentEntry)
+    expect(addEntryToShoppingList.addToShoppingList).toBeCalledWith(currentEntry);
   });
 
   it('should update the name of the selected entry without shopping list actualization', function () {
-    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.EntireList)
+    navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.EntireList);
     testUpdateEntry();
-    expect(addEntryToShoppingList.addToShoppingList).not.toBeCalled()
+    expect(addEntryToShoppingList.addToShoppingList).not.toBeCalled();
   });
 });
