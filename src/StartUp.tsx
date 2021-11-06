@@ -3,14 +3,14 @@ import React, {StrictMode} from 'react';
 import BuyingList from './BuyingList/React/BuyingList';
 import PrimaryInput from './PrimaryInput/React/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
+import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 import Navigation from './Navigation/React/Navigation';
 
 export default class StartUp {
   private readonly document: Document;
-  private readonly reloader: ServiceWorkerUpdateReloader;
+  private readonly reloader: ServiceWorkerUpdateLoader;
 
-  constructor(document: Document, reloader: ServiceWorkerUpdateReloader) {
+  constructor(document: Document, reloader: ServiceWorkerUpdateLoader) {
     this.reloader = reloader;
     this.document = document;
   }

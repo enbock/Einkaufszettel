@@ -4,7 +4,7 @@ import StartUp from './StartUp';
 import BuyingList from './BuyingList/React/BuyingList';
 import PrimaryInput from './PrimaryInput/React/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
+import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 import {mock} from 'jest-mock-extended';
 import Navigation from './Navigation/React/Navigation';
 
@@ -22,10 +22,10 @@ jest.mock('./serviceWorkerRegistration', function () {
 });
 
 describe(StartUp, function () {
-  let reloader: ServiceWorkerUpdateReloader;
+  let reloader: ServiceWorkerUpdateLoader;
 
   beforeEach(function () {
-    reloader = mock<ServiceWorkerUpdateReloader>();
+    reloader = mock<ServiceWorkerUpdateLoader>();
   });
 
   it('should start the application', function () {

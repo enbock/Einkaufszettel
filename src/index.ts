@@ -1,5 +1,5 @@
 import StartUp from './StartUp';
 import './index.css';
-import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
+import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 
-new StartUp(document, new ServiceWorkerUpdateReloader(window.location)).start();
+new StartUp(document, new ServiceWorkerUpdateLoader(window.location)).start();

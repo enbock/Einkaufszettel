@@ -1,8 +1,8 @@
-import ServiceWorkerUpdateReloader from './ServiceWorkerUpdateReloader';
+import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 import {mock, MockProxy} from 'jest-mock-extended';
 
-describe(ServiceWorkerUpdateReloader, function () {
-  let reloader: ServiceWorkerUpdateReloader,
+describe(ServiceWorkerUpdateLoader, function () {
+  let loader: ServiceWorkerUpdateLoader,
     location: MockProxy<Location>,
     registration: MockProxy<ServiceWorkerRegistration>,
     serviceWorker: MockProxy<ServiceWorker>
@@ -12,13 +12,13 @@ describe(ServiceWorkerUpdateReloader, function () {
     location = mock<Location>();
     registration = mock<ServiceWorkerRegistration>();
     serviceWorker = mock<ServiceWorker>();
-    reloader = new ServiceWorkerUpdateReloader(location);
+    loader = new ServiceWorkerUpdateLoader(location);
   });
 
   it('should reload the application when new change in service worker are available', function () {
     (registration as any).waiting = serviceWorker;
 
-    reloader.onUpdate(registration);
+    loader.onUpdate(registration);
 
     expect(location.reload).toBeCalled();
     expect(serviceWorker.postMessage).toBeCalledWith({type: 'SKIP_WAITING'});
@@ -27,11 +27,11 @@ describe(ServiceWorkerUpdateReloader, function () {
   it('should reload the application also if no worker waiting', function () {
     (registration as any).waiting = undefined;
 
-    reloader.onUpdate(registration);
+    loader.onUpdate(registration);
     expect(location.reload).toBeCalledTimes(1);
     expect(serviceWorker.postMessage).not.toBeCalledWith({type: 'SKIP_WAITING'});
 
-    reloader.onUpdate();
+    loader.onUpdate();
     expect(location.reload).toBeCalledTimes(2);
   });
 });

@@ -1,6 +1,7 @@
 {
   "name": "einkaufszettel",
   "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@enbock/string-helper-ts": "^1",

@@ -11,10 +11,10 @@ import SelectionStorage from '../SelectionStorage/SessionStorage/SessionStorage'
 export class GlobalContainer {
   public readonly listStorage: ListStorage = new LocalListStorage(global.localStorage, new LocalStorageTransformer());
   public readonly navigationMemory: NavigationSessionMemory = new NavigationSessionMemory(window.sessionStorage);
-  public readonly listAdapter: BuyingListAdapter = new BuyingListAdapter();
-  public readonly inputAdapter: PrimaryInputAdapter = new PrimaryInputAdapter();
   public readonly formMemory: FormMemory = new TemporaryMemory();
   public readonly selectionStorage: SelectionStorage = new SelectionStorage(global.sessionStorage);
+  public readonly listAdapter: BuyingListAdapter = new BuyingListAdapter();
+  public readonly inputAdapter: PrimaryInputAdapter = new PrimaryInputAdapter();
 }
 
 const Container: GlobalContainer = new GlobalContainer();

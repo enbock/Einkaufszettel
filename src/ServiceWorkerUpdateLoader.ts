@@ -1,4 +1,4 @@
-export default class ServiceWorkerUpdateReloader {
+export default class ServiceWorkerUpdateLoader {
   private readonly location: Location;
 
   constructor(location: Location) {
