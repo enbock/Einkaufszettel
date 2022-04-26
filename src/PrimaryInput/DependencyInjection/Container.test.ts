@@ -1,8 +1,8 @@
 import Container, {PrimaryInputContainer} from './Container';
-import PrimaryInputController from '../React/PrimaryInputController';
+import PrimaryInputController from '../View/PrimaryInputController';
 
 describe(PrimaryInputContainer, function () {
-  it('should provide the controller', function () {
-    expect(Container.controller).toBeInstanceOf(PrimaryInputController);
-  });
+    it('should provide the controller', function () {
+        expect(Container.controller).toBeInstanceOf(PrimaryInputController);
+    });
 });

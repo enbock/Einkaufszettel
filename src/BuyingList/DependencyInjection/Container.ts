@@ -1,7 +1,7 @@
-import BuyingListAdapter from '../React/BuyingListAdapter';
-import BuyingListController from '../React/BuyingListController';
+import BuyingListAdapter from '../View/BuyingListAdapter';
+import BuyingListController from '../View/BuyingListController';
 import BuyingListLoadInteractor from '../BuyingListLoadInteractor';
-import BuyingListPresenter from '../React/BuyingListPresenter';
+import BuyingListPresenter from '../View/BuyingListPresenter';
 import GlobalContainer from '../../DependencyInjection/Container';
 import LoadEntireList from '../InteractorTask/LoadEntireList';
 import LoadShoppingList from '../InteractorTask/LoadShoppingList';
@@ -15,49 +15,49 @@ import AddEntryIdToShoppingList from '../InteractorTask/AddEntryIdToShoppingList
 import UpdateEntry from '../InteractorTask/UpdateEntry';
 
 export class BuyingListContainer {
-  public readonly adapter: BuyingListAdapter = GlobalContainer.listAdapter;
-  private readonly loadListChain: LoadListTask[] = [
-    new LoadEntireList(GlobalContainer.listStorage),
-    new LoadShoppingList(GlobalContainer.listStorage)
-  ];
-  private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
-  public readonly addEntryInteractor: ListInteractor = new ListInteractor(
-    GlobalContainer.listStorage,
-    GlobalContainer.formMemory,
-    GlobalContainer.navigationMemory,
-    GlobalContainer.selectionStorage,
-    this.loadListChain,
-    new AddNewEntry(
-      GlobalContainer.listStorage,
-      new UuidGenerator(UuidVersion4),
-      GlobalContainer.formMemory,
-      GlobalContainer.navigationMemory,
-      this.addEntryToShoppingList
-    ),
-    this.addEntryToShoppingList,
-    new AddEntryIdToShoppingList(
-      GlobalContainer.listStorage,
-      this.addEntryToShoppingList
-    ),
-    new UpdateEntry(
-      GlobalContainer.listStorage,
-      GlobalContainer.selectionStorage,
-      GlobalContainer.formMemory,
-      GlobalContainer.navigationMemory,
-      this.addEntryToShoppingList
-    )
-  );
-  public controller: BuyingListController = new BuyingListController(
-    new BuyingListPresenter(),
-    new BuyingListLoadInteractor(
-      GlobalContainer.navigationMemory,
-      this.loadListChain,
-      GlobalContainer.formMemory
-    ),
-    this.addEntryInteractor,
-    this.adapter,
-    GlobalContainer.inputAdapter
-  );
+    public readonly adapter: BuyingListAdapter = GlobalContainer.listAdapter;
+    private readonly loadListChain: LoadListTask[] = [
+        new LoadEntireList(GlobalContainer.listStorage),
+        new LoadShoppingList(GlobalContainer.listStorage)
+    ];
+    public controller: BuyingListController = new BuyingListController(
+        new BuyingListPresenter(),
+        new BuyingListLoadInteractor(
+            GlobalContainer.navigationMemory,
+            this.loadListChain,
+            GlobalContainer.formMemory
+        ),
+        this.addEntryInteractor,
+        this.adapter,
+        GlobalContainer.inputAdapter
+    );
+    private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
+    public readonly addEntryInteractor: ListInteractor = new ListInteractor(
+        GlobalContainer.listStorage,
+        GlobalContainer.formMemory,
+        GlobalContainer.navigationMemory,
+        GlobalContainer.selectionStorage,
+        this.loadListChain,
+        new AddNewEntry(
+            GlobalContainer.listStorage,
+            new UuidGenerator(UuidVersion4),
+            GlobalContainer.formMemory,
+            GlobalContainer.navigationMemory,
+            this.addEntryToShoppingList
+        ),
+        this.addEntryToShoppingList,
+        new AddEntryIdToShoppingList(
+            GlobalContainer.listStorage,
+            this.addEntryToShoppingList
+        ),
+        new UpdateEntry(
+            GlobalContainer.listStorage,
+            GlobalContainer.selectionStorage,
+            GlobalContainer.formMemory,
+            GlobalContainer.navigationMemory,
+            this.addEntryToShoppingList
+        )
+    );
 }
 
 const Container: BuyingListContainer = new BuyingListContainer();

@@ -1,30 +1,29 @@
-import ReactDOM from 'react-dom';
-import React, {StrictMode} from 'react';
-import BuyingList from './BuyingList/React/BuyingList';
-import PrimaryInput from './PrimaryInput/React/PrimaryInput';
+import BuyingList from './BuyingList/View/BuyingList';
+import PrimaryInput from './PrimaryInput/View/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
-import Navigation from './Navigation/React/Navigation';
+import Navigation from './Navigation/View/Navigation';
+import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
 
 export default class StartUp {
-  private readonly document: Document;
-  private readonly reloader: ServiceWorkerUpdateLoader;
 
-  constructor(document: Document, reloader: ServiceWorkerUpdateLoader) {
-    this.reloader = reloader;
-    this.document = document;
-  }
+    constructor(
+        private document: Document,
+        private updateLoader: ServiceWorkerUpdateLoader,
+        private serviceWorker: typeof serviceWorkerRegistration
+    ) {
+    }
 
-  public start(): void {
-    serviceWorkerRegistration.register(this.reloader);
+    public start(): void {
+        this.serviceWorker.register(this.updateLoader);
 
-    ReactDOM.render(
-      <StrictMode>
-        <Navigation/>
-        <PrimaryInput/>
-        <BuyingList/>
-      </StrictMode>,
-      this.document.getElementById('root')
-    );
-  }
+        const rootNode: HTMLElement = ShadowRenderer.render(
+            <div>
+                <Navigation/>
+                <PrimaryInput/>
+                <BuyingList/>
+            </div>
+        );
+        this.document.body.appendChild(rootNode);
+    }
 }
