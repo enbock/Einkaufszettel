@@ -68,8 +68,8 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest/legacy",
       "^.+\\.jsx?$": "ts-jest/legacy",
-      "^.+\\.svg$": "<rootDir>/testTransform.js",
-      "^.+\\.css$": "<rootDir>/testTransform.js"
+      "^.+\\.svg$": "<rootDir>/TestTransform.js",
+      "^.+\\.css$": "<rootDir>/TestTransform.js"
     },
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
