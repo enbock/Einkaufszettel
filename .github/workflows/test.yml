@@ -1,0 +1,18 @@
+name: Test Einkaufzettel
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Tests
+        run: npm test
