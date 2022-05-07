@@ -1,12 +1,12 @@
 import BuyingList from './BuyingList';
 import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
-import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
 import ViewInjection from '@enbock/ts-jsx/ViewInjection';
-import mockComponent from '../../mockComponent';
 import Entry from './Entry';
+import TestRenderer from '@enbock/ts-jsx/TestRenderer';
+import {mock} from '@enbock/ts-jsx/Component';
 
-mockComponent(Entry);
+mock(Entry);
 
 describe(BuyingList, function () {
     it('should show the list', function () {
@@ -20,11 +20,11 @@ describe(BuyingList, function () {
         model.list = [entry1, entry2];
 
         ViewInjection(BuyingList, 'test::Adapter:');
-        const result: BuyingList = ShadowRenderer.render(<BuyingList/>) as BuyingList;
+        const result: BuyingList = TestRenderer.render(<BuyingList/>) as BuyingList;
         result.model = model;
 
-        expect(result.shadowRoot!.firstElementChild).toContainHTML('test::entry1:');
-        expect(result.shadowRoot!.firstElementChild).toContainHTML('test::entry2:');
-        expect(result.shadowRoot!.firstElementChild).toContainHTML('test::Adapter:');
+        expect(result).toContainHTML('test::entry1:');
+        expect(result).toContainHTML('test::entry2:');
+        expect(result).toContainHTML('test::Adapter:');
     });
 });

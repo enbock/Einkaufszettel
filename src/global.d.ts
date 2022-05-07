@@ -1,6 +1,6 @@
 type throwsErrorOrReturn<E extends Error, T> = T;
 type throwsError<E extends Error> = void;
-type Callback<Function> = Function;
+type Callback<Function> = any;
 
 type Factorizable<T> = {
     factory(...args: any[]): T

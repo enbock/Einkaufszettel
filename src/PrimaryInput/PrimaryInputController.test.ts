@@ -1,21 +1,20 @@
 import PrimaryInputController from './PrimaryInputController';
-import ListInteractor from '../../BuyingList/ListInteractor';
+import ListInteractor from '../BuyingList/ListInteractor';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
-import PrimaryInput from './PrimaryInput';
-import PrimaryInputPresenter from './PrimaryInputPresenter';
-import PrimaryInputModel from './PrimaryInputModel';
-import SaveInputValueInteractor, {Request as SaveRequest} from '../SaveInputValueInteractor';
-import LoadInteractor, {LoadResponse} from '../LoadInteractor';
+import SaveInputValueInteractor, {Request as SaveRequest} from './SaveInputValueInteractor';
+import LoadInteractor from './LoadInteractor';
 import {mock, MockProxy} from 'jest-mock-extended';
-import RemoveInteractor from '../RemoveInteractor';
-import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
+import RemoveInteractor from './RemoveInteractor';
+import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
+import Presenter from './Presenter';
+import RootView from '../RootView';
 
 describe(PrimaryInputController, function () {
     let adapter: PrimaryInputAdapter,
         controller: PrimaryInputController,
         addEntryInteractor: ListInteractor & MockProxy<ListInteractor>,
-        primaryInput: PrimaryInput,
-        presenter: PrimaryInputPresenter & MockProxy<PrimaryInputPresenter>,
+        primaryInput: RootView,
+        presenter: Presenter & MockProxy<Presenter>,
         saveInputValueInteractor: SaveInputValueInteractor & MockProxy<SaveInputValueInteractor>,
         loadInteractor: LoadInteractor & MockProxy<LoadInteractor>,
         entireListControllerAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
@@ -26,9 +25,10 @@ describe(PrimaryInputController, function () {
         addEntryInteractor = mock<ListInteractor>();
         saveInputValueInteractor = mock<SaveInputValueInteractor>();
         loadInteractor = mock<LoadInteractor>();
-        presenter = mock<PrimaryInputPresenter>();
+        presenter = mock<Presenter>();
         entireListControllerAdapter = mock<BuyingListAdapter>();
         removeInteractor = mock<RemoveInteractor>();
+        primaryInput = mock<RootView>();
 
         controller = new PrimaryInputController(
             adapter,
@@ -39,68 +39,57 @@ describe(PrimaryInputController, function () {
             entireListControllerAdapter,
             removeInteractor
         );
-        primaryInput = {model: undefined} as unknown as PrimaryInput;
     });
 
     it('should create new entry on incoming submit and inform entire list about', function () {
-        const response: LoadResponse = 'test::load-response' as any;
-        const model: PrimaryInputModel = new PrimaryInputModel();
-        model.inputValue = 'test';
-
         addEntryInteractor.saveEntry.mockReturnValueOnce();
-        prepareMocksAndAttachView(response, model);
+        prepareMocksAndAttachView();
 
         adapter.onSubmit();
 
         expect(addEntryInteractor.saveEntry).toBeCalled();
-        expect(presenter.present).toBeCalledWith(response);
+        expect(presenter.present).toBeCalledWith('test::response:');
         expect(presenter.present).toBeCalledTimes(2);
-        expect(primaryInput.model).toBe(model);
+        expect(primaryInput.model).toBe('test::model:');
         expect(entireListControllerAdapter.onListChange).toBeCalled();
     });
 
-    function prepareMocksAndAttachView(loadResponse: LoadResponse, model: PrimaryInputModel) {
-        (loadInteractor.loadData as jest.Mock).mockReturnValueOnce(loadResponse);
-        (presenter.present as jest.Mock).mockReturnValueOnce(new PrimaryInputModel());
-        (presenter.present as jest.Mock).mockReturnValueOnce(model);
+    function prepareMocksAndAttachView() {
+        (loadInteractor.loadData as jest.Mock).mockReturnValue('test::response:');
+        (presenter.present as jest.Mock).mockReturnValue('test::model:');
 
-        controller.attach(primaryInput as any);
+        controller.attach(primaryInput);
     }
 
     it('should take new value of input field', function () {
         const expectedRequest: SaveRequest = new SaveRequest();
         expectedRequest.newInputValue = 'test::newValue:';
-        const model: PrimaryInputModel = new PrimaryInputModel();
-        model.inputValue = 'test';
 
-        saveInputValueInteractor.saveInputValue.mockReturnValueOnce();
-        prepareMocksAndAttachView('test::load-response:' as any, model);
+        saveInputValueInteractor.saveInputValue.mockReturnValue();
+        prepareMocksAndAttachView();
 
         adapter.onInputChange('test::newValue:');
 
         expect(saveInputValueInteractor.saveInputValue).toBeCalledWith(expectedRequest);
-        expect(presenter.present).toBeCalledWith('test::load-response:');
+        expect(presenter.present).toBeCalledWith('test::response:');
         expect(presenter.present).toBeCalledTimes(2);
-        expect(primaryInput.model).toBe(model);
+        expect(primaryInput.model).toBe('test::model:');
         expect(entireListControllerAdapter.onFormInput).toBeCalled();
     });
 
     it('should show current input value', function () {
-        const model: PrimaryInputModel = new PrimaryInputModel();
-        model.inputValue = 'test';
-
         loadInteractor.loadData.mockReturnValueOnce('test::load-response:' as any);
-        (presenter.present as jest.Mock).mockReturnValueOnce(model);
+        (presenter.present as jest.Mock).mockReturnValueOnce('test::model:');
 
         controller.attach(primaryInput as any);
 
         expect(loadInteractor.loadData).toBeCalled();
         expect(presenter.present).toBeCalledWith('test::load-response:');
-        expect(primaryInput.model).toBe(model);
+        expect(primaryInput.model).toBe('test::model:');
     });
 
     it('should show current input value', function () {
-        presenter.present.mockReturnValueOnce(new PrimaryInputModel());
+        presenter.present.mockReturnValueOnce('test::model:');
 
         controller.attach(primaryInput as any);
         adapter.onDiscard();

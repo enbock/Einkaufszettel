@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const config = {
   entry: './src/index.ts',
@@ -36,14 +38,29 @@ const config = {
     ]
   },
   devServer: {
-    port: 3000
+    port: 3000,
+    static: {
+      directory: path.join(__dirname, 'public')
+    }
   },
   plugins: [
-    new HtmlWebpackPlugin()
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'public',
+          globOptions: {
+            ignore: ['**/index.html']
+          }
+        }
+      ]
+    }),
+    new HtmlWebpackPlugin({
+      template: 'public/index.html'
+    })
   ],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     clean: true
   }
 };
@@ -51,6 +68,14 @@ const config = {
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
     config.devtool = 'inline-source-map';
+  }
+  if (argv.mode !== 'development') {
+    config.plugins.push(
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true
+      })
+    );
   }
   return config;
 };

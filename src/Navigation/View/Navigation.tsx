@@ -1,10 +1,10 @@
-import CSS from './Navigation.css';
+import CSS from './Artifacts/Navigation.css';
 import NavigationModel from '../NavigationModel';
 import Tab from './Tab';
 import TabModel from './TabModel';
 import Component from '@enbock/ts-jsx/Component';
 import RootView from '../../RootView';
-import NavigationAdapter from './NavigationAdapter';
+import NavigationAdapter from '../NavigationAdapter';
 
 export interface Properties {
 }

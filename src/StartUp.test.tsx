@@ -5,7 +5,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 import {mock, MockProxy} from 'jest-mock-extended';
 import Navigation from './Navigation/View/Navigation';
-import mockComponent from './mockComponent';
+import {mock as mockComponent} from '@enbock/ts-jsx/Component';
 
 mockComponent(BuyingList);
 mockComponent(PrimaryInput);

@@ -1,10 +1,10 @@
-import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../NavigationInteractor';
-import NavigationPresenter from './NavigationPresenter';
-import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
+import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './NavigationInteractor';
+import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import NavigationAdapter from './NavigationAdapter';
-import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
-import Controller from '../../Controller';
-import RootView from '../../RootView';
+import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
+import Controller from '../Controller';
+import RootView from '../RootView';
+import Presenter from './Presenter';
 
 export default class NavigationController implements Controller {
     private viewInstance?: RootView;
@@ -12,7 +12,7 @@ export default class NavigationController implements Controller {
     constructor(
         private interactor: NavigationInteractor,
         private adapter: NavigationAdapter,
-        private presenter: NavigationPresenter,
+        private presenter: Presenter,
         private listAdapter: BuyingListAdapter,
         private inputAdapter: PrimaryInputAdapter
     ) {

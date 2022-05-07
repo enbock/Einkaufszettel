@@ -1,10 +1,9 @@
 import Tab from './Tab';
 import TabModel from './TabModel';
 import {mock} from 'jest-mock-extended';
-import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
-import ViewInjection from '@enbock/ts-jsx/ViewInjection';
 import {fireEvent} from '@testing-library/dom';
-import NavigationAdapter from './NavigationAdapter';
+import NavigationAdapter from '../NavigationAdapter';
+import TestRenderer from '@enbock/ts-jsx/TestRenderer';
 
 describe(Tab, function () {
     let adapter: NavigationAdapter = mock<NavigationAdapter>(),
@@ -16,10 +15,7 @@ describe(Tab, function () {
     });
 
     function createUi(): HTMLElement {
-        ViewInjection(Tab, adapter);
-        const view: Tab = ShadowRenderer.render(<Tab model={model} adapter={adapter}/>) as Tab;
-
-        return view.shadowRoot!.firstElementChild as HTMLElement;
+        return TestRenderer.render(<Tab model={model} adapter={adapter}/>);
     }
 
     it('should display the navigation tab', function () {
@@ -45,7 +41,7 @@ describe(Tab, function () {
 
         const result: HTMLElement = createUi();
 
-        fireEvent.click(result);
+        fireEvent.click(result.getElementsByTagName('button').item(0)!);
 
         expect(adapter.onNavigationClick).toBeCalledWith('test::tabName:');
     });

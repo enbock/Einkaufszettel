@@ -1,10 +1,10 @@
 import PrimaryInput from './PrimaryInput';
 import PrimaryInputModel from './PrimaryInputModel';
 import ViewInjection from '@enbock/ts-jsx/ViewInjection';
-import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
-import PrimaryInputAdapter from './PrimaryInputAdapter';
+import PrimaryInputAdapter from '../PrimaryInputAdapter';
 import {mock, MockProxy} from 'jest-mock-extended';
 import {fireEvent} from '@testing-library/dom';
+import TestRenderer from '@enbock/ts-jsx/TestRenderer';
 
 describe(PrimaryInput, function () {
     let model: PrimaryInputModel,
@@ -18,10 +18,10 @@ describe(PrimaryInput, function () {
 
     function renderUi(): HTMLElement {
         ViewInjection(PrimaryInput, adapter);
-        const view: PrimaryInput = ShadowRenderer.render(<PrimaryInput/>) as PrimaryInput;
+        const view: PrimaryInput = TestRenderer.render(<PrimaryInput/>) as PrimaryInput;
         view.model = model;
 
-        return view.shadowRoot!.firstElementChild as HTMLElement;
+        return view;
     }
 
     it('should display current input value', function () {

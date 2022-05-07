@@ -1,11 +1,11 @@
-import PrimaryInputController from '../View/PrimaryInputController';
+import PrimaryInputController from '../PrimaryInputController';
 import SaveInputValueInteractor from '../SaveInputValueInteractor';
 import LoadInteractor from '../LoadInteractor';
 import PrimaryInputPresenter from '../View/PrimaryInputPresenter';
 import GlobalContainer from '../../DependencyInjection/Container';
 import BuyingListContainer from '../../BuyingList/DependencyInjection/Container';
 import RemoveInteractor from '../RemoveInteractor';
-import PrimaryInputAdapter from '../View/PrimaryInputAdapter';
+import PrimaryInputAdapter from '../PrimaryInputAdapter';
 
 export class Container {
     public readonly adapter: PrimaryInputAdapter = GlobalContainer.primaryInputAdapter;

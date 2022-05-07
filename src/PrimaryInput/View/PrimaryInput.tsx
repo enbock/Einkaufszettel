@@ -4,7 +4,7 @@ import PrimaryInputModel from './PrimaryInputModel';
 import Styles from './Artefacts/PrimaryInput.css';
 import Component from '@enbock/ts-jsx/Component';
 import RootView from '../../RootView';
-import PrimaryInputAdapter from './PrimaryInputAdapter';
+import PrimaryInputAdapter from '../PrimaryInputAdapter';
 
 interface Properties {
 }
@@ -26,7 +26,6 @@ export default class PrimaryInput extends Component<Properties> implements RootV
 
     public render(): JSX.Element {
         return <>
-            <style>{Styles}</style>
             <input-frame>
                 <input
                     autoComplete="off"
@@ -37,6 +36,7 @@ export default class PrimaryInput extends Component<Properties> implements RootV
                 {this.renderSubmitButton()}
                 {this.renderDiscardButton()}
             </input-frame>
+            <style>{Styles}</style>
         </>;
     }
 
@@ -61,6 +61,6 @@ export default class PrimaryInput extends Component<Properties> implements RootV
     }
 
     private onInputChange(event: InputEvent): void {
-        this.adapter.onInputChange(((event.target || {}) as HTMLInputElement).value);
+        this.adapter.onInputChange(((event.target || {}) as HTMLInputElement).value || '');
     }
 }

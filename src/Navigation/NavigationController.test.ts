@@ -1,44 +1,44 @@
 import NavigationController from './NavigationController';
-import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../NavigationInteractor';
+import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './NavigationInteractor';
 import {mock, MockProxy} from 'jest-mock-extended';
-import Navigation from './Navigation';
-import NavigationPresenter from './NavigationPresenter';
-import NavigationModel from '../NavigationModel';
-import TabModel from './TabModel';
-import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
+import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import NavigationAdapter from './NavigationAdapter';
-import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
+import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
+import RootView from '../RootView';
+import Presenter from './Presenter';
 
 describe(NavigationController, function () {
     let controller: NavigationController,
         interactor: NavigationInteractor & MockProxy<NavigationInteractor>,
-        viewInstance: Navigation & MockProxy<Navigation>,
+        viewInstance: RootView & MockProxy<RootView>,
         adapter: NavigationAdapter & MockProxy<NavigationAdapter>,
-        presenter: NavigationPresenter & MockProxy<NavigationPresenter>,
+        presenter: Presenter & MockProxy<Presenter>,
         listAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
         inputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
     ;
 
     beforeEach(function () {
         interactor = mock<NavigationInteractor>();
-        viewInstance = mock<Navigation>();
+        viewInstance = mock<RootView>();
         adapter = mock<NavigationAdapter>();
-        presenter = mock<NavigationPresenter>();
+        presenter = mock<Presenter>();
         listAdapter = mock<BuyingListAdapter>();
         inputAdapter = mock<PrimaryInputAdapter>();
-        controller = new NavigationController(interactor, adapter, presenter, listAdapter, inputAdapter);
+        controller = new NavigationController(
+            interactor,
+            adapter,
+            presenter,
+            listAdapter,
+            inputAdapter
+        );
     });
 
     it('should control the switch to a new tab', function () {
         const loadResponse: LoadResponse = new LoadResponse();
         loadResponse.activateTab = 'test::tab:';
-        const model: NavigationModel = new NavigationModel();
-        const tabModel: TabModel = new TabModel();
-        tabModel.name = 'test::tab:';
-        model.navigationTabs = [tabModel];
 
         interactor.loadTabs.mockReturnValue(loadResponse);
-        presenter.present.mockReturnValue(model);
+        presenter.present.mockReturnValue('test::model:');
 
         controller.attach(viewInstance);
         adapter.onNavigationClick('test::listId:');
@@ -49,7 +49,7 @@ describe(NavigationController, function () {
         expect(interactor.loadTabs).toBeCalledTimes(2);
         expect(presenter.present).toBeCalledWith(loadResponse);
         expect(presenter.present).toBeCalledTimes(2);
-        expect(viewInstance.model).toBe(model);
+        expect(viewInstance.model).toBe('test::model:');
         expect(listAdapter.onListChange).toBeCalled();
         expect(inputAdapter.onListChange).toBeCalled();
     });

@@ -1,5 +1,5 @@
-import BuyingListAdapter from '../View/BuyingListAdapter';
-import BuyingListController from '../View/BuyingListController';
+import BuyingListAdapter from '../BuyingListAdapter';
+import BuyingListController from '../BuyingListController';
 import BuyingListLoadInteractor from '../BuyingListLoadInteractor';
 import BuyingListPresenter from '../View/BuyingListPresenter';
 import GlobalContainer from '../../DependencyInjection/Container';

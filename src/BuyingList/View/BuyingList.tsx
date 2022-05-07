@@ -2,10 +2,10 @@ import EntryModel from './EntryModel';
 import Entry from './Entry';
 import BuyingListModel from './BuyingListModel';
 import Styles from './Artefacts/BuyingList.css';
-import Component, {ComponentProperties} from '@enbock/ts-jsx/Component';
-import BuyingListAdapter from './BuyingListAdapter';
+import Component from '@enbock/ts-jsx/Component';
+import BuyingListAdapter from '../BuyingListAdapter';
 
-interface Properties extends ComponentProperties {
+interface Properties {
 }
 
 export default class BuyingList extends Component<Properties> {

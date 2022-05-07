@@ -1,11 +1,11 @@
 {
   "name": "einkaufszettel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "@enbock/string-helper-ts": "^1",
-    "@enbock/ts-jsx": "^0.1.0-dev14",
+    "@enbock/ts-jsx": "0.1.0-dev17",
     "@testing-library/dom": "^8",
     "@testing-library/jest-dom": "^5",
     "@testing-library/user-event": "^14",
@@ -13,6 +13,7 @@
     "@types/lodash.get": "^4",
     "@types/node": "^16",
     "@types/uuid": "^8",
+    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28",
@@ -30,7 +31,8 @@
     "workbox-expiration": "^6",
     "workbox-precaching": "^6",
     "workbox-routing": "^6",
-    "workbox-strategies": "^6"
+    "workbox-strategies": "^6",
+    "workbox-webpack-plugin": "^6.5.3"
   },
   "scripts": {
     "start": "webpack serve --open --mode development --no-open --no-live-reload --no-hot --stats-error-details",
@@ -54,7 +56,10 @@
       "!src/index.ts",
       "!src/*.js",
       "!src/**/*.json",
-      "!src/**/*.svg"
+      "!src/**/*.svg",
+      "!src/setupTests.ts",
+      "!**/Container.ts",
+      "!**/*Adapter.ts"
     ],
     "roots": [
       "<rootDir>/src"

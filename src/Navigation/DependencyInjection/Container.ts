@@ -1,5 +1,5 @@
-import NavigationAdapter from '../View/NavigationAdapter';
-import NavigationController from '../View/NavigationController';
+import NavigationAdapter from '../NavigationAdapter';
+import NavigationController from '../NavigationController';
 import NavigationInteractor from '../NavigationInteractor';
 import NavigationPresenter from '../View/NavigationPresenter';
 import ConfigLoader from '../Config/ConfigLoader';

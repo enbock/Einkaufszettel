@@ -1,17 +1,17 @@
-import BuyingList from './BuyingList';
-import BuyingListPresenter from './BuyingListPresenter';
-import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
-import ListInteractor from '../ListInteractor';
-import {EntryId} from '../../ListStorage/EntryEntity';
-import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
+import BuyingListLoadInteractor, {Response} from './BuyingListLoadInteractor';
+import ListInteractor from './ListInteractor';
+import {EntryId} from '../ListStorage/EntryEntity';
+import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import BuyingListAdapter from './BuyingListAdapter';
-import Controller from '../../Controller';
+import Controller from '../Controller';
+import RootView from '../RootView';
+import Presenter from './Presenter';
 
 export default class BuyingListController implements Controller {
-    private viewInstance?: BuyingList;
+    private viewInstance?: RootView;
 
     constructor(
-        private entireListPresenter: BuyingListPresenter,
+        private presenter: Presenter,
         private entireListInteractor: BuyingListLoadInteractor,
         private listInteractor: ListInteractor,
         private adapter: BuyingListAdapter,
@@ -19,11 +19,11 @@ export default class BuyingListController implements Controller {
     ) {
     }
 
-    private get view(): BuyingList {
-        return this.viewInstance as BuyingList;
+    private get view(): RootView {
+        return this.viewInstance as RootView;
     }
 
-    public attach(view: BuyingList): void {
+    public attach(view: RootView): void {
         this.viewInstance = view;
         this.bindAdapter();
         this.loadAndDisplayList();
@@ -31,7 +31,7 @@ export default class BuyingListController implements Controller {
 
     private loadAndDisplayList(): void {
         let response: Response = this.entireListInteractor.loadActiveList();
-        this.view.model = this.entireListPresenter.presentLoadResponse(response);
+        this.view.model = this.presenter.presentLoadResponse(response);
     }
 
     private bindAdapter(): void {

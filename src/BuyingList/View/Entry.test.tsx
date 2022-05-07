@@ -1,9 +1,9 @@
 import Entry from './Entry';
 import EntryModel from './EntryModel';
 import {mock, MockProxy} from 'jest-mock-extended';
-import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
 import {fireEvent} from '@testing-library/dom';
-import BuyingListAdapter from './BuyingListAdapter';
+import BuyingListAdapter from '../BuyingListAdapter';
+import TestRenderer from '@enbock/ts-jsx/TestRenderer';
 
 describe(Entry, function () {
     let adapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
@@ -16,8 +16,7 @@ describe(Entry, function () {
     });
 
     function renderUi(): HTMLElement {
-        const view: Entry = ShadowRenderer.render(<Entry adapter={adapter} model={model}/>) as Entry;
-        return view.shadowRoot!.firstElementChild as HTMLElement;
+        return TestRenderer.render(<Entry adapter={adapter} model={model}/>);
     }
 
     it('should show an entry', function () {

@@ -1,7 +1,7 @@
 import TabModel from './TabModel';
 import Component from '@enbock/ts-jsx/Component';
-import NavigationAdapter from './NavigationAdapter';
-import Style from './Tab.css';
+import NavigationAdapter from '../NavigationAdapter';
+import Style from './Artifacts/Tab.css';
 
 interface Properties {
     model: TabModel,

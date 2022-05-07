@@ -1,12 +1,12 @@
 import Navigation from './Navigation';
 import NavigationModel from '../NavigationModel';
 import TabModel from './TabModel';
-import mockComponent from '../../mockComponent';
 import Tab from './Tab';
-import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
-import NavigationAdapter from './NavigationAdapter';
+import NavigationAdapter from '../NavigationAdapter';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ViewInjection from '@enbock/ts-jsx/ViewInjection';
+import TestRenderer from '@enbock/ts-jsx/TestRenderer';
+import {mock as mockComponent} from '@enbock/ts-jsx/Component';
 
 mockComponent(Tab);
 
@@ -21,10 +21,10 @@ describe(Navigation, function () {
 
     function createUi(): HTMLElement {
         ViewInjection(Navigation, adapter);
-        const view: Navigation = ShadowRenderer.render(<Navigation/>) as Navigation;
+        const view: Navigation = TestRenderer.render(<Navigation/>) as Navigation;
         view.model = model;
 
-        return view.shadowRoot!.firstElementChild as HTMLElement;
+        return view;
     }
 
     it('should display the navigation tab', function () {

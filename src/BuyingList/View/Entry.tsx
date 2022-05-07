@@ -1,7 +1,7 @@
 import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import EntryModel from './EntryModel';
 import Component from '@enbock/ts-jsx/Component';
-import BuyingListAdapter from './BuyingListAdapter';
+import BuyingListAdapter from '../BuyingListAdapter';
 import Styles from './Artefacts/Entry.css';
 
 interface Properties {

@@ -2,20 +2,24 @@ import {LoadResponse} from '../NavigationInteractor';
 import NavigationModel from '../NavigationModel';
 import TabModel from './TabModel';
 import TabEntity from '../TabEntity';
+import Presenter from '../Presenter';
 
-export default class NavigationPresenter {
-  private static presentTab(entity: TabEntity, response: LoadResponse) {
-    const model: TabModel = new TabModel();
-    model.isActive = entity.name === response.activateTab;
-    model.name = entity.name;
-    model.label = NavigationModel.tabLabelMap[entity.name];
+export default class NavigationPresenter implements Presenter {
+    private response: LoadResponse = new LoadResponse();
 
-    return model;
-  }
+    public present(response: LoadResponse): NavigationModel {
+        this.response = response;
+        const model: NavigationModel = new NavigationModel();
+        model.navigationTabs = this.response.tabs.map(this.presentTab.bind(this));
+        return model;
+    }
 
-  public present(response: LoadResponse): NavigationModel {
-    const model: NavigationModel = new NavigationModel();
-    model.navigationTabs = response.tabs.map((e: TabEntity) => NavigationPresenter.presentTab(e, response));
-    return model;
-  }
+    private presentTab(entity: TabEntity): TabModel {
+        const model: TabModel = new TabModel();
+        model.isActive = entity.name === this.response.activateTab;
+        model.name = entity.name;
+        model.label = NavigationModel.tabLabelMap[entity.name];
+
+        return model;
+    }
 }

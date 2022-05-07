@@ -1,12 +1,12 @@
-import ListInteractor from '../../BuyingList/ListInteractor';
-import PrimaryInputPresenter from './PrimaryInputPresenter';
-import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
-import LoadInteractor, {LoadResponse} from '../LoadInteractor';
-import RemoveInteractor from '../RemoveInteractor';
-import Controller from '../../Controller';
+import ListInteractor from '../BuyingList/ListInteractor';
+import SaveInputValueInteractor, {Request as SaveValueRequest} from './SaveInputValueInteractor';
+import LoadInteractor, {LoadResponse} from './LoadInteractor';
+import RemoveInteractor from './RemoveInteractor';
+import Controller from '../Controller';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
-import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
-import RootView from '../../RootView';
+import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
+import RootView from '../RootView';
+import Presenter from './Presenter';
 
 export default class PrimaryInputController implements Controller {
     private viewInstance?: RootView;
@@ -16,7 +16,7 @@ export default class PrimaryInputController implements Controller {
         private addEntryInteractor: ListInteractor,
         private saveInputValueInteractor: SaveInputValueInteractor,
         private loadInteractor: LoadInteractor,
-        private presenter: PrimaryInputPresenter,
+        private presenter: Presenter,
         private entireListControllerAdapter: BuyingListAdapter,
         private removeInteractor: RemoveInteractor
     ) {
