@@ -6,9 +6,9 @@ import PrimaryInputPresenter from './PrimaryInputPresenter';
 import PrimaryInputModel from './PrimaryInputModel';
 import SaveInputValueInteractor, {Request as SaveRequest} from '../SaveInputValueInteractor';
 import LoadInteractor, {LoadResponse} from '../LoadInteractor';
-import {Adapter as BuyingListAdapter} from '../../BuyingList/View/BuyingListController';
 import {mock, MockProxy} from 'jest-mock-extended';
 import RemoveInteractor from '../RemoveInteractor';
+import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
 
 describe(PrimaryInputController, function () {
     let adapter: PrimaryInputAdapter,
@@ -55,7 +55,7 @@ describe(PrimaryInputController, function () {
         expect(addEntryInteractor.saveEntry).toBeCalled();
         expect(presenter.present).toBeCalledWith(response);
         expect(presenter.present).toBeCalledTimes(2);
-        expect(primaryInput.model).toBe(model);
+        expect(primaryInput.modelInstance).toBe(model);
         expect(entireListControllerAdapter.onListChange).toBeCalled();
     });
 
@@ -81,7 +81,7 @@ describe(PrimaryInputController, function () {
         expect(saveInputValueInteractor.saveInputValue).toBeCalledWith(expectedRequest);
         expect(presenter.present).toBeCalledWith('test::load-response:');
         expect(presenter.present).toBeCalledTimes(2);
-        expect(primaryInput.model).toBe(model);
+        expect(primaryInput.modelInstance).toBe(model);
         expect(entireListControllerAdapter.onFormInput).toBeCalled();
     });
 
@@ -96,7 +96,7 @@ describe(PrimaryInputController, function () {
 
         expect(loadInteractor.loadData).toBeCalled();
         expect(presenter.present).toBeCalledWith('test::load-response:');
-        expect(primaryInput.model).toBe(model);
+        expect(primaryInput.modelInstance).toBe(model);
     });
 
     it('should show current input value', function () {

@@ -1,20 +1,17 @@
 import TabModel from './TabModel';
 import Component from '@enbock/ts-jsx/Component';
-
-export interface Adapter {
-    onNavigationClick(activeList: string): void;
-}
+import NavigationAdapter from './NavigationAdapter';
 
 interface Properties {
     model: TabModel,
-    adapter: Adapter
+    adapter: NavigationAdapter
 }
 
 export default class Tab extends Component<Properties> {
     public render() {
         return (
             <button
-                className={this.props.model.isActive ? 'active' : undefined}
+                class={this.props.model.isActive ? 'active' : undefined}
                 onClick={() => this.props.adapter.onNavigationClick(this.props.model.name)}
             >
                 {this.props.model.label}

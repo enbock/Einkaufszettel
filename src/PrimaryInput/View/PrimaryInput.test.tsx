@@ -1,72 +1,63 @@
 import PrimaryInput from './PrimaryInput';
 import PrimaryInputModel from './PrimaryInputModel';
-import {fireEvent, render, RenderResult} from '@testing-library/react';
-import Container from '../DependencyInjection/Container';
-import GlobalContainer from '../../DependencyInjection/Container';
-
-jest.mock('../DependencyInjection/Container', function () {
-  return {controller: {attach: jest.fn()}};
-});
-jest.mock('../../DependencyInjection/Container', function () {
-  return {
-    inputAdapter: {
-      onInputChange: jest.fn(),
-      onSubmit: jest.fn(),
-      onDiscard: jest.fn()
-    }
-  };
-});
+import ViewInjection from '@enbock/ts-jsx/ViewInjection';
+import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
+import PrimaryInputAdapter from './PrimaryInputAdapter';
+import {mock, MockProxy} from 'jest-mock-extended';
+import {fireEvent} from '@testing-library/dom';
 
 describe(PrimaryInput, function () {
-  let model: PrimaryInputModel;
+    let model: PrimaryInputModel,
+        adapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
+    ;
 
-  beforeEach(function () {
-    model = new PrimaryInputModel();
-    (Container.controller.attach as jest.Mock).mockImplementation(attachModel);
-  });
+    beforeEach(function () {
+        model = new PrimaryInputModel();
+        adapter = mock<PrimaryInputAdapter>();
+    });
 
-  function attachModel(view: PrimaryInput): void {
-    view.model = model;
-  }
+    function renderUi(): HTMLElement {
+        ViewInjection(PrimaryInput, adapter);
+        const view: PrimaryInput = ShadowRenderer.render(<PrimaryInput/>) as PrimaryInput;
+        view.model = model;
 
-  it('should display current input value', function () {
-    model.inputValue = 'test::inputValue:';
+        return view.shadowRoot!.firstElementChild as HTMLElement;
+    }
 
-    const result: RenderResult = renderUi();
+    it('should display current input value', function () {
+        model.inputValue = 'test::inputValue:';
 
-    expect(result.container.innerHTML).toContain('test::inputValue:');
-  });
+        const result: HTMLElement = renderUi();
 
-  function renderUi() {
-    return render(<PrimaryInput/>);
-  }
+        expect(result).toContainHTML('test::inputValue:');
+    });
 
-  it('should call the adapter when input is changed', function () {
-    const result: RenderResult = renderUi();
-    const inputField: Element = result.container.querySelector('input[name="editLine"]') as Element;
+    it('should call the adapter when input is changed', function () {
+        const result: HTMLElement = renderUi();
+        const inputField: Element = result.querySelector('input[name="editLine"]') as Element;
 
-    fireEvent.change(inputField, {target: {value: 'test::newValue:'}});
+        fireEvent.change(inputField, {target: {value: 'test::newValue:'}});
 
-    expect(GlobalContainer.inputAdapter.onInputChange).toBeCalledWith('test::newValue:');
-  });
+        expect(adapter.onInputChange).toBeCalledWith('test::newValue:');
+    });
 
-  it('should call the adapter when submit button is pressed', function () {
-    model.showSubmitButton = true;
-    const result: RenderResult = renderUi();
-    const button: Element = result.container.querySelector('button[name="submit"]') as Element;
+    it('should call the adapter when submit button is pressed', function () {
+        model.showSubmitButton = true;
+        const result: HTMLElement = renderUi();
+        const button: Element = result.querySelector('button[name="submit"]') as Element;
 
-    fireEvent.click(button);
+        fireEvent.click(button);
 
-    expect(GlobalContainer.inputAdapter.onSubmit).toBeCalled();
-  });
+        expect(adapter.onSubmit).toBeCalled();
+    });
 
-  it('should call the adapter when discard button is pressed', function () {
-    model.showDiscardButton = true;
-    const result: RenderResult = renderUi();
-    const button: Element = result.container.querySelector('button[name="discard"]') as Element;
+    it('should call the adapter when discard button is pressed', function () {
+        model.showDiscardButton = true;
+        const result: HTMLElement = renderUi();
+        const button: Element = result.querySelector('button[name="discard"]') as Element;
 
-    fireEvent.click(button);
+        fireEvent.click(button);
 
-    expect(GlobalContainer.inputAdapter.onDiscard).toBeCalled();
-  });
+        expect(adapter.onDiscard).toBeCalled();
+    });
 });

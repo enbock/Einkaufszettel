@@ -1,24 +1,20 @@
-import BuyingList, {Adapter as ViewAdapter} from './BuyingList';
+import BuyingList from './BuyingList';
 import BuyingListPresenter from './BuyingListPresenter';
 import BuyingListLoadInteractor, {Response} from '../BuyingListLoadInteractor';
 import ListInteractor from '../ListInteractor';
 import {EntryId} from '../../ListStorage/EntryEntity';
 import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
+import BuyingListAdapter from './BuyingListAdapter';
+import Controller from '../../Controller';
 
-export interface Adapter extends ViewAdapter {
-    onListChange(): void;
-
-    onFormInput(): void;
-}
-
-export default class BuyingListController {
+export default class BuyingListController implements Controller {
     private viewInstance?: BuyingList;
 
     constructor(
         private entireListPresenter: BuyingListPresenter,
         private entireListInteractor: BuyingListLoadInteractor,
         private listInteractor: ListInteractor,
-        private adapter: Adapter,
+        private adapter: BuyingListAdapter,
         private primaryInputAdapter: PrimaryInputAdapter
     ) {
     }
@@ -29,8 +25,8 @@ export default class BuyingListController {
 
     public attach(view: BuyingList): void {
         this.viewInstance = view;
-        this.loadAndDisplayList();
         this.bindAdapter();
+        this.loadAndDisplayList();
     }
 
     private loadAndDisplayList(): void {

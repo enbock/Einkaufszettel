@@ -1,43 +1,30 @@
 import EntryModel from './EntryModel';
-import Entry, {Adapter as EntryAdapter} from './Entry';
+import Entry from './Entry';
 import BuyingListModel from './BuyingListModel';
-import Container from '../DependencyInjection/Container';
 import './Artefacts/BuyingList.css';
-import Component from '@enbock/ts-jsx/Component';
+import Component, {ComponentProperties} from '@enbock/ts-jsx/Component';
+import BuyingListAdapter from './BuyingListAdapter';
 
-export interface Adapter extends EntryAdapter {
-}
-
-interface Properties {
-}
-
-interface State {
-    model: BuyingListModel;
+interface Properties extends ComponentProperties {
 }
 
 export default class BuyingList extends Component<Properties> {
-    private readonly adapter: Adapter;
-    private state: any = {}; // TODO Remove
+    private modelInstance: BuyingListModel = new BuyingListModel();
 
-    constructor(props: Properties) {
+    constructor(
+        props: Properties,
+        private adapter: BuyingListAdapter
+    ) {
         super(props);
-
-        this.state = {
-            model: new BuyingListModel()
-        };
-        this.adapter = Container.adapter;
     }
 
     public set model(value: BuyingListModel) {
-        this.updateProps({model: value}); // TODO correct
-    }
-
-    public componentDidMount(): void {
-        Container.controller.attach(this);
+        this.modelInstance = value;
+        this.renderShadow();
     }
 
     public render(): JSX.Element {
-        const list: EntryModel[] = this.state.model.list;
+        const list: EntryModel[] = this.modelInstance.list;
 
         return (
             <entire-list>
@@ -50,6 +37,6 @@ export default class BuyingList extends Component<Properties> {
     }
 
     private renderEntry(entryModel: EntryModel): JSX.Element {
-        return <Entry key={'list-entry-' + entryModel.id} adapter={this.adapter} model={entryModel}/>;
+        return <Entry adapter={this.adapter} model={entryModel}/>;
     }
 }

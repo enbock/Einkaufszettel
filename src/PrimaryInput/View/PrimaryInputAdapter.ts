@@ -1,15 +1,15 @@
-import {Adapter} from './PrimaryInputController';
+import ViewAdapter from '../../ViewAdapter';
 
-export default class PrimaryInputAdapter implements Adapter {
-  public onDiscard(): void {
-  }
+export default class PrimaryInputAdapter implements ViewAdapter {
+    public onDiscard(): void {
+    }
 
-  public onInputChange(newValue: string): void {
-  }
+    public onInputChange(newValue: string): void {
+    }
 
-  public onSubmit(): void {
-  }
+    public onSubmit(): void {
+    }
 
-  public onListChange(): void {
-  }
+    public onListChange(): void {
+    }
 }

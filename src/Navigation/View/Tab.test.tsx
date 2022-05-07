@@ -1,43 +1,52 @@
-import Tab, {Adapter} from './Tab';
-import {fireEvent, render, RenderResult} from '@testing-library/react';
+import Tab from './Tab';
 import TabModel from './TabModel';
 import {mock} from 'jest-mock-extended';
+import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
+import ViewInjection from '@enbock/ts-jsx/ViewInjection';
+import {fireEvent} from '@testing-library/dom';
+import NavigationAdapter from './NavigationAdapter';
 
 describe(Tab, function () {
-  let adapter: Adapter = mock<Adapter>();
+    let adapter: NavigationAdapter = mock<NavigationAdapter>(),
+        model: TabModel
+    ;
 
-  function createUi(model: TabModel): RenderResult {
-    return render(<Tab model={model} adapter={adapter}/>);
-  }
+    beforeEach(function () {
+        model = new TabModel();
+    });
 
-  it('should display the navigation tab', function () {
-    const model: TabModel = new TabModel();
-    model.isActive = false;
-    model.label = 'test::label:';
+    function createUi(): HTMLElement {
+        ViewInjection(Tab, adapter);
+        const view: Tab = ShadowRenderer.render(<Tab model={model} adapter={adapter}/>) as Tab;
 
-    const result: RenderResult = createUi(model);
+        return view.shadowRoot!.firstElementChild as HTMLElement;
+    }
 
-    expect(result.container.innerHTML).not.toContain('class="active"');
-    expect(result.container.innerHTML).toContain('test::label:');
-  });
+    it('should display the navigation tab', function () {
+        model.isActive = false;
+        model.label = 'test::label:';
 
-  it('should mark the active tab', function () {
-    const model: TabModel = new TabModel();
-    model.isActive = true;
+        const result: HTMLElement = createUi();
 
-    const result: RenderResult = createUi(model);
+        expect(result).not.toContainHTML('class="active"');
+        expect(result).toHaveTextContent('test::label:');
+    });
 
-    expect(result.container.innerHTML).toContain('class="active"');
-  });
+    it('should mark the active tab', function () {
+        model.isActive = true;
 
-  it('should run adapter function with tab name on click', function () {
-    const model: TabModel = new TabModel();
-    model.name = 'test::tabName:';
+        const result: HTMLElement = createUi();
 
-    const result: RenderResult = createUi(model);
-    const button: Element = result.container.getElementsByTagName('button').item(0) as Element;
-    fireEvent.click(button);
+        expect(result).toContainHTML('class="active"');
+    });
 
-    expect(adapter.onNavigationClick).toBeCalledWith('test::tabName:');
-  });
+    it('should run adapter function with tab name on click', function () {
+        model.name = 'test::tabName:';
+
+        const result: HTMLElement = createUi();
+
+        fireEvent.click(result);
+
+        expect(adapter.onNavigationClick).toBeCalledWith('test::tabName:');
+    });
 });

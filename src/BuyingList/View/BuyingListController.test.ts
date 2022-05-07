@@ -1,4 +1,4 @@
-import BuyingListController, {Adapter} from './BuyingListController';
+import BuyingListController from './BuyingListController';
 import BuyingList from './BuyingList';
 import BuyingListModel from './BuyingListModel';
 import EntryModel from './EntryModel';
@@ -8,13 +8,14 @@ import EntryEntity from '../../ListStorage/EntryEntity';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ListInteractor from '../ListInteractor';
 import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
+import BuyingListAdapter from './BuyingListAdapter';
 
 describe(BuyingListController, function () {
     let view: BuyingList & MockProxy<BuyingList>,
         controller: BuyingListController,
         entireListPresenter: BuyingListPresenter & MockProxy<BuyingListPresenter>,
         entireListInteractor: BuyingListLoadInteractor & MockProxy<BuyingListLoadInteractor>,
-        adapter: Adapter,
+        adapter: BuyingListAdapter,
         listInteractor: ListInteractor & MockProxy<ListInteractor>,
         primaryInputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
     ;
@@ -23,7 +24,7 @@ describe(BuyingListController, function () {
         view = mock<BuyingList>();
         entireListPresenter = mock<BuyingListPresenter>();
         entireListInteractor = mock<BuyingListLoadInteractor>();
-        adapter = mock<Adapter>();
+        adapter = mock<BuyingListAdapter>();
         listInteractor = mock<ListInteractor>();
         primaryInputAdapter = mock<PrimaryInputAdapter>();
         controller = new BuyingListController(

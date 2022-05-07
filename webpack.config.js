@@ -2,13 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: './src/index.tsx',
+  entry: './src/index.ts',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        resolve: {
+          extensions: ['.tsx', '.ts', '.js'],
+          alias: {}
+        }
       },
       {
         test: /\.css$/i,
@@ -32,14 +36,8 @@ const config = {
     port: 3000
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Example page'
-    })
+    new HtmlWebpackPlugin()
   ],
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-    alias: {}
-  },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),

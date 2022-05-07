@@ -1,4 +1,6 @@
-export default class NavigationAdapter {
-  onNavigationClick(activeList: string): void {
-  }
+import ViewAdapter from '../../ViewAdapter';
+
+export default class NavigationAdapter implements ViewAdapter {
+    onNavigationClick(activeList: string): void {
+    }
 }

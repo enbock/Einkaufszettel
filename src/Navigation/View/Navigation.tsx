@@ -1,47 +1,38 @@
 import './Navigation.css';
 import NavigationModel from '../NavigationModel';
-import Container from '../DependencyInjection/Container';
-import Tab, {Adapter as TabAdapter} from './Tab';
+import Tab from './Tab';
 import TabModel from './TabModel';
 import Component from '@enbock/ts-jsx/Component';
-
-export interface Adapter extends TabAdapter {
-}
+import RootView from '../../RootView';
+import NavigationAdapter from './NavigationAdapter';
 
 export interface Properties {
 }
 
-interface State {
-    model: NavigationModel;
-}
+export default class Navigation extends Component<Properties> implements RootView {
+    private modelInstance: NavigationModel = new NavigationModel();
 
-export default class Navigation extends Component<Properties> {
-    private readonly adapter: Adapter;
-    private state: any = {}; // TODO
-
-    constructor(props: Readonly<Properties>) {
+    constructor(
+        props: Readonly<Properties>,
+        private readonly adapter: NavigationAdapter
+    ) {
         super(props);
-        this.adapter = Container.adapter;
-        this.state = {model: new NavigationModel()};
     }
 
     public set model(value: NavigationModel) {
-        this.updateProps({model: value}); // TODO
-    }
-
-    public componentDidMount() {
-        Container.controller.attach(this);
+        this.modelInstance = value;
+        this.renderShadow();
     }
 
     render() {
         return (
             <navigation is="navigation">
-                {this.state.model.navigationTabs.map(this.renderTab.bind(this))}
+                {this.modelInstance.navigationTabs.map(this.renderTab.bind(this))}
             </navigation>
         );
     }
 
-    renderTab(model: TabModel, index: number) {
+    public renderTab(model: TabModel, index: number) {
         return (
             <Tab
                 key={'NavigationTab' + index}

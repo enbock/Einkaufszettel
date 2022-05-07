@@ -1,16 +1,10 @@
 import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import EntryModel from './EntryModel';
-import {EntryId} from '../../ListStorage/EntryEntity';
 import Component from '@enbock/ts-jsx/Component';
-
-export interface Adapter {
-    onEntryButtonClick(id: EntryId): void;
-
-    onSelectClick(id: EntryId): void;
-}
+import BuyingListAdapter from './BuyingListAdapter';
 
 interface Properties {
-    adapter: Adapter,
+    adapter: BuyingListAdapter,
     model: EntryModel
 }
 

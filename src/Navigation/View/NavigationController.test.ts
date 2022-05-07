@@ -1,18 +1,19 @@
 import NavigationController from './NavigationController';
 import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../NavigationInteractor';
 import {mock, MockProxy} from 'jest-mock-extended';
-import Navigation, {Adapter} from './Navigation';
+import Navigation from './Navigation';
 import NavigationPresenter from './NavigationPresenter';
 import NavigationModel from '../NavigationModel';
 import TabModel from './TabModel';
-import {Adapter as BuyingListAdapter} from '../../BuyingList/View/BuyingListController';
 import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
+import NavigationAdapter from './NavigationAdapter';
+import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
 
 describe(NavigationController, function () {
     let controller: NavigationController,
         interactor: NavigationInteractor & MockProxy<NavigationInteractor>,
         viewInstance: Navigation & MockProxy<Navigation>,
-        adapter: Adapter & MockProxy<Adapter>,
+        adapter: NavigationAdapter & MockProxy<NavigationAdapter>,
         presenter: NavigationPresenter & MockProxy<NavigationPresenter>,
         listAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
         inputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
@@ -21,7 +22,7 @@ describe(NavigationController, function () {
     beforeEach(function () {
         interactor = mock<NavigationInteractor>();
         viewInstance = mock<Navigation>();
-        adapter = mock<Adapter>();
+        adapter = mock<NavigationAdapter>();
         presenter = mock<NavigationPresenter>();
         listAdapter = mock<BuyingListAdapter>();
         inputAdapter = mock<PrimaryInputAdapter>();

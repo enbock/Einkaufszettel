@@ -5,22 +5,11 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 import {mock, MockProxy} from 'jest-mock-extended';
 import Navigation from './Navigation/View/Navigation';
-import Component from '@enbock/ts-jsx/Component';
+import mockComponent from './mockComponent';
 
 mockComponent(BuyingList);
 mockComponent(PrimaryInput);
 mockComponent(Navigation);
-
-function mockComponent(module: any): void {
-    function mockedFactory(): HTMLElement {
-        let node: Component = document.createElement('div') as any;
-        node.appendChild(document.createTextNode('test::' + module.name + ':'));
-        node.updateProps = jest.fn();
-        return node;
-    }
-
-    module.factory = mockedFactory;
-}
 
 describe(StartUp, function () {
     let startup: StartUp,
@@ -32,7 +21,11 @@ describe(StartUp, function () {
         updateLoader = mock<ServiceWorkerUpdateLoader>();
         serviceWorker = mock<typeof serviceWorkerRegistration>();
 
-        startup = new StartUp(document, updateLoader, serviceWorker);
+        startup = new StartUp(
+            document,
+            updateLoader,
+            serviceWorker
+        );
     });
 
     it('should start the application', function () {

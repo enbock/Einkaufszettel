@@ -16,19 +16,20 @@
     "target": "ESNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
     "jsxImportSource": "@enbock/ts-jsx",
     "outDir": "./build/",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceRoot": "src",
-    "sourceMap": false
+    "sourceMap": true
   },
   "include": [
     "src"
   ],
   "exclude": [
-    "*.test.tsx"
+    "**.test.ts",
+    "**.test.tsx"
   ]
 }

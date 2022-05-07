@@ -1,43 +1,41 @@
-import Navigation, {Properties} from './Navigation';
+import Navigation from './Navigation';
 import NavigationModel from '../NavigationModel';
-import {render, RenderResult} from '@testing-library/react';
-import Container from '../DependencyInjection/Container';
-import NavigationAdapter from './NavigationAdapter';
-import {mock} from 'jest-mock-extended';
 import TabModel from './TabModel';
+import mockComponent from '../../mockComponent';
+import Tab from './Tab';
+import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
+import NavigationAdapter from './NavigationAdapter';
+import {mock, MockProxy} from 'jest-mock-extended';
+import ViewInjection from '@enbock/ts-jsx/ViewInjection';
 
-jest.mock('../DependencyInjection/Container', function () {
-  return {controller: {attach: jest.fn()}};
-});
-
-jest.mock('./Tab', function () {
-  return function (props: Properties): JSX.Element {
-    return <div>test:Tab:{JSON.stringify(props)}</div>;
-  };
-});
+mockComponent(Tab);
 
 describe(Navigation, function () {
-  beforeEach(function () {
-    Container.adapter = mock<NavigationAdapter>();
-  });
-
-  function createUi(model: NavigationModel): RenderResult {
-    (Container.controller.attach as jest.Mock).mockImplementation(function (view: Navigation) {
-      view.model = model;
+    let model: NavigationModel,
+        adapter: NavigationAdapter & MockProxy<NavigationAdapter>
+    ;
+    beforeEach(function () {
+        model = new NavigationModel();
+        adapter = mock<NavigationAdapter>();
     });
-    return render(<Navigation/>);
-  }
 
-  it('should display the navigation tab', function () {
-    const model: NavigationModel = new NavigationModel();
-    const tab: TabModel = new TabModel();
-    tab.label = 'test::tabButton:';
-    model.navigationTabs = [tab];
+    function createUi(): HTMLElement {
+        ViewInjection(Navigation, adapter);
+        const view: Navigation = ShadowRenderer.render(<Navigation/>) as Navigation;
+        view.model = model;
 
-    const result: RenderResult = createUi(model);
+        return view.shadowRoot!.firstElementChild as HTMLElement;
+    }
 
-    expect(result.container.innerHTML).not.toContain('class="active"');
-    expect(result.container.innerHTML).toContain('test:Tab:');
-    expect(result.container.innerHTML).toContain('test::tabButton:');
-  });
+    it('should display the navigation tab', function () {
+        const tab: TabModel = new TabModel();
+        tab.label = 'test::tabButton:';
+        model.navigationTabs = [tab];
+
+        const result: HTMLElement = createUi();
+
+        expect(result).not.toContainHTML('class="active"');
+        expect(result).toContainHTML('test::Tab:');
+        expect(result).toContainHTML('test::tabButton:');
+    });
 });

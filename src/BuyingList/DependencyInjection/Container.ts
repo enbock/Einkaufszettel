@@ -14,25 +14,14 @@ import AddEntryToShoppingList from '../InteractorTask/AddEntryToShoppingList';
 import AddEntryIdToShoppingList from '../InteractorTask/AddEntryIdToShoppingList';
 import UpdateEntry from '../InteractorTask/UpdateEntry';
 
-export class BuyingListContainer {
+class Container {
     public readonly adapter: BuyingListAdapter = GlobalContainer.listAdapter;
     private readonly loadListChain: LoadListTask[] = [
         new LoadEntireList(GlobalContainer.listStorage),
         new LoadShoppingList(GlobalContainer.listStorage)
     ];
-    public controller: BuyingListController = new BuyingListController(
-        new BuyingListPresenter(),
-        new BuyingListLoadInteractor(
-            GlobalContainer.navigationMemory,
-            this.loadListChain,
-            GlobalContainer.formMemory
-        ),
-        this.addEntryInteractor,
-        this.adapter,
-        GlobalContainer.inputAdapter
-    );
     private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
-    public readonly addEntryInteractor: ListInteractor = new ListInteractor(
+    public readonly listInteractor: ListInteractor = new ListInteractor(
         GlobalContainer.listStorage,
         GlobalContainer.formMemory,
         GlobalContainer.navigationMemory,
@@ -58,7 +47,18 @@ export class BuyingListContainer {
             this.addEntryToShoppingList
         )
     );
+    public controller: BuyingListController = new BuyingListController(
+        new BuyingListPresenter(),
+        new BuyingListLoadInteractor(
+            GlobalContainer.navigationMemory,
+            this.loadListChain,
+            GlobalContainer.formMemory
+        ),
+        this.listInteractor,
+        this.adapter,
+        GlobalContainer.primaryInputAdapter
+    );
 }
 
-const Container: BuyingListContainer = new BuyingListContainer();
-export default Container;
+const BuyingListContainer: Container = new Container();
+export default BuyingListContainer;

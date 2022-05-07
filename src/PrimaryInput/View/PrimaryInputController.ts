@@ -1,20 +1,18 @@
-import PrimaryInput, {Adapter as TemplateAdapter} from './PrimaryInput';
+import PrimaryInput from './PrimaryInput';
 import ListInteractor from '../../BuyingList/ListInteractor';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
 import LoadInteractor, {LoadResponse} from '../LoadInteractor';
-import {Adapter as BuyingListAdapter} from '../../BuyingList/View/BuyingListController';
 import RemoveInteractor from '../RemoveInteractor';
+import Controller from '../../Controller';
+import PrimaryInputAdapter from './PrimaryInputAdapter';
+import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
 
-export interface Adapter extends TemplateAdapter {
-    onListChange(): void;
-}
-
-export default class PrimaryInputController {
+export default class PrimaryInputController implements Controller {
     private viewInstance?: PrimaryInput;
 
     constructor(
-        private adapter: Adapter,
+        private adapter: PrimaryInputAdapter,
         private addEntryInteractor: ListInteractor,
         private saveInputValueInteractor: SaveInputValueInteractor,
         private loadInteractor: LoadInteractor,
@@ -28,7 +26,7 @@ export default class PrimaryInputController {
         return this.viewInstance as PrimaryInput;
     }
 
-    attach(view: PrimaryInput): void {
+    public attach(view: PrimaryInput): void {
         this.viewInstance = view;
         this.bindAdapter();
         this.actualizeOutput();
@@ -36,7 +34,7 @@ export default class PrimaryInputController {
 
     private actualizeOutput() {
         const response: LoadResponse = this.loadInteractor.loadData();
-        this.view.model = this.presenter.present(response);
+        this.view.modelInstance = this.presenter.present(response);
     }
 
     private bindAdapter(): void {
