@@ -1,56 +1,40 @@
-import React, {Component, StrictMode} from 'react';
-import ReactDOM from 'react-dom';
 import StartUp from './StartUp';
-import BuyingList from './BuyingList/React/BuyingList';
-import PrimaryInput from './PrimaryInput/React/PrimaryInput';
+import BuyingList from './BuyingList/View/BuyingList';
+import PrimaryInput from './PrimaryInput/View/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
-import {mock} from 'jest-mock-extended';
-import Navigation from './Navigation/React/Navigation';
+import {mock, MockProxy} from 'jest-mock-extended';
+import Navigation from './Navigation/View/Navigation';
+import {mock as mockComponent} from '@enbock/ts-jsx/Component';
 
-jest.mock('react-dom', function () {
-  return {
-    render: jest.fn()
-  };
-});
-
-jest.mock('./BuyingList/React/BuyingList');
-jest.mock('./PrimaryInput/React/PrimaryInput');
-jest.mock('./Navigation/React/Navigation');
-jest.mock('./serviceWorkerRegistration', function () {
-  return {register: jest.fn()};
-});
+mockComponent(BuyingList);
+mockComponent(PrimaryInput);
+mockComponent(Navigation);
 
 describe(StartUp, function () {
-  let reloader: ServiceWorkerUpdateLoader;
+    let startup: StartUp,
+        updateLoader: ServiceWorkerUpdateLoader & MockProxy<ServiceWorkerUpdateLoader>,
+        serviceWorker: typeof serviceWorkerRegistration & MockProxy<typeof serviceWorkerRegistration>
+    ;
 
-  beforeEach(function () {
-    reloader = mock<ServiceWorkerUpdateLoader>();
-  });
+    beforeEach(function () {
+        updateLoader = mock<ServiceWorkerUpdateLoader>();
+        serviceWorker = mock<typeof serviceWorkerRegistration>();
 
-  it('should start the application', function () {
-    (BuyingList as jest.Mock).mockImplementation(function () {
-      return class BuyingList extends Component<any, any> {
-      };
-    });
-    (PrimaryInput as jest.Mock).mockImplementation(function () {
-      return class PrimaryInput extends Component<any, any> {
-      };
-    });
-    (Navigation as jest.Mock).mockImplementation(function () {
-      return class Navigation extends Component<any, any> {
-      };
+        startup = new StartUp(
+            document,
+            updateLoader,
+            serviceWorker
+        );
     });
 
-    const getElementByIdMock: jest.Mock = jest.fn();
-    getElementByIdMock.mockReturnValueOnce('test::HTMLElement:');
-    const document: Document = {getElementById: getElementByIdMock as any} as Document;
+    it('should start the application', function () {
 
-    new StartUp(document, reloader).start();
+        startup.start();
 
-    const expectedJsx: JSX.Element = <StrictMode><Navigation/><PrimaryInput/><BuyingList/></StrictMode>;
-    expect(ReactDOM.render).toBeCalledWith(expectedJsx, 'test::HTMLElement:');
-    expect(getElementByIdMock).toBeCalledWith('root');
-    expect(serviceWorkerRegistration.register).toBeCalledWith(reloader);
-  });
+        expect(serviceWorker.register).toBeCalledWith(updateLoader);
+        expect(document.body).toHaveTextContent('test::PrimaryInput:');
+        expect(document.body).toHaveTextContent('test::BuyingList:');
+        expect(document.body).toHaveTextContent('test::Navigation:');
+    });
 });

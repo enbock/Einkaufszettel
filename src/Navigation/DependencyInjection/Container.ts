@@ -1,20 +1,20 @@
-import NavigationAdapter from '../React/NavigationAdapter';
-import NavigationController from '../React/NavigationController';
+import NavigationAdapter from '../NavigationAdapter';
+import NavigationController from '../NavigationController';
 import NavigationInteractor from '../NavigationInteractor';
-import NavigationPresenter from '../React/NavigationPresenter';
+import NavigationPresenter from '../View/NavigationPresenter';
 import ConfigLoader from '../Config/ConfigLoader';
 import GlobalContainer from '../../DependencyInjection/Container';
 
-export class NavigationContainer {
-  public adapter: NavigationAdapter = new NavigationAdapter();
-  public controller: NavigationController = new NavigationController(
-    new NavigationInteractor(GlobalContainer.navigationMemory, new ConfigLoader()),
-    this.adapter,
-    new NavigationPresenter(),
-    GlobalContainer.listAdapter,
-    GlobalContainer.inputAdapter
-  );
+export class Container {
+    public adapter: NavigationAdapter = new NavigationAdapter();
+    public controller: NavigationController = new NavigationController(
+        new NavigationInteractor(GlobalContainer.navigationMemory, new ConfigLoader()),
+        this.adapter,
+        new NavigationPresenter(),
+        GlobalContainer.listAdapter,
+        GlobalContainer.primaryInputAdapter
+    );
 }
 
-const Container: NavigationContainer = new NavigationContainer();
-export default Container;
+const NavigationContainer: Container = new Container();
+export default NavigationContainer;

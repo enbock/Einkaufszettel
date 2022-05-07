@@ -1,39 +1,42 @@
 {
   "name": "einkaufszettel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "@enbock/string-helper-ts": "^1",
+    "@enbock/ts-jsx": "0.1.0-dev17",
+    "@testing-library/dom": "^8",
     "@testing-library/jest-dom": "^5",
-    "@testing-library/react": "^12",
-    "@testing-library/user-event": "^13",
+    "@testing-library/user-event": "^14",
+    "@types/jest": "^27",
+    "@types/lodash.get": "^4",
+    "@types/node": "^16",
+    "@types/uuid": "^8",
+    "copy-webpack-plugin": "^10",
+    "css-loader": "^6",
+    "html-webpack-plugin": "^5",
+    "jest": "^28",
+    "jest-environment-jsdom": "^28",
+    "jest-mock-extended": "^2",
     "lodash.get": "^4",
-    "react": "^17",
-    "react-dom": "^17",
-    "react-scripts": "^4",
+    "style-loader": "^3",
+    "ts-jest": "^28",
     "typescript": "^4",
     "uuid": "^8",
-    "web-vitals": "^0",
-    "jest-mock-extended": "^2"
+    "webpack-cli": "^4",
+    "webpack-dev-server": "^4",
+    "workbox-core": "^6",
+    "workbox-expiration": "^6",
+    "workbox-precaching": "^6",
+    "workbox-routing": "^6",
+    "workbox-strategies": "^6",
+    "workbox-webpack-plugin": "^6"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject",
-    "test-build": "yarn build && npx serve -s build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "eqeqeq": [
-        0
-      ]
-    }
+    "start": "webpack serve --open --mode development --no-open --no-live-reload --no-hot --stats-error-details",
+    "build": "webpack --mode production",
+    "test": "jest --ci"
   },
   "browserslist": {
     "production": [
@@ -47,23 +50,39 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/jest": "^27",
-    "@types/lodash.get": "^4",
-    "@types/node": "^16",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
-    "@types/uuid": "^8"
-  },
   "jest": {
     "collectCoverageFrom": [
       "!src/index.ts",
       "!src/*.js",
       "!src/**/*.json",
-      "!src/**/*.svg"
+      "!src/**/*.svg",
+      "!src/setupTests.ts",
+      "!**/Container.ts",
+      "!**/*Adapter.ts"
     ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "verbose": true,
+    "collectCoverage": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest/legacy",
+      "^.+\\.jsx?$": "ts-jest/legacy",
+      "^.+\\.svg$": "<rootDir>/TestTransform.js",
+      "^.+\\.css$": "<rootDir>/TestTransform.js"
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "testRegex": "\\.test\\.tsx?$",
+    "testEnvironment": "jsdom",
     "transformIgnorePatterns": [
-      "/node_modules/(?!(@enbock)/)"
+      "node_modules/?!(uuid|@enbock/string-helper-ts)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx"
     ]
   }
 }

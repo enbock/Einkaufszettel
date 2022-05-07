@@ -1,30 +1,30 @@
-import ReactDOM from 'react-dom';
-import React, {StrictMode} from 'react';
-import BuyingList from './BuyingList/React/BuyingList';
-import PrimaryInput from './PrimaryInput/React/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
-import Navigation from './Navigation/React/Navigation';
+import ShadowRenderer from '@enbock/ts-jsx/ShadowRenderer';
+import PrimaryInput from './PrimaryInput/View/PrimaryInput';
+import BuyingList from './BuyingList/View/BuyingList';
+import Navigation from './Navigation/View/Navigation';
+import Styles from './StartUp.css';
 
 export default class StartUp {
-  private readonly document: Document;
-  private readonly reloader: ServiceWorkerUpdateLoader;
 
-  constructor(document: Document, reloader: ServiceWorkerUpdateLoader) {
-    this.reloader = reloader;
-    this.document = document;
-  }
+    constructor(
+        private document: Document,
+        private updateLoader: ServiceWorkerUpdateLoader,
+        private serviceWorker: typeof serviceWorkerRegistration
+    ) {
+    }
 
-  public start(): void {
-    serviceWorkerRegistration.register(this.reloader);
+    public start(): void {
+        this.serviceWorker.register(this.updateLoader);
 
-    ReactDOM.render(
-      <StrictMode>
-        <Navigation/>
-        <PrimaryInput/>
-        <BuyingList/>
-      </StrictMode>,
-      this.document.getElementById('root')
-    );
-  }
+        const jsx: JSX.Element = <div>
+            <style>{Styles}</style>
+            <Navigation/>
+            <PrimaryInput/>
+            <BuyingList/>
+        </div>;
+        const rootNode: HTMLElement = ShadowRenderer.render(jsx);
+        this.document.body.appendChild(rootNode);
+    }
 }

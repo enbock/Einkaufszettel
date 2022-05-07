@@ -1,0 +1,29 @@
+
+:host button {
+    width: 10rem;
+    height: 2.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3em;
+    color: var(--light-tertiary);
+    background-color: var(--dark-secondary);
+    border: 0.1rem solid var(--dark-secondary);
+    border-bottom-width: 0;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    margin-left: 0.05rem;
+    margin-right: 0.05rem;
+}
+
+:host button.active {
+    color: var(--light-secondary)
+}
+
+:host button:focus {
+    outline: 0;
+    background-color: var(--dark-secondary);
+}
+
+:host > button.active {
+    background-color: var(--dark-primary);
+    border-color: var(--dark-primary);
+}
