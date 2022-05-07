@@ -1,7 +1,7 @@
 import DiscardIcon from './Artefacts/DiscardIcon.svg';
 import SubmitIcon from './Artefacts/SubmitIcon.svg';
 import PrimaryInputModel from './PrimaryInputModel';
-import './Artefacts/PrimaryInput.css';
+import Styles from './Artefacts/PrimaryInput.css';
 import Component from '@enbock/ts-jsx/Component';
 import RootView from '../../RootView';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
@@ -25,19 +25,19 @@ export default class PrimaryInput extends Component<Properties> implements RootV
     }
 
     public render(): JSX.Element {
-        return (
-            <primary-input>
-                <input-frame>
-                    <input
-                        autoComplete="off"
-                        name="editLine" value={this.modelInstance.inputValue}
-                        onChange={this.onInputChange.bind(this)}
-                    />
-                    {this.renderSubmitButton()}
-                    {this.renderDiscardButton()}
-                </input-frame>
-            </primary-input>
-        );
+        return <>
+            <style>{Styles}</style>
+            <input-frame>
+                <input
+                    autoComplete="off"
+                    name="editLine" value={this.modelInstance.inputValue}
+                    onChange={this.onInputChange.bind(this)}
+                    onInput={this.onInputChange.bind(this)}
+                />
+                {this.renderSubmitButton()}
+                {this.renderDiscardButton()}
+            </input-frame>
+        </>;
     }
 
     private renderSubmitButton(): JSX.Element {
@@ -53,7 +53,6 @@ export default class PrimaryInput extends Component<Properties> implements RootV
     private renderDiscardButton(): JSX.Element {
         const model: PrimaryInputModel = this.modelInstance;
         if (model.showDiscardButton === false) return '';
-
         return (
             <button name="discard" onClick={() => this.adapter.onDiscard()}>
                 <img src={DiscardIcon} alt={model.discardLabel}/>

@@ -1,4 +1,3 @@
-import './index.css';
 import BuyingListContainer from './BuyingList/DependencyInjection/Container';
 import BuyingList from './BuyingList/View/BuyingList';
 import ShadowViewConnector from './ShadowViewConnector';

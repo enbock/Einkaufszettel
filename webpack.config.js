@@ -16,7 +16,10 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
+        loader: 'css-loader',
+        options: {
+          exportType: 'string'
+        }
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -28,7 +31,7 @@ const config = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader'
+        type: 'asset/resource'
       }
     ]
   },

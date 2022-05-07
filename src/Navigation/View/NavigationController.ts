@@ -1,13 +1,13 @@
 import NavigationInteractor, {ActivateTabRequest, LoadResponse} from '../NavigationInteractor';
-import Navigation from './Navigation';
 import NavigationPresenter from './NavigationPresenter';
 import PrimaryInputAdapter from '../../PrimaryInput/View/PrimaryInputAdapter';
 import NavigationAdapter from './NavigationAdapter';
 import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
 import Controller from '../../Controller';
+import RootView from '../../RootView';
 
 export default class NavigationController implements Controller {
-    private viewInstance?: Navigation;
+    private viewInstance?: RootView;
 
     constructor(
         private interactor: NavigationInteractor,
@@ -18,11 +18,11 @@ export default class NavigationController implements Controller {
     ) {
     }
 
-    private get view(): Navigation {
-        return this.viewInstance as Navigation;
+    private get view(): RootView {
+        return this.viewInstance as RootView;
     }
 
-    public attach(view: Navigation): void {
+    public attach(view: RootView): void {
         this.viewInstance = view;
         this.bindAdapter();
         this.loadAndPresentTabs();

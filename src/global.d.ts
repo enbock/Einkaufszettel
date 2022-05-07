@@ -13,3 +13,8 @@ declare namespace JSX {
         [tag: string]: Element;
     }
 }
+
+declare module '*.css' {
+    const content: any;
+    export default content;
+}

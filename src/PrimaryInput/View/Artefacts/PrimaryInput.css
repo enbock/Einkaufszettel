@@ -1,11 +1,12 @@
-primary-input {
+:host {
     display: block;
     background-color: var(--dark-primary);
     height: 2.5rem;
     padding: 0.25em 0.6em 0.6em 0.2em;
+    margin: 0;
 }
 
-primary-input input-frame {
+:host input-frame {
     display: block;
     background-color: var(--light-secondary);
     width: 100%;
@@ -14,11 +15,11 @@ primary-input input-frame {
     border-radius: 0.5em;
 }
 
-primary-input input {
+:host input {
     display: block;
     color: var(--dark-tertiary);
     background-color: var(--light-secondary);
-    width: calc(100% - 7.5rem);
+    width: calc(100% - 7.8rem);
     height: 2.3rem;
     border-width: 0;
     font-family: 'Roboto', sans-serif;
@@ -29,11 +30,11 @@ primary-input input {
     float: left;
 }
 
-primary-input input:focus {
+:host input:focus {
     outline: 0;
 }
 
-primary-input button {
+:host button {
     width: 3.5rem;
     height: 2.3rem;
     border: 0.15rem solid var(--dark-secondary);
@@ -42,7 +43,7 @@ primary-input button {
     background-color: var(--light-primary);
 }
 
-primary-input button[name=placeholder] {
+:host button[name=placeholder] {
     background-color: transparent;
     border: 0;
     width: 3.5rem;
@@ -50,23 +51,23 @@ primary-input button[name=placeholder] {
     margin: 0.1em;
 }
 
-primary-input button {
+:host button {
     outline: 0;
 }
 
-primary-input button:focus {
+:host button:focus {
     background-color: var(--dark-secondary);
 }
 
-primary-input button:active {
+:host button:active {
     background-color: var(--dark-secondary);
 }
 
-primary-input button > img {
+:host button > img {
     margin-top: 0.25em;
     height: 80%;
 }
 
-primary-input button[name=submit] > img {
+:host button[name=submit] > img {
     filter: hue-rotate(100deg);
 }

@@ -1,4 +1,3 @@
-import PrimaryInput from './PrimaryInput';
 import ListInteractor from '../../BuyingList/ListInteractor';
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from '../SaveInputValueInteractor';
@@ -7,9 +6,10 @@ import RemoveInteractor from '../RemoveInteractor';
 import Controller from '../../Controller';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
 import BuyingListAdapter from '../../BuyingList/View/BuyingListAdapter';
+import RootView from '../../RootView';
 
 export default class PrimaryInputController implements Controller {
-    private viewInstance?: PrimaryInput;
+    private viewInstance?: RootView;
 
     constructor(
         private adapter: PrimaryInputAdapter,
@@ -22,11 +22,11 @@ export default class PrimaryInputController implements Controller {
     ) {
     }
 
-    private get view(): PrimaryInput {
-        return this.viewInstance as PrimaryInput;
+    private get view(): RootView {
+        return this.viewInstance as RootView;
     }
 
-    public attach(view: PrimaryInput): void {
+    public attach(view: RootView): void {
         this.viewInstance = view;
         this.bindAdapter();
         this.actualizeOutput();
@@ -34,7 +34,7 @@ export default class PrimaryInputController implements Controller {
 
     private actualizeOutput() {
         const response: LoadResponse = this.loadInteractor.loadData();
-        this.view.modelInstance = this.presenter.present(response);
+        this.view.model = this.presenter.present(response);
     }
 
     private bindAdapter(): void {

@@ -1,7 +1,7 @@
 import EntryModel from './EntryModel';
 import Entry from './Entry';
 import BuyingListModel from './BuyingListModel';
-import './Artefacts/BuyingList.css';
+import Styles from './Artefacts/BuyingList.css';
 import Component, {ComponentProperties} from '@enbock/ts-jsx/Component';
 import BuyingListAdapter from './BuyingListAdapter';
 
@@ -26,14 +26,15 @@ export default class BuyingList extends Component<Properties> {
     public render(): JSX.Element {
         const list: EntryModel[] = this.modelInstance.list;
 
-        return (
+        return <>
+            <style>{Styles}</style>
             <entire-list>
                 <entity-list>
                     {list.map(this.renderEntry.bind(this))}
                 </entity-list>
                 <visual-background/>
             </entire-list>
-        );
+        </>;
     }
 
     private renderEntry(entryModel: EntryModel): JSX.Element {

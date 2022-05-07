@@ -55,7 +55,7 @@ describe(PrimaryInputController, function () {
         expect(addEntryInteractor.saveEntry).toBeCalled();
         expect(presenter.present).toBeCalledWith(response);
         expect(presenter.present).toBeCalledTimes(2);
-        expect(primaryInput.modelInstance).toBe(model);
+        expect(primaryInput.model).toBe(model);
         expect(entireListControllerAdapter.onListChange).toBeCalled();
     });
 
@@ -81,7 +81,7 @@ describe(PrimaryInputController, function () {
         expect(saveInputValueInteractor.saveInputValue).toBeCalledWith(expectedRequest);
         expect(presenter.present).toBeCalledWith('test::load-response:');
         expect(presenter.present).toBeCalledTimes(2);
-        expect(primaryInput.modelInstance).toBe(model);
+        expect(primaryInput.model).toBe(model);
         expect(entireListControllerAdapter.onFormInput).toBeCalled();
     });
 
@@ -96,7 +96,7 @@ describe(PrimaryInputController, function () {
 
         expect(loadInteractor.loadData).toBeCalled();
         expect(presenter.present).toBeCalledWith('test::load-response:');
-        expect(primaryInput.modelInstance).toBe(model);
+        expect(primaryInput.model).toBe(model);
     });
 
     it('should show current input value', function () {

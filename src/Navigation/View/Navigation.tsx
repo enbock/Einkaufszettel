@@ -1,4 +1,4 @@
-import './Navigation.css';
+import CSS from './Navigation.css';
 import NavigationModel from '../NavigationModel';
 import Tab from './Tab';
 import TabModel from './TabModel';
@@ -24,18 +24,16 @@ export default class Navigation extends Component<Properties> implements RootVie
         this.renderShadow();
     }
 
-    render() {
-        return (
-            <navigation is="navigation">
-                {this.modelInstance.navigationTabs.map(this.renderTab.bind(this))}
-            </navigation>
-        );
+    render(): JSX.Element {
+        return <>
+            <style>{CSS}</style>
+            {this.modelInstance.navigationTabs.map(this.renderTab.bind(this))}
+        </>;
     }
 
-    public renderTab(model: TabModel, index: number) {
+    public renderTab(model: TabModel) {
         return (
             <Tab
-                key={'NavigationTab' + index}
                 adapter={this.adapter}
                 model={model}
             />
