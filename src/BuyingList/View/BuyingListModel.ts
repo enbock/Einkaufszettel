@@ -1,5 +1,8 @@
-import EntryModel from './EntryModel';
+export class EntryModel {
+    public id: string = '';
+    public label: string = '';
+}
 
 export default class BuyingListModel {
-  public list: EntryModel[] = [];
+    public list: EntryModel[] = [];
 }

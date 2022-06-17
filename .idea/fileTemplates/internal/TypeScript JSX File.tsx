@@ -1,10 +1,7 @@
-import React, {Component} from 'react';
+import Component from '@enbock/ts-jsx/Component';
 
-interface Properties {
+export interface Properties {
 }
 
-interface State {
-}
-
-export default class $!NAME extends Component<Properties, State> {
+export default class $!NAME extends Component<Properties> implements RootView {
 }

@@ -1,0 +1,68 @@
+:host {
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: var(--dark-primary);
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: calc(100% - 4.3rem) 4.3rem;
+    grid-template-rows: repeat(auto-fill, 2.7rem);
+    border: var(--dark-primary) solid 0.2rem;
+}
+
+:host list-label {
+    display: flex;
+    float: left;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    user-select: none;
+    width: calc(100% - 1.1rem);
+    height: calc(100% - 0.1rem);
+    border-bottom: var(--light-primary) solid 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: var(--light-secondary);
+}
+
+
+:host list-label:nth-child(2) {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+:host list-label:nth-last-child(2) {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom: unset;
+    height: 100%;
+}
+
+:host list-label text {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+:host button {
+    border: 0.15rem solid var(--dark-primary);
+    background-color: var(--light-primary);
+    border-radius: 0.5rem;
+    width: 3.5rem;
+    height: 2.3rem;
+}
+
+:host button {
+    outline: 0;
+}
+
+:host button:active {
+    background-color: var(--dark-secondary);
+}
+
+:host button > img {
+    margin-top: 0.2rem;
+    height: 1.5rem;
+    filter: hue-rotate(90deg);
+}

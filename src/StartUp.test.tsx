@@ -1,15 +1,11 @@
 import StartUp from './StartUp';
-import BuyingList from './BuyingList/View/BuyingList';
-import PrimaryInput from './PrimaryInput/View/PrimaryInput';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ServiceWorkerUpdateLoader from './ServiceWorkerUpdateLoader';
 import {mock, MockProxy} from 'jest-mock-extended';
-import Navigation from './Navigation/View/Navigation';
 import {mock as mockComponent} from '@enbock/ts-jsx/Component';
+import ShoppingList from './ShoppingList/View/ShoppingList';
 
-mockComponent(BuyingList);
-mockComponent(PrimaryInput);
-mockComponent(Navigation);
+mockComponent(ShoppingList);
 
 describe(StartUp, function () {
     let startup: StartUp,
@@ -33,8 +29,6 @@ describe(StartUp, function () {
         startup.start();
 
         expect(serviceWorker.register).toBeCalledWith(updateLoader);
-        expect(document.body).toHaveTextContent('test::PrimaryInput:');
-        expect(document.body).toHaveTextContent('test::BuyingList:');
-        expect(document.body).toHaveTextContent('test::Navigation:');
+        expect(document.body).toHaveTextContent('test::ShoppingList:');
     });
 });

@@ -1,4 +1,3 @@
-import CSS from './Artifacts/Navigation.css';
 import NavigationModel from '../NavigationModel';
 import Tab from './Tab';
 import TabModel from './TabModel';
@@ -26,7 +25,6 @@ export default class Navigation extends Component<Properties> implements RootVie
 
     render(): JSX.Element {
         return <>
-            <style>{CSS}</style>
             {this.modelInstance.navigationTabs.map(this.renderTab.bind(this))}
         </>;
     }

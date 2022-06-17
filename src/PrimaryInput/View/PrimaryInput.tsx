@@ -1,7 +1,7 @@
-import DiscardIcon from './Artefacts/DiscardIcon.svg';
-import SubmitIcon from './Artefacts/SubmitIcon.svg';
+import DiscardIcon from './Assets/DiscardIcon.svg';
+import SubmitIcon from './Assets/SubmitIcon.svg';
 import PrimaryInputModel from './PrimaryInputModel';
-import Styles from './Artefacts/PrimaryInput.css';
+import Styles from './Assets/PrimaryInput.css';
 import Component from '@enbock/ts-jsx/Component';
 import RootView from '../../RootView';
 import PrimaryInputAdapter from '../PrimaryInputAdapter';
@@ -29,7 +29,8 @@ export default class PrimaryInput extends Component<Properties> implements RootV
             <input-frame>
                 <input
                     autoComplete="off"
-                    name="editLine" value={this.modelInstance.inputValue}
+                    name="editLine"
+                    value={this.modelInstance.inputValue}
                     onChange={this.onInputChange.bind(this)}
                     onInput={this.onInputChange.bind(this)}
                 />
@@ -41,7 +42,7 @@ export default class PrimaryInput extends Component<Properties> implements RootV
     }
 
     private renderSubmitButton(): JSX.Element {
-        if (this.modelInstance.showSubmitButton === false) return <button name="placeholder"/>;
+        if (this.modelInstance.showSubmitButton === false) return <div/>;
 
         return (
             <button name="submit" onClick={() => this.adapter.onSubmit()}>

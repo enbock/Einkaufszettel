@@ -1,30 +1,60 @@
 import BuyingList from './BuyingList';
-import BuyingListModel from './BuyingListModel';
-import EntryModel from './EntryModel';
+import BuyingListModel, {EntryModel} from './BuyingListModel';
 import ViewInjection from '@enbock/ts-jsx/ViewInjection';
-import Entry from './Entry';
 import TestRenderer from '@enbock/ts-jsx/TestRenderer';
-import {mock} from '@enbock/ts-jsx/Component';
-
-mock(Entry);
+import {fireEvent} from '@testing-library/dom';
+import BuyingListAdapter from '../BuyingListAdapter';
+import {mock, MockProxy} from 'jest-mock-extended';
 
 describe(BuyingList, function () {
-    it('should show the list', function () {
-        const entry1: EntryModel = new EntryModel();
-        entry1.id = 'id-1';
-        entry1.label = 'test::entry1:';
-        const entry2: EntryModel = new EntryModel();
-        entry2.id = 'id-2';
-        entry2.label = 'test::entry2:';
-        const model: BuyingListModel = new BuyingListModel();
-        model.list = [entry1, entry2];
+    let adapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
+        model: BuyingListModel
+    ;
 
-        ViewInjection(BuyingList, 'test::Adapter:');
-        const result: BuyingList = TestRenderer.render(<BuyingList/>) as BuyingList;
-        result.model = model;
+    beforeEach(function () {
+        adapter = mock<BuyingListAdapter>();
+        model = new BuyingListModel();
+    });
 
-        expect(result).toContainHTML('test::entry1:');
-        expect(result).toContainHTML('test::entry2:');
-        expect(result).toContainHTML('test::Adapter:');
+    function renderUi(): HTMLElement {
+        ViewInjection(BuyingList, adapter);
+        const view: BuyingList = TestRenderer.render(<BuyingList/>) as BuyingList;
+        view.model = model;
+
+        return view;
+    }
+
+    it('should show an entry', function () {
+        const entry = new EntryModel();
+        entry.label = 'test::flour:';
+        model.list = [entry];
+        const result: HTMLElement = renderUi();
+        expect(result).toContainHTML('test::flour:');
+    });
+
+    it('should trigger the adapter on click of the button', function () {
+        const entry = new EntryModel();
+        entry.id = 'test::id:';
+        model.list = [entry];
+
+        const result: HTMLElement = renderUi();
+
+        const button: Element = result.getElementsByTagName('button').item(0) as Element;
+        fireEvent.click(button);
+
+        expect(adapter.onEntryButtonClick).toBeCalledWith('test::id:');
+    });
+
+    it('should trigger the adapter on click of the label', function () {
+        const entry = new EntryModel();
+        entry.id = 'test::id:';
+        model.list = [entry];
+
+        const result: HTMLElement = renderUi();
+
+        const button: Element = result.getElementsByTagName('list-label').item(0) as Element;
+        fireEvent.click(button);
+
+        expect(adapter.onSelectClick).toBeCalledWith('test::id:');
     });
 });
