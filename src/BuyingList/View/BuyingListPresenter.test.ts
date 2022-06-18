@@ -1,6 +1,6 @@
 import BuyingListPresenter from './BuyingListPresenter';
 import {Response} from '../BuyingListLoadInteractor';
-import EntryEntity from '../../ListStorage/EntryEntity';
+import EntryEntity from '../../ShoppingList/EntryEntity';
 import BuyingListModel, {EntryModel} from './BuyingListModel';
 
 describe(BuyingListPresenter, function () {

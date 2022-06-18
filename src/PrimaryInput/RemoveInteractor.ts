@@ -1,7 +1,7 @@
-import ListStorage from '../ListStorage/ListStorage';
-import SelectionStorage from '../SelectionStorage/SelectionStorage';
-import EntryEntity, {EntryId} from '../ListStorage/EntryEntity';
-import FormMemory from '../FormMemory/FormMemory';
+import ListStorage from '../BuyingList/ListStorage/ListStorage';
+import SelectionStorage from '../BuyingList/SelectionStorage/SelectionStorage';
+import EntryEntity, {EntryId} from '../ShoppingList/EntryEntity';
+import FormMemory from './FormMemory/FormMemory';
 
 export default class RemoveInteractor {
     constructor(

@@ -1,6 +1,6 @@
 import BuyingListLoadInteractor, {Response} from './BuyingListLoadInteractor';
 import ListInteractor from './ListInteractor';
-import {EntryId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../ShoppingList/EntryEntity';
 import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import BuyingListAdapter from './BuyingListAdapter';
 import Controller from '../Controller';

@@ -1,4 +1,4 @@
-import {EntryId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../ShoppingList/EntryEntity';
 import ViewAdapter from '../ViewAdapter';
 
 export default class BuyingListAdapter implements ViewAdapter {

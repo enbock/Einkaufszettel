@@ -1,8 +1,8 @@
 import {TabId} from '../../Navigation/TabEntity';
-import EntryEntity from '../../ListStorage/EntryEntity';
+import EntryEntity from '../../ShoppingList/EntryEntity';
 
 export default interface LoadListTask {
-  support(activeTab: TabId): boolean;
+    support(activeTab: TabId): boolean;
 
-  loadList(): EntryEntity[];
+    loadList(): EntryEntity[];
 }

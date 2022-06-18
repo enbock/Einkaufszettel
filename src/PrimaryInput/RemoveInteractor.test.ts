@@ -1,9 +1,9 @@
 import RemoveInteractor from './RemoveInteractor';
 import {mock, MockProxy} from 'jest-mock-extended';
-import ListStorage from '../ListStorage/ListStorage';
-import SelectionStorage from '../SelectionStorage/SelectionStorage';
-import EntryEntity from '../ListStorage/EntryEntity';
-import FormMemory from '../FormMemory/FormMemory';
+import ListStorage from '../BuyingList/ListStorage/ListStorage';
+import SelectionStorage from '../BuyingList/SelectionStorage/SelectionStorage';
+import EntryEntity from '../ShoppingList/EntryEntity';
+import FormMemory from './FormMemory/FormMemory';
 
 describe(RemoveInteractor, function () {
     let interactor: RemoveInteractor,
