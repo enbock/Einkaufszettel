@@ -37,7 +37,7 @@
   "scripts": {
     "start": "webpack serve --open --mode development --no-open --no-live-reload --no-hot --stats-error-details",
     "build": "webpack --mode production",
-    "test": "jest --ci"
+    "test": "jest --ci --coverage"
   },
   "browserslist": {
     "production": [
@@ -65,7 +65,7 @@
       "<rootDir>/src"
     ],
     "verbose": true,
-    "collectCoverage": true,
+    "collectCoverage": false,
     "transform": {
       "^.+\\.tsx?$": "ts-jest/legacy",
       "^.+\\.jsx?$": "ts-jest/legacy",

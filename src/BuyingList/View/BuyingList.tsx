@@ -2,7 +2,6 @@ import BuyingListModel, {EntryModel} from './BuyingListModel';
 import Styles from './Assets/BuyingList.css';
 import Component from '@enbock/ts-jsx/Component';
 import BuyingListAdapter from '../BuyingListAdapter';
-import SubmitIcon from './Assets/SubmitIcon.svg';
 import RootView from '../../RootView';
 
 interface Properties {
@@ -36,9 +35,7 @@ export default class BuyingList extends Component<Properties> implements RootVie
             <list-label onClick={() => adapter.onSelectClick(model.id)}>
                 <text>{model.label}</text>
             </list-label>
-            <button onClick={() => adapter.onEntryButtonClick(model.id)}>
-                <img src={SubmitIcon} alt="Übernehmen"/>
-            </button>
+            <button onClick={() => adapter.onEntryButtonClick(model.id)}/>
         </>;
     }
 }

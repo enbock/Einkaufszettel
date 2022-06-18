@@ -32,20 +32,25 @@ export default class PrimaryInputController implements Controller {
         this.actualizeOutput();
     }
 
+    private bindAdapter(): void {
+        this.adapter.onSubmit = this.saveEntry.bind(this);
+        this.adapter.onInputChange = this.saveInputValue.bind(this);
+        this.adapter.onListChange = this.actualizeOutput.bind(this);
+        this.adapter.onDelete = this.deleteEntry.bind(this);
+        this.adapter.onDiscard = this.discardInput.bind(this);
+    }
+
     private actualizeOutput() {
         const response: LoadResponse = this.loadInteractor.loadData();
         this.view.model = this.presenter.present(response);
     }
 
-    private bindAdapter(): void {
-        this.adapter.onSubmit = this.saveEntry.bind(this);
-        this.adapter.onInputChange = this.saveInputValue.bind(this);
-        this.adapter.onListChange = this.actualizeOutput.bind(this);
-        this.adapter.onDiscard = this.deleteOrDiscardEntry.bind(this);
-    }
-
     private saveEntry(): void {
         this.addEntryInteractor.saveEntry();
+        this.actualizeOutputAndBuyingList();
+    }
+
+    private actualizeOutputAndBuyingList() {
         this.actualizeOutput();
         this.entireListControllerAdapter.onListChange();
     }
@@ -58,9 +63,13 @@ export default class PrimaryInputController implements Controller {
         this.entireListControllerAdapter.onFormInput();
     }
 
-    private deleteOrDiscardEntry(): void {
-        this.removeInteractor.deleteOrDiscardEntry();
-        this.actualizeOutput();
-        this.entireListControllerAdapter.onListChange();
+    private deleteEntry(): void {
+        this.removeInteractor.deleteEntry();
+        this.actualizeOutputAndBuyingList();
+    }
+
+    private discardInput(): void {
+        this.removeInteractor.discardInput();
+        this.actualizeOutputAndBuyingList();
     }
 }

@@ -5,7 +5,7 @@
 
 :host input-frame {
     display: grid;
-    grid-template-columns: 1fr min-content 3.7rem;
+    grid-template-columns: 1fr min-content min-content 3.7rem;
     grid-template-rows: 2.2rem;
     align-content: center;
     align-items: center;
@@ -38,30 +38,43 @@
 }
 
 :host button {
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    background-position: center;
+}
+
+:host button[name="submit"], :host button[name="delete"] {
     width: 3.5rem;
     height: 2.3rem;
     border: 0.15rem solid var(--dark-secondary);
     border-radius: 0.5rem;
     background-color: var(--light-primary);
-}
-
-:host button {
     outline: 0;
 }
 
-:host button:focus {
+:host button[name="submit"] {
+    background-image: url(./SubmitIcon.svg);
+}
+
+:host button[name="delete"] {
+    background-image: url(./DeleteIcon.svg);
+}
+
+:host button[name="submit"]:focus, :host button[name="delete"]:focus {
     background-color: var(--dark-secondary);
 }
 
-:host button:active {
+:host button[name="submit"]:active, :host button[name="delete"]:active {
     background-color: var(--dark-secondary);
 }
 
-:host button > img {
-    margin-top: 0.25em;
-    height: 80%;
-}
-
-:host button[name=submit] > img {
-    filter: hue-rotate(100deg);
+:host button[name="discard"] {
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-image: url(./DiscardIcon.svg);
+    background-size: 1rem;
+    background-position: center;
+    background-color: unset;
+    border: unset;
 }

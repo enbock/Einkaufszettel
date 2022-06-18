@@ -7,12 +7,26 @@ import {SystemTabs} from '../../Navigation/TabEntity';
 describe(PrimaryInputPresenter, function () {
     it('should present input data', function () {
         const response: LoadResponse = new LoadResponse();
-        response.inputValue = 'test::left-trimmed-value: ';
+        response.inputValue = 'test::value:';
         const expectedModel: PrimaryInputModel = new PrimaryInputModel();
-        expectedModel.inputValue = 'test::left-trimmed-value: ';
+        expectedModel.inputValue = 'test::value:';
         expectedModel.showSubmitButton = true;
+        expectedModel.showDeleteButton = true;
         expectedModel.showDiscardButton = true;
-        expectedModel.discardLabel = expectedModel.i18n.discard;
+
+        const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
+
+        expect(result).toEqual(expectedModel);
+    });
+
+    it('should not show any button on empty input', function () {
+        const response: LoadResponse = new LoadResponse();
+        response.inputValue = '';
+        const expectedModel: PrimaryInputModel = new PrimaryInputModel();
+        expectedModel.inputValue = '';
+        expectedModel.showSubmitButton = false;
+        expectedModel.showDeleteButton = false;
+        expectedModel.showDiscardButton = false;
 
         const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
@@ -25,15 +39,10 @@ describe(PrimaryInputPresenter, function () {
         const response: LoadResponse = new LoadResponse();
         response.inputValue = 'test::inputValue:';
         response.entireList = [entry];
-        const expectedModel: PrimaryInputModel = new PrimaryInputModel();
-        expectedModel.inputValue = 'test::inputValue:';
-        expectedModel.showSubmitButton = false;
-        expectedModel.showDiscardButton = true;
-        expectedModel.discardLabel = expectedModel.i18n.discard;
 
         const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
-        expect(result).toEqual(expectedModel);
+        expect(result.showSubmitButton).toBeFalsy();
     });
 
     it('should enable submit button, if text already in lists but on shopping list page', function () {
@@ -43,15 +52,10 @@ describe(PrimaryInputPresenter, function () {
         response.inputValue = 'test::inputValue:';
         response.entireList = [entry];
         response.currentTab = SystemTabs.ShoppingList;
-        const expectedModel: PrimaryInputModel = new PrimaryInputModel();
-        expectedModel.inputValue = 'test::inputValue:';
-        expectedModel.showSubmitButton = true;
-        expectedModel.showDiscardButton = true;
-        expectedModel.discardLabel = expectedModel.i18n.discard;
 
         const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
-        expect(result).toEqual(expectedModel);
+        expect(result.showSubmitButton).toBeTruthy();
     });
 
     it('should disable submit button, if text already in shopping list', function () {
@@ -61,14 +65,9 @@ describe(PrimaryInputPresenter, function () {
         response.inputValue = 'test::inputValue:';
         response.shoppingList = [entry];
         response.currentTab = SystemTabs.EntireList;
-        const expectedModel: PrimaryInputModel = new PrimaryInputModel();
-        expectedModel.inputValue = 'test::inputValue:';
-        expectedModel.showSubmitButton = false;
-        expectedModel.showDiscardButton = true;
-        expectedModel.discardLabel = expectedModel.i18n.delete;
 
         const result: PrimaryInputModel = (new PrimaryInputPresenter()).present(response);
 
-        expect(result).toEqual(expectedModel);
+        expect(result.showSubmitButton).toBeFalsy();
     });
 });

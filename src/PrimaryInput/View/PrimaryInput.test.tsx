@@ -51,7 +51,17 @@ describe(PrimaryInput, function () {
         expect(adapter.onSubmit).toBeCalled();
     });
 
-    it('should call the adapter when discard button is pressed', function () {
+    it('should call the adapter when delete button is pressed', async function () {
+        model.showDeleteButton = true;
+        const result: HTMLElement = renderUi();
+        const button: Element = result.querySelector('button[name="delete"]') as Element;
+
+        fireEvent.click(button);
+
+        expect(adapter.onDelete).toBeCalled();
+    });
+
+    it('should call the adapter when discard button is pressed', async function () {
         model.showDiscardButton = true;
         const result: HTMLElement = renderUi();
         const button: Element = result.querySelector('button[name="discard"]') as Element;

@@ -17,13 +17,13 @@ export default class PrimaryInputPresenter implements Presenter {
         ).length > 0;
 
         model.inputValue = inputValue;
-        model.showDiscardButton = showButtons;
+        model.showDeleteButton = showButtons;
         model.showSubmitButton =
             showButtons &&
             !foundInShoppingList &&
             (!foundInEntireList || response.currentTab == SystemTabs.ShoppingList)
         ;
-        model.discardLabel = response.currentTab == SystemTabs.EntireList ? model.i18n.delete : model.i18n.discard;
+        model.showDiscardButton = showButtons;
 
         return model;
     }

@@ -21,7 +21,6 @@ export class Container {
         new PrimaryInputPresenter(),
         BuyingListContainer.adapter,
         new RemoveInteractor(
-            GlobalContainer.navigationMemory,
             GlobalContainer.listStorage,
             GlobalContainer.selectionStorage,
             GlobalContainer.formMemory
