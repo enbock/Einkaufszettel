@@ -11,7 +11,7 @@ export default class SaveInputValueInteractor {
         this.formMemory = formMemory;
     }
 
-    public saveInputValue(request: Request): void {
+    public updateInputValue(request: Request): void {
         const inputValue: string = request.newInputValue;
         this.formMemory.storeInputValue(inputValue);
     }

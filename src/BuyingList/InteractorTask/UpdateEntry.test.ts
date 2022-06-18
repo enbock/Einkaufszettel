@@ -7,6 +7,8 @@ import EntryEntity from '../../ShoppingList/EntryEntity';
 import NavigationMemory from '../../Navigation/Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 import {SystemTabs} from '../../Navigation/TabEntity';
+import UndoStorage from '../../Undo/Storage/UndoStorage';
+import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
 
 describe(UpdateEntry, function () {
     let task: UpdateEntry,
@@ -14,7 +16,8 @@ describe(UpdateEntry, function () {
         selectionStorage: SelectionStorage & MockProxy<SelectionStorage>,
         formMemory: FormMemory & MockProxy<FormMemory>,
         navigationMemory: NavigationMemory & MockProxy<NavigationMemory>,
-        addEntryToShoppingList: AddEntryToShoppingList & MockProxy<AddEntryToShoppingList>
+        addEntryToShoppingList: AddEntryToShoppingList & MockProxy<AddEntryToShoppingList>,
+        undoStorage: UndoStorage & MockProxy<UndoStorage>
     ;
 
     beforeEach(function () {
@@ -23,12 +26,15 @@ describe(UpdateEntry, function () {
         formMemory = mock<FormMemory>();
         navigationMemory = mock<NavigationMemory>();
         addEntryToShoppingList = mock<AddEntryToShoppingList>();
+        undoStorage = mock<UndoStorage>();
+
         task = new UpdateEntry(
             storage,
             selectionStorage,
             formMemory,
             navigationMemory,
-            addEntryToShoppingList
+            addEntryToShoppingList,
+            undoStorage
         );
     });
 
@@ -47,6 +53,13 @@ describe(UpdateEntry, function () {
         expect(storage.saveEntireList).toBeCalledWith([currentEntry]);
         expect(formMemory.clearInputValue).toBeCalled();
         expect(selectionStorage.saveSelectedEntry).toBeCalledWith('');
+
+        const expectedUndoItem: UndoEntity = new UndoEntity();
+        expectedUndoItem.entryId = 'test::id:';
+        expectedUndoItem.action = Actions.RENAME;
+        expectedUndoItem.oldValue = 'test::oldName:';
+        expectedUndoItem.newValue = 'test::inputValue:';
+        expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
 
         return currentEntry;
     }

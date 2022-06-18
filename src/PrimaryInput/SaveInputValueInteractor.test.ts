@@ -18,7 +18,7 @@ describe(SaveInputValueInteractor, function () {
         const request: Request = new Request();
         request.newInputValue = newValue;
 
-        interactor.saveInputValue(request);
+        interactor.updateInputValue(request);
 
         expect(temporaryMemory.storeInputValue).toBeCalledWith(newValue);
     });

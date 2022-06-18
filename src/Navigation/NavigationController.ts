@@ -25,11 +25,12 @@ export default class NavigationController implements Controller {
     public attach(view: RootView): void {
         this.viewInstance = view;
         this.bindAdapter();
-        this.loadAndPresentTabs();
+        this.presentData();
     }
 
     private bindAdapter(): void {
         this.adapter.onNavigationClick = this.changeNavigation.bind(this);
+        this.adapter.onUndoChange = this.presentData.bind(this);
     }
 
     private changeNavigation(activeList: string): void {
@@ -38,10 +39,10 @@ export default class NavigationController implements Controller {
         this.interactor.activateTab(request);
         this.listAdapter.onListChange();
         this.inputAdapter.onListChange();
-        this.loadAndPresentTabs();
+        this.presentData();
     }
 
-    private loadAndPresentTabs(): void {
+    private presentData(): void {
         const response: LoadResponse = this.interactor.loadTabs();
         this.view.model = this.presenter.present(response);
     }

@@ -6,6 +6,7 @@ import BuyingListAdapter from './BuyingListAdapter';
 import Controller from '../Controller';
 import RootView from '../RootView';
 import Presenter from './Presenter';
+import NavigationAdapter from '../Navigation/NavigationAdapter';
 
 export default class BuyingListController implements Controller {
     private viewInstance?: RootView;
@@ -15,7 +16,8 @@ export default class BuyingListController implements Controller {
         private entireListInteractor: BuyingListLoadInteractor,
         private listInteractor: ListInteractor,
         private adapter: BuyingListAdapter,
-        private primaryInputAdapter: PrimaryInputAdapter
+        private primaryInputAdapter: PrimaryInputAdapter,
+        private navigationAdapter: NavigationAdapter
     ) {
     }
 
@@ -43,6 +45,7 @@ export default class BuyingListController implements Controller {
 
     private addOrRemoveEntry(id: EntryId): void {
         this.listInteractor.addOrRemoveEntry(id);
+        this.navigationAdapter.onUndoChange();
         this.loadAndDisplayList();
     }
 

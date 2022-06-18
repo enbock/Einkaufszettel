@@ -2,18 +2,25 @@ import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './Navigati
 import Memory from './Memory/Memory';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ConfigLoader from './Config/ConfigLoader';
-import TabEntity from './TabEntity';
+import UndoStorage from '../Undo/Storage/UndoStorage';
 
 describe(NavigationInteractor, function () {
     let interactor: NavigationInteractor,
         memory: Memory & MockProxy<Memory>,
-        configLoader: ConfigLoader & MockProxy<ConfigLoader>
+        configLoader: ConfigLoader & MockProxy<ConfigLoader>,
+        undoStorage: UndoStorage & MockProxy<UndoStorage>
     ;
 
     beforeEach(function () {
         memory = mock<Memory>();
         configLoader = mock<ConfigLoader>();
-        interactor = new NavigationInteractor(memory, configLoader);
+        undoStorage = mock<UndoStorage>();
+
+        interactor = new NavigationInteractor(
+            memory,
+            configLoader,
+            undoStorage
+        );
     });
 
     it('should switch the active list', function () {
@@ -27,17 +34,13 @@ describe(NavigationInteractor, function () {
 
     it('should load the tabs inclusive active one', function () {
         memory.getActiveTab.mockReturnValueOnce('test::activeTabId');
-        const tab: TabEntity = new TabEntity();
-        tab.name = 'test::tab:';
-        const tabs: TabEntity[] = [tab];
-        configLoader.loadTabsFromConfig.mockReturnValueOnce(tabs);
+        configLoader.loadTabsFromConfig.mockReturnValueOnce('test::tabs:' as MockObject);
+        undoStorage.hasItems.mockReturnValueOnce(true);
 
         const result: LoadResponse = interactor.loadTabs();
 
-        const expectedResponse: LoadResponse = new LoadResponse();
-        expectedResponse.activateTab = 'test::activeTabId';
-        expectedResponse.tabs = tabs;
-
-        expect(result).toEqual(expectedResponse);
+        expect(result.activateTab).toBe('test::activeTabId');
+        expect(result.tabs).toBe('test::tabs:');
+        expect(result.hasUndoAvailable).toBeTruthy();
     });
 });

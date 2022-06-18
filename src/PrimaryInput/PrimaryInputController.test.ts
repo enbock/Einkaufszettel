@@ -8,6 +8,7 @@ import RemoveInteractor from './RemoveInteractor';
 import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
 import Presenter from './Presenter';
 import RootView from '../RootView';
+import NavigationAdapter from '../Navigation/NavigationAdapter';
 
 describe(PrimaryInputController, function () {
     let adapter: PrimaryInputAdapter,
@@ -18,7 +19,9 @@ describe(PrimaryInputController, function () {
         saveInputValueInteractor: SaveInputValueInteractor & MockProxy<SaveInputValueInteractor>,
         loadInteractor: LoadInteractor & MockProxy<LoadInteractor>,
         entireListControllerAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
-        removeInteractor: RemoveInteractor & MockProxy<RemoveInteractor>;
+        removeInteractor: RemoveInteractor & MockProxy<RemoveInteractor>,
+        navigationAdapter: NavigationAdapter & MockProxy<NavigationAdapter>
+    ;
 
     beforeEach(function () {
         adapter = new PrimaryInputAdapter();
@@ -29,6 +32,7 @@ describe(PrimaryInputController, function () {
         entireListControllerAdapter = mock<BuyingListAdapter>();
         removeInteractor = mock<RemoveInteractor>();
         viewInstance = mock<RootView>();
+        navigationAdapter = mock<NavigationAdapter>();
 
         controller = new PrimaryInputController(
             adapter,
@@ -37,7 +41,8 @@ describe(PrimaryInputController, function () {
             loadInteractor,
             presenter,
             entireListControllerAdapter,
-            removeInteractor
+            removeInteractor,
+            navigationAdapter
         );
     });
 
@@ -59,18 +64,19 @@ describe(PrimaryInputController, function () {
         expect(presenter.present).toBeCalledTimes(2);
         expect(viewInstance.model).toBe('test::model:');
         expect(entireListControllerAdapter.onListChange).toBeCalled();
+        expect(navigationAdapter.onUndoChange).toBeCalled();
     });
 
     it('should take new value of input field', function () {
         const expectedRequest: SaveRequest = new SaveRequest();
         expectedRequest.newInputValue = 'test::newValue:';
 
-        saveInputValueInteractor.saveInputValue.mockReturnValue();
+        saveInputValueInteractor.updateInputValue.mockReturnValue();
         prepareMocksAndAttachView();
 
         adapter.onInputChange('test::newValue:');
 
-        expect(saveInputValueInteractor.saveInputValue).toBeCalledWith(expectedRequest);
+        expect(saveInputValueInteractor.updateInputValue).toBeCalledWith(expectedRequest);
         expect(presenter.present).toBeCalledWith('test::response:');
         expect(presenter.present).toBeCalledTimes(2);
         expect(viewInstance.model).toBe('test::model:');
@@ -98,6 +104,7 @@ describe(PrimaryInputController, function () {
         expect(presenter.present).toBeCalledTimes(2);
         expect(loadInteractor.loadData).toBeCalledTimes(2);
         expect(entireListControllerAdapter.onListChange).toBeCalled();
+        expect(navigationAdapter.onUndoChange).toBeCalled();
     });
 
     it('should clear input field', function () {

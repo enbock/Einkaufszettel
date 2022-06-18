@@ -10,6 +10,7 @@ import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import StartUp from '../StartUp';
 import ServiceWorkerUpdateLoader from '../ServiceWorkerUpdateLoader';
 import * as serviceWorkerRegistration from '../serviceWorkerRegistration';
+import NavigationAdapter from '../Navigation/NavigationAdapter';
 
 class Container {
     public readonly listStorage: ListStorage = new LocalListStorage(global.localStorage, new LocalStorageTransformer());
@@ -18,6 +19,7 @@ class Container {
     public readonly selectionStorage: SelectionStorage = new SelectionStorage(global.sessionStorage);
     public readonly listAdapter: BuyingListAdapter = new BuyingListAdapter();
     public readonly primaryInputAdapter: PrimaryInputAdapter = new PrimaryInputAdapter();
+    public navigationAdapter: NavigationAdapter = new NavigationAdapter();
     public startUp: StartUp = new StartUp(
         document,
         new ServiceWorkerUpdateLoader(window.location),

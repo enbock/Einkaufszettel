@@ -1,23 +1,24 @@
 import TabEntity, {TabId} from './TabEntity';
 import Memory from './Memory/Memory';
 import ConfigLoader from './Config/ConfigLoader';
+import UndoStorage from '../Undo/Storage/UndoStorage';
 
 export class ActivateTabRequest {
     public newTabId: string = '';
 }
 
-export class LoadResponse {
-    public activateTab: TabId = '';
-    public tabs: TabEntity[] = [];
+export interface LoadResponse {
+    activateTab: TabId;
+    tabs: TabEntity[];
+    hasUndoAvailable: boolean;
 }
 
 export default class NavigationInteractor {
-    private readonly memory: Memory;
-    private readonly configLoader: ConfigLoader;
-
-    constructor(memory: Memory, configLoader: ConfigLoader) {
-        this.configLoader = configLoader;
-        this.memory = memory;
+    constructor(
+        private memory: Memory,
+        private configLoader: ConfigLoader,
+        private undoStorage: UndoStorage
+    ) {
     }
 
     public activateTab(request: ActivateTabRequest): void {
@@ -25,11 +26,10 @@ export default class NavigationInteractor {
     }
 
     public loadTabs(): LoadResponse {
-        const response: LoadResponse = new LoadResponse();
-
-        response.tabs = this.configLoader.loadTabsFromConfig();
-        response.activateTab = this.memory.getActiveTab();
-
-        return response;
+        return {
+            activateTab: this.memory.getActiveTab(),
+            hasUndoAvailable: this.undoStorage.hasItems(),
+            tabs: this.configLoader.loadTabsFromConfig()
+        };
     }
 }

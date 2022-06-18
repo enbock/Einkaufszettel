@@ -13,6 +13,7 @@ import AddNewEntry from '../InteractorTask/AddNewEntry';
 import AddEntryToShoppingList from '../InteractorTask/AddEntryToShoppingList';
 import AddEntryIdToShoppingList from '../InteractorTask/AddEntryIdToShoppingList';
 import UpdateEntry from '../InteractorTask/UpdateEntry';
+import UndoContainer from '../../Undo/DependencyInjection/Container';
 
 class Container {
     public readonly adapter: BuyingListAdapter = GlobalContainer.listAdapter;
@@ -44,7 +45,8 @@ class Container {
             GlobalContainer.selectionStorage,
             GlobalContainer.formMemory,
             GlobalContainer.navigationMemory,
-            this.addEntryToShoppingList
+            this.addEntryToShoppingList,
+            UndoContainer.storage
         )
     );
     public controller: BuyingListController = new BuyingListController(
@@ -56,7 +58,8 @@ class Container {
         ),
         this.listInteractor,
         this.adapter,
-        GlobalContainer.primaryInputAdapter
+        GlobalContainer.primaryInputAdapter,
+        GlobalContainer.navigationAdapter
     );
 }
 

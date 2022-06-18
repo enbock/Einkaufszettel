@@ -24,7 +24,8 @@ export class Container {
             GlobalContainer.listStorage,
             GlobalContainer.selectionStorage,
             GlobalContainer.formMemory
-        )
+        ),
+        GlobalContainer.navigationAdapter
     );
 }
 

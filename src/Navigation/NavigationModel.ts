@@ -20,4 +20,5 @@ export default class NavigationModel {
         [SystemTabs.ShoppingList]: NavigationModel.i18n.shoppingListLabel
     };
     public navigationTabs: TabModel[] = [];
+    public undoEnabled: boolean = false;
 }
