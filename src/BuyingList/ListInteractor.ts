@@ -65,8 +65,7 @@ export default class ListInteractor {
         const undoItem: UndoEntity = new UndoEntity();
         undoItem.action = Actions.REMOVE_FROM_LIST;
         undoItem.target = SystemTabs.ShoppingList;
-        undoItem.oldValue = JSON.stringify(fullList.map((e: EntryEntity) => e.id));
-        undoItem.newValue = JSON.stringify(list.map((e: EntryEntity) => e.id));
+        undoItem.entryId = id;
         this.undoStorage.appendChange(undoItem);
     }
 }

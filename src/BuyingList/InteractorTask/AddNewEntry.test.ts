@@ -73,7 +73,7 @@ describe(AddNewEntry, function () {
 
         const expectedUndoItem: UndoEntity = new UndoEntity();
         expectedUndoItem.action = Actions.CREATE;
-        expectedUndoItem.target = id;
+        expectedUndoItem.entryId = id;
         expectedUndoItem.newValue = inputValue;
         expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
     });

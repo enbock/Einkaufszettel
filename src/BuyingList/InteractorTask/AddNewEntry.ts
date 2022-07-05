@@ -46,7 +46,7 @@ export default class AddNewEntry {
 
         const undoItem: UndoEntity = new UndoEntity();
         undoItem.action = Actions.CREATE;
-        undoItem.target = entry.id;
+        undoItem.entryId = entry.id;
         undoItem.newValue = entry.name;
         this.undoStorage.appendChange(undoItem);
 

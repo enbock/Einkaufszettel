@@ -100,8 +100,7 @@ describe(ListInteractor, function () {
         const expectedUndoItem: UndoEntity = new UndoEntity();
         expectedUndoItem.action = Actions.REMOVE_FROM_LIST;
         expectedUndoItem.target = SystemTabs.ShoppingList;
-        expectedUndoItem.oldValue = '["test::id:","test::id2:"]';
-        expectedUndoItem.newValue = '["test::id2:"]';
+        expectedUndoItem.entryId = 'test::id:';
         expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
         expect(undoStorage.appendChange).toBeCalledTimes(1);
     });

@@ -6,6 +6,7 @@ import EntryEntity from '../ShoppingList/EntryEntity';
 import FormMemory from './FormMemory/FormMemory';
 import UndoStorage from '../Undo/Storage/UndoStorage';
 import UndoEntity, {Actions} from '../Undo/Storage/UndoEntity';
+import {SystemTabs} from '../Navigation/TabEntity';
 
 describe(RemoveInteractor, function () {
     let interactor: RemoveInteractor,
@@ -49,13 +50,17 @@ describe(RemoveInteractor, function () {
         expect(listStorage.saveShoppingList).toBeCalledWith([entry1, entry1]);
         expect(formMemory.clearInputValue).toBeCalled();
         expect(selectionStorage.saveSelectedEntry).toBeCalledWith('');
-
+        const expectedListUndoItem: UndoEntity = new UndoEntity();
+        expectedListUndoItem.action = Actions.REMOVE_FROM_LIST;
+        expectedListUndoItem.target = SystemTabs.ShoppingList;
+        expectedListUndoItem.entryId = 'test::entryId:';
+        expect(undoStorage.appendChange).toBeCalledWith(expectedListUndoItem);
         const expectedUndoItem: UndoEntity = new UndoEntity();
         expectedUndoItem.action = Actions.DELETE;
-        expectedUndoItem.target = 'test::entryId:';
+        expectedUndoItem.entryId = 'test::entryId:';
         expectedUndoItem.oldValue = 'test::name:';
         expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
-        expect(undoStorage.appendChange).toBeCalledTimes(1);
+        expect(undoStorage.appendChange).toBeCalledTimes(2);
     });
 
     it('should discard the input', function () {

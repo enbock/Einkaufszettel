@@ -35,8 +35,7 @@ describe(AddEntryToShoppingList, function () {
         const expectedUndoItem: UndoEntity = new UndoEntity();
         expectedUndoItem.target = SystemTabs.ShoppingList;
         expectedUndoItem.action = Actions.MOVE_TO_LIST;
-        expectedUndoItem.oldValue = '[]';
-        expectedUndoItem.newValue = '["test::id:"]';
+        expectedUndoItem.entryId = 'test::id:';
         expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
     });
 

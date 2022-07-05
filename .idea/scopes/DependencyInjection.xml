@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="DependencyInjection" pattern="src:*.DependencyInjection.*||src:*.DependencyInjection..*" />
+</component>
