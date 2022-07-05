@@ -17,7 +17,9 @@ export default class LoadEntireList implements LoadListTask {
     public loadList(): EntryEntity[] {
         const shoppingList: EntryEntity[] = this.listStorage.getShoppingList();
         return this.listStorage.getEntireList().filter(
-            (entry: EntryEntity): boolean => shoppingList.filter((s: EntryEntity) => s.id === entry.id).length === 0
+            (entry: EntryEntity): boolean => shoppingList.filter(
+                (s: EntryEntity): boolean => s.id === entry.id
+            ).length === 0
         );
     }
 }

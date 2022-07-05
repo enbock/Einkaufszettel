@@ -63,8 +63,8 @@ describe(PrimaryInputController, function () {
         expect(presenter.present).toBeCalledWith('test::response:');
         expect(presenter.present).toBeCalledTimes(2);
         expect(viewInstance.model).toBe('test::model:');
-        expect(entireListControllerAdapter.onListChange).toBeCalled();
-        expect(navigationAdapter.onUndoChange).toBeCalled();
+        expect(entireListControllerAdapter.refresh).toBeCalled();
+        expect(navigationAdapter.refresh).toBeCalled();
     });
 
     it('should take new value of input field', function () {
@@ -103,8 +103,8 @@ describe(PrimaryInputController, function () {
         expect(removeInteractor.deleteEntry).toBeCalled();
         expect(presenter.present).toBeCalledTimes(2);
         expect(loadInteractor.loadData).toBeCalledTimes(2);
-        expect(entireListControllerAdapter.onListChange).toBeCalled();
-        expect(navigationAdapter.onUndoChange).toBeCalled();
+        expect(entireListControllerAdapter.refresh).toBeCalled();
+        expect(navigationAdapter.refresh).toBeCalled();
     });
 
     it('should clear input field', function () {
@@ -116,6 +116,6 @@ describe(PrimaryInputController, function () {
         expect(removeInteractor.discardInput).toBeCalled();
         expect(presenter.present).toBeCalledTimes(2);
         expect(loadInteractor.loadData).toBeCalledTimes(2);
-        expect(entireListControllerAdapter.onListChange).toBeCalled();
+        expect(entireListControllerAdapter.refresh).toBeCalled();
     });
 });

@@ -15,7 +15,8 @@ export class Container {
         GlobalContainer.navigationAdapter,
         new NavigationPresenter(),
         GlobalContainer.listAdapter,
-        GlobalContainer.primaryInputAdapter
+        GlobalContainer.primaryInputAdapter,
+        UndoContainer.interactor
     );
 }
 

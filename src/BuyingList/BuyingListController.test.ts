@@ -51,14 +51,14 @@ describe(BuyingListController, function () {
 
     it('should load list on adapter call', function () {
         controller.attach(view);
-        adapter.onListChange();
+        adapter.refresh();
 
         expect(entireListInteractor.loadActiveList).toBeCalledTimes(2);
         expect(presenter.presentLoadResponse).toBeCalledTimes(2);
     });
 
     it('should should not load list of not attached to view', function () {
-        adapter.onListChange();
+        adapter.refresh();
 
         expect(entireListInteractor.loadActiveList).not.toBeCalled();
     });
@@ -69,7 +69,7 @@ describe(BuyingListController, function () {
         adapter.onEntryButtonClick('test::id:');
 
         expect(listInteractor.addOrRemoveEntry).toBeCalledWith('test::id:');
-        expect(navigationAdapter.onUndoChange).toBeCalled();
+        expect(navigationAdapter.refresh).toBeCalled();
     });
 
     it('should selected an entry', function () {
@@ -78,6 +78,6 @@ describe(BuyingListController, function () {
         adapter.onSelectClick('test::id:');
 
         expect(listInteractor.changeSelectedEntry).toBeCalledWith('test::id:');
-        expect(primaryInputAdapter.onListChange).toBeCalled();
+        expect(primaryInputAdapter.refresh).toBeCalled();
     });
 });
