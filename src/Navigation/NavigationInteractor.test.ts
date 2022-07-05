@@ -34,7 +34,7 @@ describe(NavigationInteractor, function () {
 
     it('should load the tabs inclusive active one', function () {
         memory.getActiveTab.mockReturnValueOnce('test::activeTabId');
-        configLoader.loadTabsFromConfig.mockReturnValueOnce('test::tabs:' as MockObject);
+        configLoader.loadTabsFromConfig.mockReturnValueOnce('test::tabs:' as MockedObject);
         undoStorage.hasItems.mockReturnValueOnce(true);
 
         const result: LoadResponse = interactor.loadTabs();

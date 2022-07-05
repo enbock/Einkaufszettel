@@ -9,6 +9,8 @@ import AddNewEntry from './InteractorTask/AddNewEntry';
 import AddEntryIdToShoppingList from './InteractorTask/AddEntryIdToShoppingList';
 import AddEntryToShoppingList from './InteractorTask/AddEntryToShoppingList';
 import UpdateEntry from './InteractorTask/UpdateEntry';
+import UndoEntity, {Actions} from '../Undo/Storage/UndoEntity';
+import UndoStorage from '../Undo/Storage/UndoStorage';
 
 export default class ListInteractor {
     constructor(
@@ -20,7 +22,8 @@ export default class ListInteractor {
         private addNewEntry: AddNewEntry,
         private addEntryToShoppingList: AddEntryToShoppingList,
         private addEntryIdToShoppingList: AddEntryIdToShoppingList,
-        private updateEntry: UpdateEntry
+        private updateEntry: UpdateEntry,
+        private undoStorage: UndoStorage
     ) {
     }
 
@@ -38,11 +41,6 @@ export default class ListInteractor {
         else this.addEntryIdToShoppingList.addEntryIdToShoppingList(id);
     }
 
-    public removeEntryIdFromShoppingList(id: EntryId): void {
-        const list: EntryEntity[] = this.storage.getShoppingList().filter((e: EntryEntity): boolean => e.id != id);
-        this.storage.saveShoppingList(list);
-    }
-
     public changeSelectedEntry(selectedId: EntryId): void {
         this.selectionStorage.saveSelectedEntry(selectedId);
 
@@ -55,5 +53,20 @@ export default class ListInteractor {
 
         const selectedEntry: EntryEntity = activeList.filter((e: EntryEntity): boolean => e.id == selectedId)[0];
         this.formMemory.storeInputValue(selectedEntry.name);
+    }
+
+    private removeEntryIdFromShoppingList(id: EntryId): void {
+        const fullList: EntryEntity[] = this.storage.getShoppingList();
+        const list: EntryEntity[] = fullList.filter((e: EntryEntity): boolean => e.id != id);
+        if (fullList.length == list.length) return;
+
+        this.storage.saveShoppingList(list);
+
+        const undoItem: UndoEntity = new UndoEntity();
+        undoItem.action = Actions.REMOVE_FROM_LIST;
+        undoItem.target = SystemTabs.ShoppingList;
+        undoItem.oldValue = JSON.stringify(fullList.map((e: EntryEntity) => e.id));
+        undoItem.newValue = JSON.stringify(list.map((e: EntryEntity) => e.id));
+        this.undoStorage.appendChange(undoItem);
     }
 }

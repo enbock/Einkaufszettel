@@ -7,6 +7,8 @@ import UniqueIdentifierGenerator from '../../PrimaryInput/UniqueIdentifierGenera
 import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 import NavigationMemory from '../../Navigation/Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
+import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
+import UndoStorage from '../../Undo/Storage/UndoStorage';
 
 describe(AddNewEntry, function () {
     let task: AddNewEntry,
@@ -14,7 +16,8 @@ describe(AddNewEntry, function () {
         idGenerator: UniqueIdentifierGenerator & MockProxy<UniqueIdentifierGenerator>,
         formMemory: FormMemory & MockProxy<FormMemory>,
         navigationMemory: NavigationMemory & MockProxy<NavigationMemory>,
-        addEntryToShoppingList: AddEntryToShoppingList & MockProxy<AddEntryToShoppingList>
+        addEntryToShoppingList: AddEntryToShoppingList & MockProxy<AddEntryToShoppingList>,
+        undoStorage: UndoStorage & MockProxy<UndoStorage>
     ;
 
     beforeEach(function () {
@@ -23,12 +26,15 @@ describe(AddNewEntry, function () {
         formMemory = mock<FormMemory>();
         navigationMemory = mock<NavigationMemory>();
         addEntryToShoppingList = mock<AddEntryToShoppingList>();
+        undoStorage = mock<UndoStorage>();
+
         task = new AddNewEntry(
             storage,
             idGenerator,
             formMemory,
             navigationMemory,
-            addEntryToShoppingList
+            addEntryToShoppingList,
+            undoStorage
         );
     });
 
@@ -64,6 +70,12 @@ describe(AddNewEntry, function () {
         task.addNewEntry();
 
         expect(addEntryToShoppingList.addToShoppingList).not.toBeCalled();
+
+        const expectedUndoItem: UndoEntity = new UndoEntity();
+        expectedUndoItem.action = Actions.CREATE;
+        expectedUndoItem.target = id;
+        expectedUndoItem.newValue = inputValue;
+        expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
     });
 
     it('should reuse entry and add also to shipping list, if active', function () {

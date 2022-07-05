@@ -21,7 +21,10 @@ class Container {
         new LoadEntireList(GlobalContainer.listStorage),
         new LoadShoppingList(GlobalContainer.listStorage)
     ];
-    private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
+    private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(
+        GlobalContainer.listStorage,
+        UndoContainer.storage
+    );
     public readonly listInteractor: ListInteractor = new ListInteractor(
         GlobalContainer.listStorage,
         GlobalContainer.formMemory,
@@ -33,7 +36,8 @@ class Container {
             new UuidGenerator(UuidVersion4),
             GlobalContainer.formMemory,
             GlobalContainer.navigationMemory,
-            this.addEntryToShoppingList
+            this.addEntryToShoppingList,
+            UndoContainer.storage
         ),
         this.addEntryToShoppingList,
         new AddEntryIdToShoppingList(
@@ -47,7 +51,8 @@ class Container {
             GlobalContainer.navigationMemory,
             this.addEntryToShoppingList,
             UndoContainer.storage
-        )
+        ),
+        UndoContainer.storage
     );
     public controller: BuyingListController = new BuyingListController(
         new BuyingListPresenter(),

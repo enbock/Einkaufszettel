@@ -5,6 +5,8 @@ import UniqueIdentifierGenerator from '../../PrimaryInput/UniqueIdentifierGenera
 import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 import NavigationMemory from '../../Navigation/Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
+import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
+import UndoStorage from '../../Undo/Storage/UndoStorage';
 
 export default class AddNewEntry {
     constructor(
@@ -12,7 +14,8 @@ export default class AddNewEntry {
         private idGenerator: UniqueIdentifierGenerator,
         private formMemory: FormMemory,
         private navigationMemory: NavigationMemory,
-        private addEntryToShoppingList: AddEntryToShoppingList
+        private addEntryToShoppingList: AddEntryToShoppingList,
+        private undoStorage: UndoStorage
     ) {
     }
 
@@ -40,6 +43,12 @@ export default class AddNewEntry {
         entry.id = this.idGenerator.generate();
         entry.name = inputValue;
         entireList.push(entry);
+
+        const undoItem: UndoEntity = new UndoEntity();
+        undoItem.action = Actions.CREATE;
+        undoItem.target = entry.id;
+        undoItem.newValue = entry.name;
+        this.undoStorage.appendChange(undoItem);
 
         return entry;
     }

@@ -31,7 +31,7 @@ describe(NavigationController, function () {
             listAdapter,
             inputAdapter
         );
-        interactor.loadTabs.mockReturnValue('test::loadResponse:' as MockObject);
+        interactor.loadTabs.mockReturnValue('test::loadResponse:' as MockedObject);
         presenter.present.mockReturnValue('test::model:');
     });
 

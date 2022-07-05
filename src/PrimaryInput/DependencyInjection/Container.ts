@@ -6,6 +6,7 @@ import GlobalContainer from '../../DependencyInjection/Container';
 import BuyingListContainer from '../../BuyingList/DependencyInjection/Container';
 import RemoveInteractor from '../RemoveInteractor';
 import PrimaryInputAdapter from '../PrimaryInputAdapter';
+import UndoContainer from '../../Undo/DependencyInjection/Container';
 
 export class Container {
     public readonly adapter: PrimaryInputAdapter = GlobalContainer.primaryInputAdapter;
@@ -23,7 +24,8 @@ export class Container {
         new RemoveInteractor(
             GlobalContainer.listStorage,
             GlobalContainer.selectionStorage,
-            GlobalContainer.formMemory
+            GlobalContainer.formMemory,
+            UndoContainer.storage
         ),
         GlobalContainer.navigationAdapter
     );
