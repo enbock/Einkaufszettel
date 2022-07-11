@@ -46,6 +46,7 @@ export default class BuyingListController implements Controller {
     private addOrRemoveEntry(id: EntryId): void {
         this.listInteractor.addOrRemoveEntry(id);
         this.navigationAdapter.refresh();
+        this.primaryInputAdapter.refresh();
         this.loadAndDisplayList();
     }
 

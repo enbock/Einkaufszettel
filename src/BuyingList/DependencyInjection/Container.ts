@@ -23,7 +23,9 @@ class Container {
     ];
     private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(
         GlobalContainer.listStorage,
-        UndoContainer.storage
+        UndoContainer.storage,
+        GlobalContainer.selectionStorage,
+        GlobalContainer.formMemory
     );
     public readonly listInteractor: ListInteractor = new ListInteractor(
         GlobalContainer.listStorage,

@@ -1,5 +1,5 @@
 import Memory from './Memory';
-import UndoEntity from '../UndoEntity';
+import UndoEntity from '../../UndoEntity';
 
 describe(Memory, function () {
     let storage: Memory;

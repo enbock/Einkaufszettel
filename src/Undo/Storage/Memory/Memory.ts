@@ -1,5 +1,5 @@
 import UndoStorage from '../UndoStorage';
-import UndoEntity from '../UndoEntity';
+import UndoEntity from '../../UndoEntity';
 
 export default class Memory implements UndoStorage {
     private undoItems: UndoEntity[] = [];

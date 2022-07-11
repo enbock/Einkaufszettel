@@ -5,7 +5,7 @@ import SelectionStorage from '../BuyingList/SelectionStorage/SelectionStorage';
 import EntryEntity from '../ShoppingList/EntryEntity';
 import FormMemory from './FormMemory/FormMemory';
 import UndoStorage from '../Undo/Storage/UndoStorage';
-import UndoEntity, {Actions} from '../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../Undo/UndoEntity';
 import {SystemTabs} from '../Navigation/TabEntity';
 
 describe(RemoveInteractor, function () {

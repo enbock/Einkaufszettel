@@ -1,12 +1,12 @@
-import UndoCreateAction from './UndoCreateAction';
+import RevertCreateAction from './RevertCreateAction';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ListStorage from '../../BuyingList/ListStorage/ListStorage';
 import EntryEntity from '../../ShoppingList/EntryEntity';
-import UndoEntity, {Actions} from '../Storage/UndoEntity';
+import UndoEntity, {Actions} from '../UndoEntity';
 import SelectionStorage from '../../BuyingList/SelectionStorage/SelectionStorage';
 
-describe(UndoCreateAction, function () {
-    let task: UndoCreateAction,
+describe(RevertCreateAction, function () {
+    let task: RevertCreateAction,
         listStorage: ListStorage & MockProxy<ListStorage>,
         selectionStorage: SelectionStorage & MockProxy<SelectionStorage>
     ;
@@ -15,7 +15,7 @@ describe(UndoCreateAction, function () {
         listStorage = mock<ListStorage>();
         selectionStorage = mock<SelectionStorage>();
 
-        task = new UndoCreateAction(
+        task = new RevertCreateAction(
             listStorage,
             selectionStorage
         );

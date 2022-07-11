@@ -9,7 +9,7 @@ import AddNewEntry from './InteractorTask/AddNewEntry';
 import AddEntryIdToShoppingList from './InteractorTask/AddEntryIdToShoppingList';
 import AddEntryToShoppingList from './InteractorTask/AddEntryToShoppingList';
 import UpdateEntry from './InteractorTask/UpdateEntry';
-import UndoEntity, {Actions} from '../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../Undo/UndoEntity';
 import UndoStorage from '../Undo/Storage/UndoStorage';
 
 export default class ListInteractor {
@@ -30,10 +30,6 @@ export default class ListInteractor {
     public saveEntry(): void {
         if (this.selectionStorage.getSelectedEntry() != '') this.updateEntry.update();
         else this.addNewEntry.addNewEntry();
-    }
-
-    public addToShoppingList(entry: EntryEntity): void {
-        this.addEntryToShoppingList.addToShoppingList(entry);
     }
 
     public addOrRemoveEntry(id: EntryId): void {
@@ -67,5 +63,7 @@ export default class ListInteractor {
         undoItem.target = SystemTabs.ShoppingList;
         undoItem.entryId = id;
         this.undoStorage.appendChange(undoItem);
+        this.selectionStorage.saveSelectedEntry('');
+        this.formMemory.clearInputValue();
     }
 }

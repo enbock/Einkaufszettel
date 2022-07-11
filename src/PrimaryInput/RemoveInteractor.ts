@@ -2,7 +2,7 @@ import ListStorage from '../BuyingList/ListStorage/ListStorage';
 import SelectionStorage from '../BuyingList/SelectionStorage/SelectionStorage';
 import EntryEntity, {EntryId} from '../ShoppingList/EntryEntity';
 import FormMemory from './FormMemory/FormMemory';
-import UndoEntity, {Actions} from '../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../Undo/UndoEntity';
 import UndoStorage from '../Undo/Storage/UndoStorage';
 import {SystemTabs} from '../Navigation/TabEntity';
 
@@ -29,7 +29,7 @@ export default class RemoveInteractor {
         this.removeFromList(entireList, currentEntryId);
         this.removeFromList(shoppingList, currentEntryId);
 
-        if (shoppingListLength != shoppingList.length) this.addUndoListItem(itemToDelete)
+        if (shoppingListLength != shoppingList.length) this.addUndoListItem(itemToDelete);
 
         this.listStorage.saveEntireList(entireList);
         this.listStorage.saveShoppingList(shoppingList);

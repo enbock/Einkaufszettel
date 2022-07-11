@@ -12,7 +12,7 @@ import AddEntryToShoppingList from './InteractorTask/AddEntryToShoppingList';
 import AddEntryIdToShoppingList from './InteractorTask/AddEntryIdToShoppingList';
 import UpdateEntry from './InteractorTask/UpdateEntry';
 import UndoStorage from '../Undo/Storage/UndoStorage';
-import UndoEntity, {Actions} from '../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../Undo/UndoEntity';
 
 describe(ListInteractor, function () {
     let storage: ListStorage & MockProxy<ListStorage>,
@@ -70,11 +70,6 @@ describe(ListInteractor, function () {
         expect(updateEntry.update).toBeCalled();
     });
 
-    it('should add entry to shopping list', function () {
-        interactor.addToShoppingList('test::entry:' as MockedObject);
-        expect(addEntryToShoppingList.addToShoppingList).toBeCalledWith('test::entry:');
-    });
-
     it('should add entry-id to shopping list', function () {
         navigationMemory.getActiveTab.mockReturnValueOnce(SystemTabs.EntireList);
 
@@ -103,6 +98,8 @@ describe(ListInteractor, function () {
         expectedUndoItem.entryId = 'test::id:';
         expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
         expect(undoStorage.appendChange).toBeCalledTimes(1);
+        expect(selectionStorage.saveSelectedEntry).toBeCalledWith('');
+        expect(formMemory.clearInputValue).toBeCalled();
     });
 
     it('should save the new selected entry', function () {

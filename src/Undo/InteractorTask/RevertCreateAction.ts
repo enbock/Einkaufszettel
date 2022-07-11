@@ -1,10 +1,10 @@
 import ActionUndoMaker from './ActionUndoMaker';
-import UndoEntity, {Actions} from '../Storage/UndoEntity';
+import UndoEntity, {Actions} from '../UndoEntity';
 import ListStorage from '../../BuyingList/ListStorage/ListStorage';
 import EntryEntity from '../../ShoppingList/EntryEntity';
 import SelectionStorage from '../../BuyingList/SelectionStorage/SelectionStorage';
 
-export default class UndoCreateAction implements ActionUndoMaker {
+export default class RevertCreateAction implements ActionUndoMaker {
     constructor(
         private listStorage: ListStorage,
         private selectionStorage: SelectionStorage

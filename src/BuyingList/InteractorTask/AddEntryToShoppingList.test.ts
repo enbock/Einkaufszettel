@@ -2,23 +2,31 @@ import AddEntryToShoppingList from './AddEntryToShoppingList';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ListStorage from '../ListStorage/ListStorage';
 import EntryEntity from '../../ShoppingList/EntryEntity';
-import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../../Undo/UndoEntity';
 import {SystemTabs} from '../../Navigation/TabEntity';
 import UndoStorage from '../../Undo/Storage/UndoStorage';
+import SelectionStorage from '../SelectionStorage/SelectionStorage';
+import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 
 describe(AddEntryToShoppingList, function () {
     let task: AddEntryToShoppingList,
         storage: ListStorage & MockProxy<ListStorage>,
-        undoStorage: UndoStorage & MockProxy<UndoStorage>
+        undoStorage: UndoStorage & MockProxy<UndoStorage>,
+        selectionStorage: SelectionStorage & MockProxy<SelectionStorage>,
+        formMemory: FormMemory & MockProxy<FormMemory>
     ;
 
     beforeEach(function () {
         storage = mock<ListStorage>();
         undoStorage = mock<UndoStorage>();
+        selectionStorage = mock<SelectionStorage>();
+        formMemory = mock<FormMemory>();
 
         task = new AddEntryToShoppingList(
             storage,
-            undoStorage
+            undoStorage,
+            selectionStorage,
+            formMemory
         );
     });
 
@@ -37,6 +45,8 @@ describe(AddEntryToShoppingList, function () {
         expectedUndoItem.action = Actions.MOVE_TO_LIST;
         expectedUndoItem.entryId = 'test::id:';
         expect(undoStorage.appendChange).toBeCalledWith(expectedUndoItem);
+        expect(selectionStorage.saveSelectedEntry).toBeCalledWith('');
+        expect(formMemory.clearInputValue).toBeCalled();
     });
 
     it('should replace entry in shopping list if exists', function () {

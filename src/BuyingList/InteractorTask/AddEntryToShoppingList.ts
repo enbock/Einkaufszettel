@@ -1,13 +1,17 @@
 import EntryEntity from '../../ShoppingList/EntryEntity';
 import ListStorage from '../ListStorage/ListStorage';
-import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../../Undo/UndoEntity';
 import UndoStorage from '../../Undo/Storage/UndoStorage';
 import {SystemTabs} from '../../Navigation/TabEntity';
+import SelectionStorage from '../SelectionStorage/SelectionStorage';
+import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 
 export default class AddEntryToShoppingList {
     constructor(
         private storage: ListStorage,
-        private undoStorage: UndoStorage
+        private undoStorage: UndoStorage,
+        private selectionStorage: SelectionStorage,
+        private formMemory: FormMemory
     ) {
     }
 
@@ -25,6 +29,8 @@ export default class AddEntryToShoppingList {
 
         this.storage.saveShoppingList(list);
         if (shoppingListLength != list.length) this.undoStorage.appendChange(undo);
+        this.selectionStorage.saveSelectedEntry('');
+        this.formMemory.clearInputValue();
     }
 
     private removeIfExists(list: EntryEntity[], entry: EntryEntity): void {

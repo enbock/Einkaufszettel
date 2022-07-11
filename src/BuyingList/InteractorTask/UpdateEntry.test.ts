@@ -8,7 +8,7 @@ import NavigationMemory from '../../Navigation/Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 import {SystemTabs} from '../../Navigation/TabEntity';
 import UndoStorage from '../../Undo/Storage/UndoStorage';
-import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../../Undo/UndoEntity';
 
 describe(UpdateEntry, function () {
     let task: UpdateEntry,

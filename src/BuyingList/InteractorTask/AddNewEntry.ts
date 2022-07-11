@@ -5,7 +5,7 @@ import UniqueIdentifierGenerator from '../../PrimaryInput/UniqueIdentifierGenera
 import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 import NavigationMemory from '../../Navigation/Memory/Memory';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
-import UndoEntity, {Actions} from '../../Undo/Storage/UndoEntity';
+import UndoEntity, {Actions} from '../../Undo/UndoEntity';
 import UndoStorage from '../../Undo/Storage/UndoStorage';
 
 export default class AddNewEntry {

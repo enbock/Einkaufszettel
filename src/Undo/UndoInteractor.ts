@@ -1,4 +1,4 @@
-import UndoEntity from './Storage/UndoEntity';
+import UndoEntity from './UndoEntity';
 import UndoStorage from './Storage/UndoStorage';
 import ActionUndoMaker from './InteractorTask/ActionUndoMaker';
 

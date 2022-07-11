@@ -1,4 +1,4 @@
-import UndoEntity from './UndoEntity';
+import UndoEntity from '../UndoEntity';
 
 export default interface UndoStorage {
     appendChange(undoItem: UndoEntity): void;

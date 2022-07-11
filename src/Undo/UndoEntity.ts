@@ -1,4 +1,4 @@
-import {EntryId} from '../../ShoppingList/EntryEntity';
+import {EntryId} from '../ShoppingList/EntryEntity';
 
 export enum Actions {
     NONE,
