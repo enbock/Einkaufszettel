@@ -13,6 +13,7 @@ import AddNewEntry from '../InteractorTask/AddNewEntry';
 import AddEntryToShoppingList from '../InteractorTask/AddEntryToShoppingList';
 import AddEntryIdToShoppingList from '../InteractorTask/AddEntryIdToShoppingList';
 import UpdateEntry from '../InteractorTask/UpdateEntry';
+import UndoContainer from '../../Undo/DependencyInjection/Container';
 
 class Container {
     public readonly adapter: BuyingListAdapter = GlobalContainer.listAdapter;
@@ -20,7 +21,12 @@ class Container {
         new LoadEntireList(GlobalContainer.listStorage),
         new LoadShoppingList(GlobalContainer.listStorage)
     ];
-    private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(GlobalContainer.listStorage);
+    private readonly addEntryToShoppingList: AddEntryToShoppingList = new AddEntryToShoppingList(
+        GlobalContainer.listStorage,
+        UndoContainer.storage,
+        GlobalContainer.selectionStorage,
+        GlobalContainer.formMemory
+    );
     public readonly listInteractor: ListInteractor = new ListInteractor(
         GlobalContainer.listStorage,
         GlobalContainer.formMemory,
@@ -32,7 +38,8 @@ class Container {
             new UuidGenerator(UuidVersion4),
             GlobalContainer.formMemory,
             GlobalContainer.navigationMemory,
-            this.addEntryToShoppingList
+            this.addEntryToShoppingList,
+            UndoContainer.storage
         ),
         this.addEntryToShoppingList,
         new AddEntryIdToShoppingList(
@@ -44,8 +51,10 @@ class Container {
             GlobalContainer.selectionStorage,
             GlobalContainer.formMemory,
             GlobalContainer.navigationMemory,
-            this.addEntryToShoppingList
-        )
+            this.addEntryToShoppingList,
+            UndoContainer.storage
+        ),
+        UndoContainer.storage
     );
     public controller: BuyingListController = new BuyingListController(
         new BuyingListPresenter(),
@@ -56,7 +65,8 @@ class Container {
         ),
         this.listInteractor,
         this.adapter,
-        GlobalContainer.primaryInputAdapter
+        GlobalContainer.primaryInputAdapter,
+        GlobalContainer.navigationAdapter
     );
 }
 

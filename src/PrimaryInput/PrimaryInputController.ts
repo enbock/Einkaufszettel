@@ -7,6 +7,7 @@ import PrimaryInputAdapter from './PrimaryInputAdapter';
 import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
 import RootView from '../RootView';
 import Presenter from './Presenter';
+import NavigationAdapter from '../Navigation/NavigationAdapter';
 
 export default class PrimaryInputController implements Controller {
     private viewInstance?: RootView;
@@ -18,7 +19,8 @@ export default class PrimaryInputController implements Controller {
         private loadInteractor: LoadInteractor,
         private presenter: Presenter,
         private entireListControllerAdapter: BuyingListAdapter,
-        private removeInteractor: RemoveInteractor
+        private removeInteractor: RemoveInteractor,
+        private navigationAdapter: NavigationAdapter
     ) {
     }
 
@@ -35,7 +37,7 @@ export default class PrimaryInputController implements Controller {
     private bindAdapter(): void {
         this.adapter.onSubmit = this.saveEntry.bind(this);
         this.adapter.onInputChange = this.saveInputValue.bind(this);
-        this.adapter.onListChange = this.actualizeOutput.bind(this);
+        this.adapter.refresh = this.actualizeOutput.bind(this);
         this.adapter.onDelete = this.deleteEntry.bind(this);
         this.adapter.onDiscard = this.discardInput.bind(this);
     }
@@ -48,17 +50,18 @@ export default class PrimaryInputController implements Controller {
     private saveEntry(): void {
         this.addEntryInteractor.saveEntry();
         this.actualizeOutputAndBuyingList();
+        this.navigationAdapter.refresh();
     }
 
     private actualizeOutputAndBuyingList() {
         this.actualizeOutput();
-        this.entireListControllerAdapter.onListChange();
+        this.entireListControllerAdapter.refresh();
     }
 
     private saveInputValue(newValue: string): void {
         const request: SaveValueRequest = new SaveValueRequest();
         request.newInputValue = newValue;
-        this.saveInputValueInteractor.saveInputValue(request);
+        this.saveInputValueInteractor.updateInputValue(request);
         this.actualizeOutput();
         this.entireListControllerAdapter.onFormInput();
     }
@@ -66,6 +69,7 @@ export default class PrimaryInputController implements Controller {
     private deleteEntry(): void {
         this.removeInteractor.deleteEntry();
         this.actualizeOutputAndBuyingList();
+        this.navigationAdapter.refresh();
     }
 
     private discardInput(): void {

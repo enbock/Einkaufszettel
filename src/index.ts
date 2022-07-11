@@ -9,12 +9,12 @@ import NavigationContainer from './Navigation/DependencyInjection/Container';
 import ViewInjection from '@enbock/ts-jsx/ViewInjection';
 
 BuyingList.componentReceiver = new ShadowViewConnector(BuyingListContainer.controller);
-ViewInjection(BuyingList, BuyingListContainer.adapter);
+ViewInjection(BuyingList, GlobalContainer.listAdapter);
 
 PrimaryInput.componentReceiver = new ShadowViewConnector(PrimaryInputContainer.controller);
-ViewInjection(PrimaryInput, PrimaryInputContainer.adapter);
+ViewInjection(PrimaryInput, GlobalContainer.primaryInputAdapter);
 
 Navigation.componentReceiver = new ShadowViewConnector(NavigationContainer.controller);
-ViewInjection(Navigation, NavigationContainer.adapter);
+ViewInjection(Navigation, GlobalContainer.navigationAdapter);
 
 GlobalContainer.startUp.start();

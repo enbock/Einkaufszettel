@@ -7,7 +7,7 @@ export default class PrimaryInputAdapter implements ViewAdapter {
 
     public onSubmit: Callback<() => void>;
 
-    public onListChange: Callback<() => void>;
+    public refresh: Callback<() => void>;
 
     public onDiscard: Callback<() => void>;
 }

@@ -1,4 +1,4 @@
-import {EntryId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../ShoppingList/EntryEntity';
 import ViewAdapter from '../ViewAdapter';
 
 export default class BuyingListAdapter implements ViewAdapter {
@@ -6,7 +6,7 @@ export default class BuyingListAdapter implements ViewAdapter {
 
     public onSelectClick: Callback<(id: EntryId) => void>;
 
-    public onListChange: Callback<() => void>;
+    public refresh: Callback<() => void>;
 
     public onFormInput: Callback<() => void>;
 }

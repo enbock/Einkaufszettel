@@ -1,20 +1,20 @@
 import LoadListTask from './LoadListTask';
-import EntryEntity from '../../ListStorage/EntryEntity';
+import EntryEntity from '../../ShoppingList/EntryEntity';
 import {SystemTabs, TabId} from '../../Navigation/TabEntity';
-import ListStorage from '../../ListStorage/ListStorage';
+import ListStorage from '../ListStorage/ListStorage';
 
 export default class LoadShoppingList implements LoadListTask {
-  private listStorage: ListStorage;
+    private listStorage: ListStorage;
 
-  constructor(listStorage: ListStorage) {
-    this.listStorage = listStorage;
-  }
+    constructor(listStorage: ListStorage) {
+        this.listStorage = listStorage;
+    }
 
-  public loadList(): EntryEntity[] {
-    return this.listStorage.getShoppingList();
-  }
+    public support(activeTab: TabId): boolean {
+        return activeTab === SystemTabs.ShoppingList;
+    }
 
-  public support(activeTab: TabId): boolean {
-    return activeTab === SystemTabs.ShoppingList;
-  }
+    public loadList(): EntryEntity[] {
+        return this.listStorage.getShoppingList();
+    }
 }

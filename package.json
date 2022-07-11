@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@enbock/string-helper-ts": "^1",
-    "@enbock/ts-jsx": "0.1.0-dev17",
+    "@enbock/ts-jsx": "0.1.0-dev18",
     "@testing-library/dom": "^8",
     "@testing-library/jest-dom": "^5",
     "@testing-library/user-event": "^14",

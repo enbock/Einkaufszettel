@@ -6,6 +6,7 @@ import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import BuyingListAdapter from './BuyingListAdapter';
 import RootView from '../RootView';
 import Presenter from './Presenter';
+import NavigationAdapter from '../Navigation/NavigationAdapter';
 
 describe(BuyingListController, function () {
     let view: RootView & MockProxy<RootView>,
@@ -14,7 +15,8 @@ describe(BuyingListController, function () {
         entireListInteractor: BuyingListLoadInteractor & MockProxy<BuyingListLoadInteractor>,
         adapter: BuyingListAdapter,
         listInteractor: ListInteractor & MockProxy<ListInteractor>,
-        primaryInputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>
+        primaryInputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>,
+        navigationAdapter: NavigationAdapter & MockProxy<NavigationAdapter>
     ;
 
     beforeEach(function () {
@@ -24,12 +26,15 @@ describe(BuyingListController, function () {
         adapter = mock<BuyingListAdapter>();
         listInteractor = mock<ListInteractor>();
         primaryInputAdapter = mock<PrimaryInputAdapter>();
+        navigationAdapter = mock<NavigationAdapter>();
+
         controller = new BuyingListController(
             presenter,
             entireListInteractor,
             listInteractor,
             adapter,
-            primaryInputAdapter
+            primaryInputAdapter,
+            navigationAdapter
         );
 
         entireListInteractor.loadActiveList.mockReturnValue('test::response:' as any);
@@ -46,14 +51,14 @@ describe(BuyingListController, function () {
 
     it('should load list on adapter call', function () {
         controller.attach(view);
-        adapter.onListChange();
+        adapter.refresh();
 
         expect(entireListInteractor.loadActiveList).toBeCalledTimes(2);
         expect(presenter.presentLoadResponse).toBeCalledTimes(2);
     });
 
     it('should should not load list of not attached to view', function () {
-        adapter.onListChange();
+        adapter.refresh();
 
         expect(entireListInteractor.loadActiveList).not.toBeCalled();
     });
@@ -64,6 +69,7 @@ describe(BuyingListController, function () {
         adapter.onEntryButtonClick('test::id:');
 
         expect(listInteractor.addOrRemoveEntry).toBeCalledWith('test::id:');
+        expect(navigationAdapter.refresh).toBeCalled();
     });
 
     it('should selected an entry', function () {
@@ -72,6 +78,6 @@ describe(BuyingListController, function () {
         adapter.onSelectClick('test::id:');
 
         expect(listInteractor.changeSelectedEntry).toBeCalledWith('test::id:');
-        expect(primaryInputAdapter.onListChange).toBeCalled();
+        expect(primaryInputAdapter.refresh).toBeCalled();
     });
 });

@@ -1,6 +1,6 @@
 import PrimaryInputPresenter from './PrimaryInputPresenter';
 import PrimaryInputModel from './PrimaryInputModel';
-import EntryEntity from '../../ListStorage/EntryEntity';
+import EntryEntity from '../../ShoppingList/EntryEntity';
 import {LoadResponse} from '../LoadInteractor';
 import {SystemTabs} from '../../Navigation/TabEntity';
 

@@ -1,39 +1,39 @@
 import AddEntryIdToShoppingList from './AddEntryIdToShoppingList';
 import {mock, MockProxy} from 'jest-mock-extended';
-import ListStorage from '../../ListStorage/ListStorage';
+import ListStorage from '../ListStorage/ListStorage';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
-import EntryEntity from '../../ListStorage/EntryEntity';
+import EntryEntity from '../../ShoppingList/EntryEntity';
 
 describe(AddEntryIdToShoppingList, function () {
-  let task: AddEntryIdToShoppingList,
-    storage: ListStorage & MockProxy<ListStorage>,
-    addEntryToShoppingList: AddEntryToShoppingList & MockProxy<AddEntryToShoppingList>
-  ;
+    let task: AddEntryIdToShoppingList,
+        storage: ListStorage & MockProxy<ListStorage>,
+        addEntryToShoppingList: AddEntryToShoppingList & MockProxy<AddEntryToShoppingList>
+    ;
 
-  beforeEach(function () {
-    storage = mock<ListStorage>();
-    addEntryToShoppingList = mock<AddEntryToShoppingList>();
-    task = new AddEntryIdToShoppingList(storage, addEntryToShoppingList);
-  });
+    beforeEach(function () {
+        storage = mock<ListStorage>();
+        addEntryToShoppingList = mock<AddEntryToShoppingList>();
+        task = new AddEntryIdToShoppingList(storage, addEntryToShoppingList);
+    });
 
-  it('should add an entry by id to the shopping list', function () {
-    const newEntry: EntryEntity = new EntryEntity();
-    newEntry.id = 'test::id:';
-    newEntry.name = 'test::name:';
+    it('should add an entry by id to the shopping list', function () {
+        const newEntry: EntryEntity = new EntryEntity();
+        newEntry.id = 'test::id:';
+        newEntry.name = 'test::name:';
 
-    storage.getEntireList.mockReturnValueOnce([newEntry]);
+        storage.getEntireList.mockReturnValueOnce([newEntry]);
 
-    task.addEntryIdToShoppingList('test::id:');
+        task.addEntryIdToShoppingList('test::id:');
 
-    expect(addEntryToShoppingList.addToShoppingList).toBeCalledWith(newEntry);
-  });
+        expect(addEntryToShoppingList.addToShoppingList).toBeCalledWith(newEntry);
+    });
 
-  it('should not add an entry by unknown ids', function () {
+    it('should not add an entry by unknown ids', function () {
 
-    storage.getEntireList.mockReturnValueOnce([]);
+        storage.getEntireList.mockReturnValueOnce([]);
 
-    task.addEntryIdToShoppingList('test::id:');
+        task.addEntryIdToShoppingList('test::id:');
 
-    expect(addEntryToShoppingList.addToShoppingList).not.toBeCalled();
-  });
+        expect(addEntryToShoppingList.addToShoppingList).not.toBeCalled();
+    });
 });

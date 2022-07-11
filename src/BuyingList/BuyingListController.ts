@@ -1,11 +1,12 @@
 import BuyingListLoadInteractor, {Response} from './BuyingListLoadInteractor';
 import ListInteractor from './ListInteractor';
-import {EntryId} from '../ListStorage/EntryEntity';
+import {EntryId} from '../ShoppingList/EntryEntity';
 import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import BuyingListAdapter from './BuyingListAdapter';
 import Controller from '../Controller';
 import RootView from '../RootView';
 import Presenter from './Presenter';
+import NavigationAdapter from '../Navigation/NavigationAdapter';
 
 export default class BuyingListController implements Controller {
     private viewInstance?: RootView;
@@ -15,7 +16,8 @@ export default class BuyingListController implements Controller {
         private entireListInteractor: BuyingListLoadInteractor,
         private listInteractor: ListInteractor,
         private adapter: BuyingListAdapter,
-        private primaryInputAdapter: PrimaryInputAdapter
+        private primaryInputAdapter: PrimaryInputAdapter,
+        private navigationAdapter: NavigationAdapter
     ) {
     }
 
@@ -35,7 +37,7 @@ export default class BuyingListController implements Controller {
     }
 
     private bindAdapter(): void {
-        this.adapter.onListChange = this.loadAndDisplayList.bind(this);
+        this.adapter.refresh = this.loadAndDisplayList.bind(this);
         this.adapter.onFormInput = this.loadAndDisplayList.bind(this);
         this.adapter.onEntryButtonClick = this.addOrRemoveEntry.bind(this);
         this.adapter.onSelectClick = this.changeSelectedEntry.bind(this);
@@ -43,12 +45,14 @@ export default class BuyingListController implements Controller {
 
     private addOrRemoveEntry(id: EntryId): void {
         this.listInteractor.addOrRemoveEntry(id);
+        this.navigationAdapter.refresh();
+        this.primaryInputAdapter.refresh();
         this.loadAndDisplayList();
     }
 
     private changeSelectedEntry(id: EntryId): void {
         this.listInteractor.changeSelectedEntry(id);
-        this.primaryInputAdapter.onListChange();
+        this.primaryInputAdapter.refresh();
         this.loadAndDisplayList();
     }
 }
