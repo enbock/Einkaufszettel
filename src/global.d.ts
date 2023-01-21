@@ -1,6 +1,6 @@
-type throwsErrorOrReturn<E extends Error, T> = T;
-type throwsError<E extends Error> = void;
-type Callback<Function> = any;
+type ThrowsErrorOrReturn<E extends Error, T> = T;
+type ThrowsError<E extends Error> = void;
+type Callback<Function = (() => void)> = Function;
 type MockedObject = any;
 
 type Factorizable<T> = {

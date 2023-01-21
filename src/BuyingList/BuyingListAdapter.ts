@@ -2,11 +2,11 @@ import {EntryId} from '../ShoppingList/EntryEntity';
 import ViewAdapter from '../ViewAdapter';
 
 export default class BuyingListAdapter implements ViewAdapter {
-    public onEntryButtonClick: Callback<(id: EntryId) => void>;
+    public onEntryButtonClick: Callback<(id: EntryId) => void> = Function;
 
-    public onSelectClick: Callback<(id: EntryId) => void>;
+    public onSelectClick: Callback<(id: EntryId) => void> = Function;
 
-    public refresh: Callback<() => void>;
+    public refresh: Callback = Function;
 
-    public onFormInput: Callback<() => void>;
+    public onFormInput: Callback = Function;
 }

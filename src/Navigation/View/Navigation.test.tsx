@@ -52,4 +52,10 @@ describe(Navigation, function () {
         const result: HTMLElement = createUi();
         expect(result).toContainHTML('<button disabled="true" name="undo"');
     });
+
+    it('should click the settings button', async function () {
+        const result: HTMLElement = createUi();
+        fireEvent.click(result.querySelector('button[name="settings"]') as Element);
+        expect(adapter.onSettingClick).toBeCalled();
+    });
 });

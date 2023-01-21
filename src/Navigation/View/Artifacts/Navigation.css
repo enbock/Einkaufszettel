@@ -1,40 +1,31 @@
 :host {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: stretch;
-    flex-wrap: nowrap;
-    align-content: center;
 }
 
-:host menu {
-    width: 100%;
+:host menu--button-list {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
     flex-wrap: nowrap;
-    align-content: center;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    padding-inline-start: 0;
-    padding-right: 0.3rem;
+    width: 100%;
+    justify-content: flex-end;
 }
 
-:host menu button {
+:host menu--button-list button {
     width: 2rem;
-    height: 2rem;
+    height: 100%;
     border: unset;
-    background: center;
+    background-position: center;
     background-size: 2rem;
+    background-repeat: no-repeat;
 }
 
-:host menu button:disabled {
+:host menu--button-list button:disabled {
     opacity: 0.2;
 }
 
-:host menu button:nth-last-child(1) {
+:host menu--button-list button[name="undo"] {
     background-image: url(./IndoIcon.svg);
+}
+
+:host menu--button-list button[name="settings"] {
+    background-image: url(./SettingsIcon.svg);
 }
