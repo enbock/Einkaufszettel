@@ -3,7 +3,7 @@ import ListStorage from './ListStorage/ListStorage';
 import EntryEntity from '../ShoppingList/EntryEntity';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 import {mock, MockProxy} from 'jest-mock-extended';
-import NavigationMemory from '../Navigation/Memory/Memory';
+import NavigationMemory from '../Navigation/./StateStorage/StateStorage';
 import {SystemTabs} from '../Navigation/TabEntity';
 import SelectionStorage from './SelectionStorage/SelectionStorage';
 import LoadListTask from './InteractorTask/LoadListTask';

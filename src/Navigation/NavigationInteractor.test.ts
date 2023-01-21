@@ -1,18 +1,18 @@
 import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './NavigationInteractor';
-import Memory from './Memory/Memory';
+import StateStorage from '././StateStorage/StateStorage';
 import {mock, MockProxy} from 'jest-mock-extended';
 import ConfigLoader from './Config/ConfigLoader';
 import UndoStorage from '../Undo/Storage/UndoStorage';
 
 describe(NavigationInteractor, function () {
     let interactor: NavigationInteractor,
-        memory: Memory & MockProxy<Memory>,
+        memory: StateStorage & MockProxy<StateStorage>,
         configLoader: ConfigLoader & MockProxy<ConfigLoader>,
         undoStorage: UndoStorage & MockProxy<UndoStorage>
     ;
 
     beforeEach(function () {
-        memory = mock<Memory>();
+        memory = mock<StateStorage>();
         configLoader = mock<ConfigLoader>();
         undoStorage = mock<UndoStorage>();
 

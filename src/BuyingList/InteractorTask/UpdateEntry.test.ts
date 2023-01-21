@@ -4,7 +4,7 @@ import ListStorage from '../ListStorage/ListStorage';
 import SelectionStorage from '../SelectionStorage/SelectionStorage';
 import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 import EntryEntity from '../../ShoppingList/EntryEntity';
-import NavigationMemory from '../../Navigation/Memory/Memory';
+import NavigationMemory from '../../Navigation/./StateStorage/StateStorage';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 import {SystemTabs} from '../../Navigation/TabEntity';
 import UndoStorage from '../../Undo/Storage/UndoStorage';

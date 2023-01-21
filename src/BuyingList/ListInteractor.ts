@@ -1,7 +1,7 @@
 import ListStorage from './ListStorage/ListStorage';
 import EntryEntity, {EntryId} from '../ShoppingList/EntryEntity';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
-import NavigationMemory from '../Navigation/Memory/Memory';
+import NavigationMemory from '../Navigation/./StateStorage/StateStorage';
 import {SystemTabs, TabId} from '../Navigation/TabEntity';
 import SelectionStorage from './SelectionStorage/SelectionStorage';
 import LoadListTask from './InteractorTask/LoadListTask';

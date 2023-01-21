@@ -1,10 +1,10 @@
-import LocalStorage from './LocalStorage';
+import Browser from './Browser';
 import EntryEntity from '../../../ShoppingList/EntryEntity';
 import EntryListTransformer from './EntryListTransformer';
 import {mock, MockProxy} from 'jest-mock-extended';
 
-describe(LocalStorage, function () {
-    let localStorage: LocalStorage,
+describe(Browser, function () {
+    let localStorage: Browser,
         storage: Storage & MockProxy<Storage>,
         transformer: EntryListTransformer & MockProxy<EntryListTransformer>
     ;
@@ -12,7 +12,7 @@ describe(LocalStorage, function () {
     beforeEach(function () {
         storage = mock<Storage>();
         transformer = mock<EntryListTransformer>();
-        localStorage = new LocalStorage(storage, transformer);
+        localStorage = new Browser(storage, transformer);
     });
 
     it('should load the entire list', function () {

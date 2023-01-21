@@ -3,7 +3,7 @@ import EntryEntity, {EntryId} from '../../ShoppingList/EntryEntity';
 import SelectionStorage from '../SelectionStorage/SelectionStorage';
 import FormMemory from '../../PrimaryInput/FormMemory/FormMemory';
 import {SystemTabs} from '../../Navigation/TabEntity';
-import NavigationMemory from '../../Navigation/Memory/Memory';
+import NavigationMemory from '../../Navigation/./StateStorage/StateStorage';
 import AddEntryToShoppingList from './AddEntryToShoppingList';
 import UndoEntity, {Actions} from '../../Undo/UndoEntity';
 import UndoStorage from '../../Undo/Storage/UndoStorage';

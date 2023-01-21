@@ -1,7 +1,7 @@
 import FormMemory from './FormMemory/FormMemory';
 import EntryEntity from '../ShoppingList/EntryEntity';
 import ListStorage from '../BuyingList/ListStorage/ListStorage';
-import NavigationMemory from '../Navigation/Memory/Memory';
+import NavigationMemory from '../Navigation/./StateStorage/StateStorage';
 import {TabId} from '../Navigation/TabEntity';
 
 export class LoadResponse {

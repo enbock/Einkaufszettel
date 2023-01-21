@@ -2,13 +2,12 @@ import ListStorage from '../ListStorage';
 import EntryEntity from '../../../ShoppingList/EntryEntity';
 import EntryListTransformer from './EntryListTransformer';
 
-export default class LocalStorage implements ListStorage {
-    protected readonly storage: Storage;
-    protected readonly transformer: EntryListTransformer;
+export default class Browser implements ListStorage {
 
-    constructor(storage: Storage, transformer: EntryListTransformer) {
-        this.storage = storage;
-        this.transformer = transformer;
+    constructor(
+        private storage: Storage,
+        private transformer: EntryListTransformer
+    ) {
     }
 
     public getEntireList(): EntryEntity[] {

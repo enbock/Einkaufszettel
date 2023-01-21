@@ -1,7 +1,7 @@
 import BuyingListLoadInteractor, {Response} from './BuyingListLoadInteractor';
 import EntryEntity from '../ShoppingList/EntryEntity';
 import ListStorage from './ListStorage/ListStorage';
-import Memory from '../Navigation/Memory/Memory';
+import StateStorage from '../Navigation/./StateStorage/StateStorage';
 import {mock, MockProxy} from 'jest-mock-extended';
 import LoadListTask from './InteractorTask/LoadListTask';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
@@ -9,14 +9,14 @@ import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
 describe(BuyingListLoadInteractor, function () {
     let interactor: BuyingListLoadInteractor,
         listStorage: ListStorage,
-        navigationMemory: Memory & MockProxy<Memory>,
+        navigationMemory: StateStorage & MockProxy<StateStorage>,
         loadingTask: LoadListTask & MockProxy<LoadListTask>,
         formMemory: FormMemory & MockProxy<FormMemory>
     ;
 
     beforeEach(function () {
         listStorage = mock<ListStorage>();
-        navigationMemory = mock<Memory>();
+        navigationMemory = mock<StateStorage>();
         loadingTask = mock<LoadListTask>();
         formMemory = mock<FormMemory>();
 
