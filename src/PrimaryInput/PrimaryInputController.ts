@@ -2,14 +2,14 @@ import ListInteractor from '../BuyingList/ListInteractor';
 import SaveInputValueInteractor, {Request as SaveValueRequest} from './SaveInputValueInteractor';
 import LoadInteractor, {LoadResponse} from './LoadInteractor';
 import RemoveInteractor from './RemoveInteractor';
-import Controller from '../Controller';
+import ViewAttachedController from '../ViewAttachedController';
 import PrimaryInputAdapter from './PrimaryInputAdapter';
 import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
 import RootView from '../RootView';
 import Presenter from './Presenter';
 import NavigationAdapter from '../Navigation/NavigationAdapter';
 
-export default class PrimaryInputController implements Controller {
+export default class PrimaryInputController implements ViewAttachedController {
     private viewInstance?: RootView;
 
     constructor(

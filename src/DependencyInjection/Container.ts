@@ -11,6 +11,15 @@ import StartUp from '../StartUp';
 import ServiceWorkerUpdateLoader from '../ServiceWorkerUpdateLoader';
 import * as serviceWorkerRegistration from '../serviceWorkerRegistration';
 import NavigationAdapter from '../Navigation/NavigationAdapter';
+import ShoppingListController from '../ShoppingList/Controller/Controller';
+import ApplicationStorage from '../ShoppingList/ApplicationStorage/ApplicationStorage';
+import StorageBrowser from '../ShoppingList/ApplicationStorage/Browser/Browser';
+import StorageTransformer from '../ShoppingList/ApplicationStorage/Browser/Transformer';
+import ActivePageInteractor from '../ShoppingList/ActivePageInteractor/ActivePageInteractor';
+import PageStateResponseFormatter from '../ShoppingList/ActivePageInteractor/PageStateResponse/ResponseFormatter';
+import PageStateResponseModelBuilder from '../ShoppingList/ActivePageInteractor/PageStateResponse/ResponseModelBuilder';
+import ShoppingListPresenter from '../ShoppingList/View/ShoppingListPresenter';
+import ShoppingListBus from '../ShoppingList/Controller/Bus';
 
 class Container {
     public readonly listStorage: ListStorage = new LocalListStorage(global.localStorage, new LocalStorageTransformer());
@@ -24,6 +33,22 @@ class Container {
         document,
         new ServiceWorkerUpdateLoader(window.location),
         serviceWorkerRegistration
+    );
+    public shoppingListBus: ShoppingListBus = new ShoppingListBus();
+    private applicationStorage: ApplicationStorage = new StorageBrowser(
+        window.localStorage,
+        new StorageTransformer()
+    );
+    private activePageInteractor: ActivePageInteractor = new ActivePageInteractor(
+        this.applicationStorage,
+        new PageStateResponseFormatter(
+            new PageStateResponseModelBuilder()
+        )
+    );
+    public controller: ShoppingListController = new ShoppingListController(
+        this.activePageInteractor,
+        new ShoppingListPresenter(),
+        this.shoppingListBus
     );
 }
 

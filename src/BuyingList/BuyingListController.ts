@@ -3,12 +3,12 @@ import ListInteractor from './ListInteractor';
 import {EntryId} from '../ShoppingList/EntryEntity';
 import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import BuyingListAdapter from './BuyingListAdapter';
-import Controller from '../Controller';
+import ViewAttachedController from '../ViewAttachedController';
 import RootView from '../RootView';
 import Presenter from './Presenter';
 import NavigationAdapter from '../Navigation/NavigationAdapter';
 
-export default class BuyingListController implements Controller {
+export default class BuyingListController implements ViewAttachedController {
     private viewInstance?: RootView;
 
     constructor(

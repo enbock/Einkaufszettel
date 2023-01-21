@@ -2,12 +2,14 @@ import NavigationInteractor, {ActivateTabRequest, LoadResponse} from './Navigati
 import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import NavigationAdapter from './NavigationAdapter';
 import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
-import Controller from '../Controller';
+import ViewAttachedController from '../ViewAttachedController';
 import RootView from '../RootView';
 import Presenter from './Presenter';
 import UndoInteractor from '../Undo/UndoInteractor';
+import ShoppingListBus from '../ShoppingList/Controller/Bus';
+import Pages from '../ShoppingList/Pages';
 
-export default class NavigationController implements Controller {
+export default class NavigationController implements ViewAttachedController {
     private viewInstance?: RootView;
 
     constructor(
@@ -16,7 +18,8 @@ export default class NavigationController implements Controller {
         private presenter: Presenter,
         private listAdapter: BuyingListAdapter,
         private inputAdapter: PrimaryInputAdapter,
-        private undoInteractor: UndoInteractor
+        private undoInteractor: UndoInteractor,
+        private shoppingListBus: ShoppingListBus
     ) {
     }
 
@@ -27,6 +30,7 @@ export default class NavigationController implements Controller {
     public attach(view: RootView): void {
         this.viewInstance = view;
         this.bindAdapter();
+        this.shoppingListBus.handlePageSwitch(Pages.LIST);
         this.presentData();
     }
 
@@ -34,6 +38,7 @@ export default class NavigationController implements Controller {
         this.adapter.onNavigationClick = this.changeNavigation.bind(this);
         this.adapter.refresh = this.presentData.bind(this);
         this.adapter.onUndoClick = this.undoAction.bind(this);
+        this.adapter.onSettingClick = this.changeToSetting.bind(this);
     }
 
     private changeNavigation(activeList: string): void {
@@ -43,6 +48,7 @@ export default class NavigationController implements Controller {
         this.listAdapter.refresh();
         this.inputAdapter.refresh();
         this.presentData();
+        this.shoppingListBus.handlePageSwitch(Pages.LIST);
     }
 
     private presentData(): void {
@@ -55,5 +61,9 @@ export default class NavigationController implements Controller {
         this.listAdapter.refresh();
         this.inputAdapter.refresh();
         this.presentData();
+    }
+
+    private changeToSetting(): void {
+        this.shoppingListBus.handlePageSwitch(Pages.SETTING);
     }
 }

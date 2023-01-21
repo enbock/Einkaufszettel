@@ -25,6 +25,14 @@ describe(ActivePageInteractor, function (): void {
         expect(applicationStorage.setActivePage).toBeCalledWith('test::page:' as MockedObject);
     });
 
+    it('should change to buying list if setting already active', function (): void {
+        applicationStorage.getActivePage.mockReturnValue(Pages.SETTING);
+        const request: PageChangeRequest = {page: Pages.SETTING};
+        interactor.changeActivePage(request);
+
+        expect(applicationStorage.setActivePage).toBeCalledWith(Pages.LIST);
+    });
+
     it('should get the page state', function (): void {
         const activePage: Pages = 'test::page:' as MockedObject;
         const response: PageStateResponse = {activePage: 'test::page:' as MockedObject};

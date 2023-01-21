@@ -12,7 +12,10 @@ export default class ActivePageInteractor {
     }
 
     public changeActivePage(request: PageChangeRequest): void {
-        this.applicationStorage.setActivePage(request.page);
+        let activePage: Pages = this.applicationStorage.getActivePage();
+        if (request.page == activePage && activePage == Pages.SETTING) activePage = Pages.LIST;
+        else activePage = request.page;
+        this.applicationStorage.setActivePage(activePage);
     }
 
     public getPageState(): PageStateResponse {
