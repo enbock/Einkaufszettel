@@ -1,9 +1,9 @@
 import Component, {ShadowComponentReceiver} from '@enbock/ts-jsx/Component';
-import Controller from './Controller';
+import ViewAttachedController from './ViewAttachedController';
 
 export default class ShadowViewConnector implements ShadowComponentReceiver {
     constructor(
-        private controller: Controller
+        private controller: ViewAttachedController
     ) {
     }
 

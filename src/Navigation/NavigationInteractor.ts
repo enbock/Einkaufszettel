@@ -1,5 +1,5 @@
 import TabEntity, {TabId} from './TabEntity';
-import Memory from './Memory/Memory';
+import StateStorage from '././StateStorage/StateStorage';
 import ConfigLoader from './Config/ConfigLoader';
 import UndoStorage from '../Undo/Storage/UndoStorage';
 
@@ -15,7 +15,7 @@ export interface LoadResponse {
 
 export default class NavigationInteractor {
     constructor(
-        private memory: Memory,
+        private memory: StateStorage,
         private configLoader: ConfigLoader,
         private undoStorage: UndoStorage
     ) {

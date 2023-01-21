@@ -1,6 +1,6 @@
 import EntryEntity from '../ShoppingList/EntryEntity';
 import StringHelper from '@enbock/string-helper-ts/StringHelper';
-import Memory from '../Navigation/Memory/Memory';
+import StateStorage from '../Navigation/./StateStorage/StateStorage';
 import {TabId} from '../Navigation/TabEntity';
 import LoadListTask from './InteractorTask/LoadListTask';
 import FormMemory from '../PrimaryInput/FormMemory/FormMemory';
@@ -12,7 +12,7 @@ export class Response {
 
 export default class BuyingListLoadInteractor {
     constructor(
-        private navigationMemory: Memory,
+        private navigationMemory: StateStorage,
         private loadListChain: LoadListTask[],
         private formMemory: FormMemory
     ) {

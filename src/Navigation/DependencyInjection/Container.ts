@@ -16,7 +16,8 @@ export class Container {
         new NavigationPresenter(),
         GlobalContainer.listAdapter,
         GlobalContainer.primaryInputAdapter,
-        UndoContainer.interactor
+        UndoContainer.interactor,
+        GlobalContainer.shoppingListBus
     );
 }
 

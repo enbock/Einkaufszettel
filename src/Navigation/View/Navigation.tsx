@@ -30,13 +30,17 @@ export default class Navigation extends Component<Properties> implements RootVie
         return <>
             <style>{Styles}</style>
             {this.modelInstance.navigationTabs.map(this.renderTab.bind(this))}
-            <menu>
+            <menu--button-list>
+                <button
+                    name="settings"
+                    onClick={this.adapter.onSettingClick}
+                />
                 <button
                     name="undo"
                     onClick={this.adapter.onUndoClick}
                     {...undoButtonOptions}
                 />
-            </menu>
+            </menu--button-list>
         </>;
     }
 

@@ -1,5 +1,5 @@
 import RootView from './RootView';
 
-export default interface Controller {
+export default interface ViewAttachedController {
     attach(view: RootView): void;
 }

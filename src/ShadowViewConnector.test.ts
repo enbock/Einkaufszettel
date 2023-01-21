@@ -1,20 +1,20 @@
 import ShadowViewConnector from './ShadowViewConnector';
 import {mock, MockProxy} from 'jest-mock-extended';
-import Controller from './Controller';
+import ViewAttachedController from './ViewAttachedController';
 
 describe(ShadowViewConnector, function () {
     let connector: ShadowViewConnector,
-        controller: Controller & MockProxy<Controller>
+        controller: ViewAttachedController & MockProxy<ViewAttachedController>
     ;
 
     beforeEach(function () {
-        controller = mock<Controller>();
+        controller = mock<ViewAttachedController>();
 
         connector = new ShadowViewConnector(controller);
     });
 
     it('should runtime inject the view into the controller', async function () {
-        connector.setComponent('test::component:' as any)
+        connector.setComponent('test::component:' as any);
 
         expect(controller.attach).toBeCalledWith('test::component:');
     });

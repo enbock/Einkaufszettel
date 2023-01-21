@@ -1,13 +1,13 @@
 import ViewAdapter from '../ViewAdapter';
 
 export default class PrimaryInputAdapter implements ViewAdapter {
-    public onDelete: Callback<() => void>;
+    public onDelete: Callback = Function;
 
-    public onInputChange: Callback<(newValue: string) => void>;
+    public onInputChange: Callback<(newValue: string) => void> = Function;
 
-    public onSubmit: Callback<() => void>;
+    public onSubmit: Callback = Function;
 
-    public refresh: Callback<() => void>;
+    public refresh: Callback = Function;
 
-    public onDiscard: Callback<() => void>;
+    public onDiscard: Callback = Function;
 }

@@ -1,7 +1,7 @@
-import Memory from './Memory';
-import {SystemTabs, TabId} from '../TabEntity';
+import StateStorage from '../StateStorage';
+import {SystemTabs, TabId} from '../../TabEntity';
 
-export default class SessionMemory implements Memory {
+export default class Browser implements StateStorage {
     public static storeKey: string = 'NavigationSessionMemory::activeTab';
     public static defaultData: TabId = SystemTabs.ShoppingList;
     private readonly storage: Storage;
@@ -11,10 +11,10 @@ export default class SessionMemory implements Memory {
     }
 
     public storeActiveTab(newTab: TabId): void {
-        this.storage.setItem(SessionMemory.storeKey, newTab);
+        this.storage.setItem(Browser.storeKey, newTab);
     }
 
     public getActiveTab(): TabId {
-        return this.storage.getItem(SessionMemory.storeKey) || SessionMemory.defaultData;
+        return this.storage.getItem(Browser.storeKey) || Browser.defaultData;
     }
 }

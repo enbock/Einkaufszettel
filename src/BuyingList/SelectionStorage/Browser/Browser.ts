@@ -1,7 +1,7 @@
 import SelectionStorage from '../SelectionStorage';
 import {EntryId} from '../../../ShoppingList/EntryEntity';
 
-export default class SessionStorage implements SelectionStorage {
+export default class Browser implements SelectionStorage {
     constructor(
         private storage: Storage
     ) {

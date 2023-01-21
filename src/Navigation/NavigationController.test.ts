@@ -1,22 +1,26 @@
 import NavigationController from './NavigationController';
 import NavigationInteractor, {ActivateTabRequest} from './NavigationInteractor';
-import {mock, MockProxy} from 'jest-mock-extended';
+import {mock} from 'jest-mock-extended';
 import PrimaryInputAdapter from '../PrimaryInput/PrimaryInputAdapter';
 import NavigationAdapter from './NavigationAdapter';
 import BuyingListAdapter from '../BuyingList/BuyingListAdapter';
 import RootView from '../RootView';
 import Presenter from './Presenter';
 import UndoInteractor from '../Undo/UndoInteractor';
+import ShoppingListBus from '../ShoppingList/Controller/Bus';
+import Pages from '../ShoppingList/Pages';
+import Mocked = jest.Mocked;
 
 describe(NavigationController, function () {
     let controller: NavigationController,
-        interactor: NavigationInteractor & MockProxy<NavigationInteractor>,
-        viewInstance: RootView & MockProxy<RootView>,
-        adapter: NavigationAdapter & MockProxy<NavigationAdapter>,
-        presenter: Presenter & MockProxy<Presenter>,
-        listAdapter: BuyingListAdapter & MockProxy<BuyingListAdapter>,
-        inputAdapter: PrimaryInputAdapter & MockProxy<PrimaryInputAdapter>,
-        undoInteractor: UndoInteractor & MockProxy<UndoInteractor>
+        interactor: Mocked<NavigationInteractor>,
+        viewInstance: Mocked<RootView>,
+        adapter: Mocked<NavigationAdapter>,
+        presenter: Mocked<Presenter>,
+        listAdapter: Mocked<BuyingListAdapter>,
+        inputAdapter: Mocked<PrimaryInputAdapter>,
+        undoInteractor: Mocked<UndoInteractor>,
+        shoppingListBus: Mocked<ShoppingListBus>
     ;
 
     beforeEach(function () {
@@ -27,6 +31,7 @@ describe(NavigationController, function () {
         listAdapter = mock<BuyingListAdapter>();
         inputAdapter = mock<PrimaryInputAdapter>();
         undoInteractor = mock<UndoInteractor>();
+        shoppingListBus = mock<ShoppingListBus>();
 
         controller = new NavigationController(
             interactor,
@@ -34,7 +39,8 @@ describe(NavigationController, function () {
             presenter,
             listAdapter,
             inputAdapter,
-            undoInteractor
+            undoInteractor,
+            shoppingListBus
         );
         interactor.loadTabs.mockReturnValue('test::loadResponse:' as MockedObject);
         presenter.present.mockReturnValue('test::model:');
@@ -53,15 +59,16 @@ describe(NavigationController, function () {
         expect(viewInstance.model).toBe('test::model:');
         expect(listAdapter.refresh).toBeCalled();
         expect(inputAdapter.refresh).toBeCalled();
+        expect(shoppingListBus.handlePageSwitch).toBeCalledWith(Pages.LIST);
     });
 
-    it('should present data on external data change', async function () {
+    it('should present data on external data change', async function (): Promise<void> {
         controller.attach(viewInstance);
         adapter.refresh();
         expect(presenter.present).toBeCalledTimes(2);
     });
 
-    it('should call logic of undo data', async function () {
+    it('should call logic of undo data', async function (): Promise<void> {
         controller.attach(viewInstance);
         adapter.onUndoClick();
 
@@ -69,5 +76,12 @@ describe(NavigationController, function () {
         expect(listAdapter.refresh).toBeCalled();
         expect(inputAdapter.refresh).toBeCalled();
         expect(presenter.present).toBeCalledTimes(2);
+    });
+
+    it('should handle page switch to setting', function (): void {
+        controller.attach(viewInstance);
+        adapter.onSettingClick();
+
+        expect(shoppingListBus.handlePageSwitch).toBeCalledWith(Pages.SETTING);
     });
 });
