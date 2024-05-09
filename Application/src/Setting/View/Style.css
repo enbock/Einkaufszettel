@@ -1,0 +1,84 @@
+:host {
+    background-color: var(--dark-primary);
+    display: grid;
+    height: 100%;
+}
+
+main {
+    background-color: var(--light-primary);
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    margin: 1rem 1rem 3rem 0;
+
+    icon {
+        display: inline-block;
+        width: 1.3rem;
+        height: 1.3rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 1.3rem;
+    }
+
+    icon[download] {
+        background-image: url(Assets/download.svg);
+    }
+
+    icon[upload] {
+        background-image: url(Assets/upload.svg);
+    }
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+
+}
+
+input {
+    width: 100%;
+    color: var(--light-tertiary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+}
+
+/*noinspection ALL*/
+input[type="file"]::-moz-file-upload-button {
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+
+}
+
+input[type="file"]::-ms-browse {
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+}
+
+input[type="file"]::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+

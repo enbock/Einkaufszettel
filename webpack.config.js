@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const config = {
-  entry: './src/index.ts',
+  entry: './Application/src/index.ts',
+  target: 'web',
   module: {
     rules: [
       {
@@ -20,7 +21,8 @@ const config = {
         test: /\.css$/i,
         loader: 'css-loader',
         options: {
-          exportType: 'string'
+          exportType: 'string',
+          import: false
         }
       },
       {
@@ -37,45 +39,65 @@ const config = {
       }
     ]
   },
-  devServer: {
-    port: 3000,
-    static: {
-      directory: path.join(__dirname, 'public')
-    }
+  optimization: {
+    minimize: false
   },
   plugins: [
     new CopyPlugin({
       patterns: [
         {
-          from: 'public',
+          from: 'Application/public',
           globOptions: {
             ignore: ['**/index.html']
           }
+        },
+        {
+          from: 'Application/src/Theme',
+          to: 'Theme'
         }
       ]
     }),
+
     new HtmlWebpackPlugin({
-      template: 'public/index.html'
+      template: 'Application/public/index.html'
+    }),
+
+    new Dotenv({
+      file: './.env',
+      defaults: './.env.dist'
     })
   ],
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[fullhash].js',
     path: path.resolve(__dirname, 'build'),
     clean: true
+  },
+  resolve: {
+    fallback: {
+      'typescript': false,
+      'process': false
+    },
+    alias: {
+      Application: path.resolve(__dirname, 'Application/src'),
+      Core: path.resolve(__dirname, 'Core/src'),
+      Infrastructure: path.resolve(__dirname, 'Infrastructure/src')
+    }
+  },
+  devServer: {
+    port: 3000,
+    static: {
+      directory: path.join(__dirname, 'Application/public')
+    },
+    proxy: {
+      '/api': 'http://127.0.0.1:7072'
+    }
   }
 };
+
 
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
     config.devtool = 'inline-source-map';
-  }
-  if (argv.mode !== 'development') {
-    config.plugins.push(
-      new WorkboxPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true
-      })
-    );
   }
   return config;
 };

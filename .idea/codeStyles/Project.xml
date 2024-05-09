@@ -15,7 +15,6 @@
       <option name="FORCE_SEMICOLON_STYLE" value="true" />
       <option name="FIELD_PREFIX" value="" />
       <option name="USE_PUBLIC_MODIFIER" value="true" />
-      <option name="PREFER_AS_TYPE_CAST" value="true" />
       <option name="USE_DOUBLE_QUOTES" value="false" />
       <option name="FORCE_QUOTE_STYlE" value="true" />
       <option name="ENFORCE_TRAILING_COMMA" value="Remove" />
@@ -51,22 +50,6 @@
       <option name="ASSIGNMENT_WRAP" value="5" />
       <option name="DOWHILE_BRACE_FORCE" value="3" />
       <option name="WHILE_BRACE_FORCE" value="3" />
-      <arrangement>
-        <groups>
-          <group>
-            <type>GROUP_PROPERTY_FIELD_WITH_GETTER_SETTER</type>
-            <order>KEEP</order>
-          </group>
-          <group>
-            <type>TREAT_LAMBDA_INITIALIZED_FIELDS_AS_METHODS</type>
-            <order>KEEP</order>
-          </group>
-          <group>
-            <type>OVERRIDDEN_METHODS</type>
-            <order>KEEP</order>
-          </group>
-        </groups>
-      </arrangement>
     </codeStyleSettings>
   </code_scheme>
 </component>
