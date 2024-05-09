@@ -15,4 +15,8 @@ export default class Memory implements UndoStorage {
     public popLastItem(): UndoEntity {
         return this.undoItems.pop() || new UndoEntity();
     }
+
+    public invalidate(): void {
+        this.undoItems = [];
+    }
 }

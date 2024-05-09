@@ -61,8 +61,11 @@ import ShadowViewConnector from 'Application/ShadowViewConnector';
 import PrimaryInput from 'Application/PrimaryInput/View/PrimaryInput';
 import Navigation from 'Application/Navigation/View/Navigation';
 import ShoppingList from 'Application/ShoppingList/View/ShoppingList';
-import SettingDownloadClientBrowser from 'Infrastructure/Setting/DownloadClient/Browser/Browser';
-import SettingDownloadClientBrowserEncoder from 'Infrastructure/Setting/DownloadClient/Browser/Encoder';
+import SettingFileClientBrowser from 'Infrastructure/Setting/FileClient/Browser/Browser';
+import SettingFileClientBrowserEncoder from 'Infrastructure/Setting/FileClient/Browser/Encoder';
+import SettingControllerFileUploadHandler from 'Application/Setting/Controller/Handler/FileUploadHandler';
+import ImportUseCase from 'Core/Setting/ImportUseCase/ImportUseCase';
+import SettingFileClientBrowserParser from 'Infrastructure/Setting/FileClient/Browser/Parser';
 
 class Container {
     private parseHelper: ParseHelper = new ParseHelper();
@@ -95,7 +98,7 @@ class Container {
         this.shoppingListBus
     );
 
-    public adapter: BuyingListAdapter = this.listAdapter;
+    public buyingListAdapter: BuyingListAdapter = this.listAdapter;
     public undoStorage: UndoStorage = new UndoStorageMemory();
     public undoInteractor: UndoInteractor = new UndoInteractor(
         this.undoStorage,
@@ -157,7 +160,7 @@ class Container {
             this.formMemory
         ),
         this.buyingListInteractor,
-        this.adapter,
+        this.buyingListAdapter,
         this.primaryInputAdapter,
         this.navigationAdapter
     );
@@ -171,7 +174,7 @@ class Container {
             this.navigationMemory
         ),
         new PrimaryInputPresenter(),
-        this.adapter,
+        this.buyingListAdapter,
         new RemoveInteractor(
             this.listStorage,
             this.selectionStorage,
@@ -195,21 +198,41 @@ class Container {
         this.shoppingListBus
     );
     private settingAdapter: SettingAdapter = new SettingAdapter();
-    private settingDownloadUseCase: SettingDownloadUseCase = new SettingDownloadUseCase(
-        new SettingDownloadClientBrowser(
-            new SettingDownloadClientBrowserEncoder(),
-            document
+    private settingFileClientBrowser: SettingFileClientBrowser = new SettingFileClientBrowser(
+        new SettingFileClientBrowserEncoder(),
+        document,
+        new SettingFileClientBrowserParser(
+            this.parseHelper
         ),
+        FileReader
+    );
+    private settingDownloadUseCase: SettingDownloadUseCase = new SettingDownloadUseCase(
+        this.settingFileClientBrowser,
         this.listStorage
     );
     private settingControllerDownloadHandler: SettingControllerDownloadHandler = new SettingControllerDownloadHandler(
         this.settingAdapter,
         this.settingDownloadUseCase
     );
+    private importUseCase: ImportUseCase = new ImportUseCase(
+        this.settingFileClientBrowser,
+        this.listStorage,
+        this.selectionStorage,
+        this.formMemory,
+        this.undoStorage
+    );
+    private settingControllerFileUploadHandler: SettingControllerFileUploadHandler = new SettingControllerFileUploadHandler(
+        this.settingAdapter,
+        this.importUseCase,
+        this.navigationAdapter,
+        this.buyingListAdapter,
+        this.primaryInputAdapter
+    );
     public settingController: SettingController = new SettingController(
         new SettingPresenter(),
         [
-            this.settingControllerDownloadHandler
+            this.settingControllerDownloadHandler,
+            this.settingControllerFileUploadHandler
         ],
         Setting
     );

@@ -6,4 +6,6 @@ export default interface UndoStorage {
     hasItems(): boolean;
 
     popLastItem(): UndoEntity;
+
+    invalidate(): void;
 }

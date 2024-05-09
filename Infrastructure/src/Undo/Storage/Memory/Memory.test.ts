@@ -22,4 +22,12 @@ describe('Memory', function (): void {
     it('should give an empty item it list is empty', async function () {
         expect(storage.popLastItem()).toEqual(new UndoEntity());
     });
+
+    it('should clear all undo items', function (): void {
+        storage.appendChange(<MockedObject>'test::item');
+        expect(storage.hasItems()).toBeTruthy();
+
+        storage.invalidate();
+        expect(storage.hasItems()).toBeFalsy();
+    });
 });

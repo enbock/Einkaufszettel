@@ -30,11 +30,14 @@ describe('Setting', function (): void {
         expect(adapter.onDownload).toHaveBeenCalled();
     });
 
-    it('should click on upload', function () {
+    it('should click on upload with a file', function () {
         const result: HTMLElement = createUi();
-
+        const file: File = 'test::file' as MockedObject;
+        const input: HTMLInputElement = result.querySelector('input') as HTMLInputElement;
+        
+        fireEvent.change(input, {target: {files: [file]}});
         fireEvent.click(getByText(result, model.i18n.uploadLabel));
 
-        expect(adapter.onUpload).toHaveBeenCalled();
+        expect(adapter.onUpload).toHaveBeenCalledWith(file);
     });
 });

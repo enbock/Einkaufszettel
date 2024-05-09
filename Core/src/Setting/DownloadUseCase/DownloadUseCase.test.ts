@@ -1,20 +1,20 @@
 import DownloadUseCase from './DownloadUseCase';
-import DownloadClient from 'Core/Setting/DownloadClient';
+import FileClient from 'Core/Setting/FileClient';
 import ListStorage from 'Core/BuyingList/ListStorage';
 import EntryEntity from 'Core/ShoppingList/EntryEntity';
 
 describe('DownloadUseCase', function (): void {
     let downloadUseCase: DownloadUseCase,
-        downloadClient: Mocked<DownloadClient>,
+        fileClient: Mocked<FileClient>,
         listStorage: Mocked<ListStorage>
     ;
 
     beforeEach(function (): void {
-        downloadClient = mock<DownloadClient>();
+        fileClient = mock<FileClient>();
         listStorage = mock<ListStorage>();
 
         downloadUseCase = new DownloadUseCase(
-            downloadClient,
+            fileClient,
             listStorage
         );
     });
@@ -30,6 +30,6 @@ describe('DownloadUseCase', function (): void {
 
         expect(listStorage.getEntireList).toHaveBeenCalled();
         expect(listStorage.getShoppingList).toHaveBeenCalled();
-        expect(downloadClient.download).toHaveBeenCalledWith(entireList, shoppingList);
+        expect(fileClient.download).toHaveBeenCalledWith(entireList, shoppingList);
     });
 });

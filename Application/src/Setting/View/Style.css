@@ -14,16 +14,13 @@ main {
 button {
     display: flex;
     align-items: center;
-    background-repeat: no-repeat;
-    background-size: 1.5rem;
-    background-position: center;
     background-color: var(--dark-secondary);
     color: var(--light-tertiary);
     border: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 1.3rem;
     border-radius: 0.5rem;
-    margin: 1rem;
+    margin: 1rem 1rem 3rem 0;
 
     icon {
         display: inline-block;
@@ -42,3 +39,46 @@ button {
         background-image: url(Assets/upload.svg);
     }
 }
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+
+}
+
+input {
+    width: 100%;
+    color: var(--light-tertiary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+}
+
+/*noinspection ALL*/
+input[type="file"]::-moz-file-upload-button {
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+
+}
+
+input[type="file"]::-ms-browse {
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+}
+
+input[type="file"]::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+

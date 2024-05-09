@@ -1,10 +1,10 @@
-import DownloadClient from 'Core/Setting/DownloadClient';
+import FileClient from 'Core/Setting/FileClient';
 import ListStorage from 'Core/BuyingList/ListStorage';
 import EntryEntity from 'Core/ShoppingList/EntryEntity';
 
 export default class DownloadUseCase {
     constructor(
-        private downloadClient: DownloadClient,
+        private fileClient: FileClient,
         private listStorage: ListStorage
     ) {
     }
@@ -13,6 +13,6 @@ export default class DownloadUseCase {
         const entireList: Array<EntryEntity> = this.listStorage.getEntireList();
         const shoppingList: Array<EntryEntity> = this.listStorage.getShoppingList();
 
-        this.downloadClient.download(entireList, shoppingList);
+        this.fileClient.download(entireList, shoppingList);
     }
 }
