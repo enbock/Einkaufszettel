@@ -17,8 +17,11 @@ jobs:
       - name: Tests
         run: npm test
 
-      - name: Build
+      - name: Build App
         run: npm run build
+
+      - name: Build Service Worker
+        run: ./deploy/buildServiceWorker.sh
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1

@@ -1,10 +1,5 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -12,8 +7,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "CommonJS",
-    "target": "ESNext",
+    "module": "commonjs",
+    "target": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
@@ -23,14 +18,51 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceRoot": "src",
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "types": [
+      "node",
+      "jasmine"
+    ],
+    "typeRoots": [
+      "node_modules/@types",
+      "./Application/src",
+      "./Core/src",
+      "./Infrastructure/src",
+      "./jasmine"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "Application/*": [
+        "Application/src/*"
+      ],
+      "Theme/*": [
+        "Application/src/Theme/*"
+      ],
+      "Core/*": [
+        "Core/src/*"
+      ],
+      "Infrastructure/*": [
+        "Infrastructure/src/*"
+      ]
+    }
   },
   "include": [
-    "src"
+    "Application/src",
+    "Core/src",
+    "Infrastructure/src",
+    "jasmine"
   ],
   "exclude": [
-    "**.test.ts",
-    "**.test.tsx",
-    "*.css"
-  ]
+    "node_modules"
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }
