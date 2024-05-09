@@ -1,0 +1,44 @@
+:host {
+    background-color: var(--dark-primary);
+    display: grid;
+    height: 100%;
+}
+
+main {
+    background-color: var(--light-primary);
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    background-position: center;
+    background-color: var(--dark-secondary);
+    color: var(--light-tertiary);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    margin: 1rem;
+
+    icon {
+        display: inline-block;
+        width: 1.3rem;
+        height: 1.3rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 1.3rem;
+    }
+
+    icon[download] {
+        background-image: url(Assets/download.svg);
+    }
+
+    icon[upload] {
+        background-image: url(Assets/upload.svg);
+    }
+}

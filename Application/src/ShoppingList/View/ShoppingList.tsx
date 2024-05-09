@@ -7,6 +7,7 @@ import Navigation from 'Application/Navigation/View/Navigation';
 import PrimaryInput from 'Application/PrimaryInput/View/PrimaryInput';
 import BuyingList from 'Application/BuyingList/View/BuyingList';
 import Setting from 'Application/Setting/View/Setting';
+import SettingActionBar from 'Application/Setting/View/SettingActionBar';
 
 export interface Properties {
 }
@@ -26,6 +27,7 @@ export default class ShoppingList extends Component<Properties> implements RootV
                 <Navigation/>
                 {this.modelInstance.showBuyingList ? <PrimaryInput/> : <></>}
                 {this.modelInstance.showBuyingList ? <BuyingList/> : <></>}
+                {this.modelInstance.showSetting ? <SettingActionBar/> : <></>}
                 {this.modelInstance.showSetting ? <Setting/> : <></>}
             </>
         );

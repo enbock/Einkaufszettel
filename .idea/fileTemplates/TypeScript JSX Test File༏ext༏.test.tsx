@@ -1,23 +1,19 @@
 import ${NAME} from './${NAME}';
-import ${NAME}Model from '../${NAME}Model';
-import ${NAME}Adapter from '../${NAME}Adapter';
-import {mock, MockProxy} from 'jest-mock-extended';
 import ViewInjection from '@enbock/ts-jsx/ViewInjection';
 import TestRenderer from '@enbock/ts-jsx/TestRenderer';
-import {mock as mockComponent} from '@enbock/ts-jsx/Component';
+import ${NAME}Model from './${NAME}Model';
+import Adapter from '../Adapter';
 
-mockComponent(Example);
-
-describe(${NAME}, function () {
+describe('${NAME}', function (): void {
     let model: ${NAME}Model,
-        adapter: ${NAME}Adapter & MockProxy<${NAME}Adapter>
+        adapter: Mocked<Adapter>
     ;
-    beforeEach(function () {
+    beforeEach(function (): void {
         model = new ${NAME}Model();
-        adapter = mock<${NAME}Adapter>();
+        adapter = mock<Adapter>();
     });
 
-    function createUi(): HTMLElement {
+    function createUi(): ${NAME} {
         ViewInjection(${NAME}, adapter);
         const view: ${NAME} = TestRenderer.render(<${NAME}/>) as ${NAME};
         view.model = model;
@@ -25,9 +21,9 @@ describe(${NAME}, function () {
         return view;
     }
 
-    it('should ???', function () {
+    it('should ???', async function (): Promise<void> {
         const result: HTMLElement = createUi();
 
-        expect(result).toContainHTML('test::???:');
+        expect(result.innerHTML).toContain('test::???:');
     });
 });

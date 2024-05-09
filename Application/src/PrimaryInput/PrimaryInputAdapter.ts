@@ -1,6 +1,4 @@
-import ViewAdapter from '../ViewAdapter';
-
-export default class PrimaryInputAdapter implements ViewAdapter {
+export default class PrimaryInputAdapter {
     public onDelete: Callback = () => <never>false;
     public onInputChange: Callback<(newValue: string) => Promise<void>> = () => <never>false;
     public onSubmit: Callback = () => <never>false;
