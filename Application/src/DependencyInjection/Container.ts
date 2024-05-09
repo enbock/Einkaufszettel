@@ -49,6 +49,20 @@ import RevertDeletion from 'Core/UndoUseCase/Task/RevertDeletion';
 import RevertCreateAction from 'Core/UndoUseCase/Task/RevertCreateAction';
 import BuyingListListStorageEntryListTransformer
     from 'Infrastructure/BuyingList/ListStorage/Browser/EntryListTransformer';
+import SettingController from 'Application/Setting/Controller/Controller';
+import SettingPresenter from 'Application/Setting/View/SettingPresenter';
+import SettingControllerDownloadHandler from 'Application/Setting/Controller/Handler/DownloadHandler';
+import Setting from 'Application/Setting/View/Setting';
+import SettingAdapter from 'Application/Setting/Adapter';
+import SettingDownloadUseCase from 'Core/Setting/DownloadUseCase/DownloadUseCase';
+import ViewInjection from '@enbock/ts-jsx/ViewInjection';
+import BuyingList from 'Application/BuyingList/View/BuyingList';
+import ShadowViewConnector from 'Application/ShadowViewConnector';
+import PrimaryInput from 'Application/PrimaryInput/View/PrimaryInput';
+import Navigation from 'Application/Navigation/View/Navigation';
+import ShoppingList from 'Application/ShoppingList/View/ShoppingList';
+import SettingDownloadClientBrowser from 'Infrastructure/Setting/DownloadClient/Browser/Browser';
+import SettingDownloadClientBrowserEncoder from 'Infrastructure/Setting/DownloadClient/Browser/Encoder';
 
 class Container {
     private parseHelper: ParseHelper = new ParseHelper();
@@ -62,7 +76,6 @@ class Container {
     public listAdapter: BuyingListAdapter = new BuyingListAdapter();
     public primaryInputAdapter: PrimaryInputAdapter = new PrimaryInputAdapter();
     public navigationAdapter: NavigationAdapter = new NavigationAdapter();
-    public startUp: StartUp = new StartUp(document);
     public shoppingListBus: ShoppingListBus = new ShoppingListBus();
     private applicationStorage: ApplicationStorage = new StorageBrowser(
         window.localStorage,
@@ -181,6 +194,45 @@ class Container {
         this.undoInteractor,
         this.shoppingListBus
     );
+    private settingAdapter: SettingAdapter = new SettingAdapter();
+    private settingDownloadUseCase: SettingDownloadUseCase = new SettingDownloadUseCase(
+        new SettingDownloadClientBrowser(
+            new SettingDownloadClientBrowserEncoder(),
+            document
+        ),
+        this.listStorage
+    );
+    private settingControllerDownloadHandler: SettingControllerDownloadHandler = new SettingControllerDownloadHandler(
+        this.settingAdapter,
+        this.settingDownloadUseCase
+    );
+    public settingController: SettingController = new SettingController(
+        new SettingPresenter(),
+        [
+            this.settingControllerDownloadHandler
+        ],
+        Setting
+    );
+    public startUp: StartUp = new StartUp(
+        document,
+        [this.settingController]
+    );
+
+    constructor() {
+        ViewInjection(Setting, this.settingAdapter);
+
+        // legacy version...refactor to before one
+        BuyingList.componentReceiver = new ShadowViewConnector(this.buyingListController);
+        ViewInjection(BuyingList, this.listAdapter);
+
+        PrimaryInput.componentReceiver = new ShadowViewConnector(this.primaryInputController);
+        ViewInjection(PrimaryInput, this.primaryInputAdapter);
+
+        Navigation.componentReceiver = new ShadowViewConnector(this.navigationController);
+        ViewInjection(Navigation, this.navigationAdapter);
+
+        ShoppingList.componentReceiver = new ShadowViewConnector(this.controller);
+    }
 }
 
 const GlobalContainer: Container = new Container();

@@ -1,10 +1,9 @@
 import ${NAME} from './${NAME}';
-import {mock, MockProxy} from 'jest-mock-extended';
 
-describe(${NAME}, function () {
-    let todoRename:${NAME};
+describe('${NAME}', function (): void {
+    let _:${NAME};
     
-    beforeEach(function () {
-        todoRename = new ${NAME}();
+    beforeEach(function (): void {
+        _ = new ${NAME}();
     });
 });

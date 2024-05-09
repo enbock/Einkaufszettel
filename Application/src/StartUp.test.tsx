@@ -1,8 +1,12 @@
 import StartUp from './StartUp';
 import ShoppingList from 'Application/ShoppingList/View/ShoppingList';
+import ModuleController from 'Application/ModuleController';
 
 describe('StartUp', function (): void {
-    let startup: StartUp;
+    let startup: StartUp,
+        moduleController: Mocked<ModuleController>,
+        controllers: Array<Mocked<ModuleController>>
+    ;
 
     beforeEach(function (): void {
         mockModule(
@@ -25,8 +29,12 @@ describe('StartUp', function (): void {
             }
         );
 
+        moduleController = mock<ModuleController>();
+        controllers = [moduleController];
+
         startup = new StartUp(
-            document
+            document,
+            controllers
         );
     });
 
@@ -35,8 +43,9 @@ describe('StartUp', function (): void {
     });
 
     it('should start the application', async function (): Promise<void> {
-        startup.start();
+        await startup.start();
 
+        expect(moduleController.init).toHaveBeenCalled();
         expect(document.body.textContent).toContain('test::ShoppingList:');
     });
 });
